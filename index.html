@@ -29,6 +29,9 @@
       <button class="tab-button is-active" type="button" role="tab" aria-selected="true" data-tab="home">
         home
       </button>
+      <button class="tab-button" type="button" role="tab" aria-selected="false" data-tab="work">
+        work
+      </button>
       <button class="tab-button" type="button" role="tab" aria-selected="false" data-tab="photos">
         photos
       </button>
@@ -41,8 +44,7 @@
         </h1>
 
         <div class="identity" aria-label="Basic details">
-          <span>19 years old</span>
-          <span>Born <time datetime="2006-10-03">03/10/2006</time></span>
+          <span><time datetime="2006-10-03">03/10/2006</time></span>
         </div>
 
         <div class="copy-stack">
@@ -51,13 +53,18 @@
           <p class="scale-line">somehow, millions reached.</p>
         </div>
 
-        <a
-          class="hire-button"
-          href="mailto:hibajiyath5@gmail.com?subject=Project%20with%20Hiba"
-          aria-label="Hire Hiba by email"
-        >
-          <span>HIRE ME</span>
-        </a>
+        <div class="hero-cta">
+          <a
+            class="hire-button"
+            href="mailto:hibajiyath5@gmail.com?subject=Project%20with%20Hiba"
+            aria-label="Hire Hiba by email"
+          >
+            <span>HIRE ME</span>
+          </a>
+          <button class="works-button" type="button" data-tab="work" aria-label="View my work">
+            <span>MY WORKS</span>
+          </button>
+        </div>
 
         <nav class="socials" aria-label="Hiba links">
           <a
@@ -116,9 +123,126 @@
         <img
           src="assets/batman.jpg"
           alt="Robert Pattinson as Batman in the full suit"
+          loading="lazy"
         >
       </figure>
     </section>
+
+    <div class="work-view" data-work-view aria-labelledby="work-title" hidden>
+      <div class="work-wrap">
+        <header class="work-header">
+          <p class="work-kicker">proof of work</p>
+          <h2 class="work-title" id="work-title">real things, quietly shipped.</h2>
+          <div class="work-metrics" aria-label="Work metrics">
+            
+          </div>
+        </header>
+
+        <section class="work-section work-section-featured" aria-labelledby="web-platform-title">
+          <div class="section-heading">
+            <h3 id="web-platform-title">WEB & PLATFORM DEVELOPMENT</h3>
+          </div>
+
+          <article class="project-card project-card-featured">
+            <div class="project-copy">
+              <p class="project-tone">Creator platform & infrastructure operations</p>
+              <h4>Bedrock Graphics</h4>
+              <p>
+                Built and operated a production platform for Minecraft Bedrock creators,
+                including deployment infrastructure, creator onboarding workflows, CDN
+                delivery, and storage integration.
+              </p>
+            </div>
+
+            <div class="project-side">
+              
+              <div class="tag-row" aria-label="Infrastructure tags">
+                <span>Cloudflare</span>
+                <span>Contabo</span>
+                <span>GCP</span>
+                <span>Object Storage</span>
+                <span>Deployment</span>
+              </div>
+              <a class="work-link" href="https://bedrockgraphics.com" target="_blank" rel="noreferrer">
+                Open site
+              </a>
+            </div>
+          </article>
+        </section>
+
+        <section class="work-section" aria-labelledby="minecraft-ecosystem-title">
+          <div class="section-heading">
+            <h3 id="minecraft-ecosystem-title">SOFTWARE DEVELOPMENT & MINECRAFT ECOSYSTEM</h3>
+          </div>
+
+          <article class="project-card">
+            <div class="project-copy">
+              <p class="project-tone">Distributed software with real users</p>
+              <h4>Quillphen releases</h4>
+              <p>
+                Built and maintained software projects used globally, focusing on release
+                management, compatibility maintenance, optimization, and long-term product
+                iteration.
+              </p>
+            </div>
+
+            <div class="release-grid" aria-label="Release signals">
+              <div>
+                <strong>5.1M+</strong>
+                <span>downloads</span>
+              </div>
+              <div>
+                <strong>20+</strong>
+                <span>projects</span>
+              </div>
+              <div>
+                <strong>$4K+</strong>
+                <span>revenue</span>
+              </div>
+            </div>
+
+            <div class="project-links">
+              <a class="work-link work-link-quiet" href="https://modrinth.com/user/quillphen" target="_blank" rel="noreferrer">
+                Modrinth
+              </a>
+              <a class="work-link work-link-quiet" href="https://www.curseforge.com/members/quillphen/projects" target="_blank" rel="noreferrer">
+                CurseForge
+              </a>
+            </div>
+          </article>
+        </section>
+
+        <section class="work-section" aria-labelledby="android-title">
+          <div class="section-heading">
+            <h3 id="android-title">ANDROID DEVELOPMENT</h3>
+          </div>
+
+          <article class="project-card android-card">
+            <div class="project-copy">
+              <p class="project-tone">Geofenced automation & profile management</p>
+              <h4>Ringsmart</h4>
+              <p>
+                Built a native Android application that dynamically adjusted device profiles
+                based on location-aware automation workflows.
+              </p>
+              <div class="tag-row" aria-label="Android technologies">
+                <span>Kotlin</span>
+                <span>Jetpack Compose</span>
+                <span>Flutter</span>
+                <span>Geofencing</span>
+                <span>Background services</span>
+              </div>
+            </div>
+
+            <div class="phone-ghost" aria-hidden="true">
+              <span></span>
+              <i></i>
+              <b></b>
+            </div>
+          </article>
+        </section>
+      </div>
+    </div>
 
     <p class="toast" data-toast role="status" aria-live="polite"></p>
 

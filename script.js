@@ -1,242 +1,344 @@
 (function () {
-  const root = document.documentElement;
-  const hero = document.querySelector("[data-hero]");
-  const canvas = document.querySelector("[data-ambient]");
-  const toast = document.querySelector("[data-toast]");
-  const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
-  const finePointer = window.matchMedia("(hover: hover) and (pointer: fine)");
+  'use strict';
 
-  requestAnimationFrame(() => root.classList.add("is-loaded"));
+  const root          = document.documentElement;
+  const hero          = document.querySelector('[data-hero]');
+  const canvas        = document.querySelector('[data-ambient]');
+  const toast         = document.querySelector('[data-toast]');
+  const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+  const finePointer   = window.matchMedia('(hover: hover) and (pointer: fine)');
 
-  let pointerFrame = 0;
-  let cursorFrame = 0;
-  let cursorX = window.innerWidth / 2;
+  requestAnimationFrame(() => root.classList.add('is-loaded'));
+
+  // ─── POINTER TRACKING ────────────────────────────────────────────────────
+
+  let cursorX = window.innerWidth  / 2;
   let cursorY = window.innerHeight / 2;
-
-  function moveCursor() {
-    root.style.setProperty("--cx", `${cursorX}px`);
-    root.style.setProperty("--cy", `${cursorY}px`);
-    cursorFrame = 0;
-  }
-
-  function movePointer(event) {
-    cursorX = event.clientX;
-    cursorY = event.clientY;
-
-    if (finePointer.matches && !cursorFrame) {
-      cursorFrame = requestAnimationFrame(moveCursor);
-    }
-
-    if (pointerFrame) {
-      return;
-    }
-
-    pointerFrame = requestAnimationFrame(() => {
-      const x = event.clientX;
-      const y = event.clientY;
-      const tiltX = (x / window.innerWidth - 0.5) * 10;
-      const tiltY = (y / window.innerHeight - 0.5) * 8;
-
-      root.style.setProperty("--mx", `${x}px`);
-      root.style.setProperty("--my", `${y}px`);
-      root.style.setProperty("--tilt-x", tiltX.toFixed(2));
-      root.style.setProperty("--tilt-y", tiltY.toFixed(2));
-      pointerFrame = 0;
-    });
-  }
+  let pointerFrame = 0;
 
   function resetTilt() {
-    root.style.setProperty("--tilt-x", "0");
-    root.style.setProperty("--tilt-y", "0");
+    root.style.setProperty('--tilt-x', '0');
+    root.style.setProperty('--tilt-y', '0');
   }
 
-  window.addEventListener("pointermove", movePointer, { passive: true });
-  window.addEventListener("pointerenter", () => root.classList.remove("is-cursor-hidden"), { passive: true });
-  window.addEventListener("pointerleave", () => {
-    resetTilt();
-    root.classList.add("is-cursor-hidden");
+  window.addEventListener('pointermove', (e) => {
+    cursorX = e.clientX;
+    cursorY = e.clientY;
+    if (pointerFrame) return;
+    pointerFrame = requestAnimationFrame(() => {
+      root.style.setProperty('--mx', `${e.clientX}px`);
+      root.style.setProperty('--my', `${e.clientY}px`);
+      root.style.setProperty('--tilt-x', ((e.clientX / window.innerWidth  - 0.5) * 10).toFixed(2));
+      root.style.setProperty('--tilt-y', ((e.clientY / window.innerHeight - 0.5) *  8).toFixed(2));
+      pointerFrame = 0;
+    });
   }, { passive: true });
 
-  document.addEventListener("pointerover", (event) => {
-    if (!finePointer.matches) {
-      return;
-    }
+  window.addEventListener('pointerenter', () => root.classList.remove('is-cursor-hidden'), { passive: true });
+  window.addEventListener('pointerleave', () => { resetTilt(); root.classList.add('is-cursor-hidden'); }, { passive: true });
+  if (hero) hero.addEventListener('focusout', resetTilt);
 
-    if (event.target.closest("a, button")) {
-      root.classList.add("is-cursor-active");
-    }
+  // ─── CURSOR ───────────────────────────────────────────────────────────────
+
+  const ringEl = document.querySelector('[data-cursor-ring]');
+  const dotEl  = document.querySelector('[data-cursor-dot]');
+
+  document.addEventListener('pointerover', (e) => {
+    if (!finePointer.matches) return;
+    if (e.target.closest('a, button')) root.classList.add('is-cursor-active');
+  });
+  document.addEventListener('pointerout', (e) => {
+    if (!finePointer.matches) return;
+    if (e.target.closest('a, button')) root.classList.remove('is-cursor-active');
   });
 
-  document.addEventListener("pointerout", (event) => {
-    if (!finePointer.matches) {
-      return;
-    }
+  let refreshMag = () => {};
 
-    if (event.target.closest("a, button")) {
-      root.classList.remove("is-cursor-active");
-    }
-  });
+  if (finePointer.matches && ringEl && dotEl) {
+    window.addEventListener('pointermove', (e) => {
+      const t = `translate3d(${e.clientX}px,${e.clientY}px,0) translate(-50%,-50%)`;
+      ringEl.style.transform = t;
+      dotEl.style.transform  = t;
+    }, { passive: true });
+  }
+
+  // ─── TOAST ───────────────────────────────────────────────────────────────
 
   let toastTimer = 0;
+  function showToast(msg) {
+    if (!toast || !msg) return;
+    clearTimeout(toastTimer);
+    toast.textContent = msg;
+    toast.classList.add('is-visible');
+    toastTimer = setTimeout(() => toast.classList.remove('is-visible'), 1900);
+  }
 
-  function showToast(message) {
-    if (!toast || !message) {
+  document.querySelectorAll('[data-message]').forEach(el =>
+    el.addEventListener('click', e => { e.preventDefault(); showToast(el.dataset.message); })
+  );
+
+  document.querySelectorAll('[data-copy]').forEach(el => {
+    el.addEventListener('click', async e => {
+      e.preventDefault();
+      const orig = el.dataset.label || '';
+      try {
+        await navigator.clipboard.writeText(el.dataset.copy);
+        el.dataset.label = 'Copied'; el.classList.add('is-copied');
+        showToast('discord copied. hiba6053');
+        setTimeout(() => { el.dataset.label = orig; el.classList.remove('is-copied'); }, 1300);
+      } catch {
+        el.dataset.label = el.dataset.copy; el.classList.add('is-copied');
+        showToast('discord is hiba6053');
+        setTimeout(() => { el.dataset.label = orig; el.classList.remove('is-copied'); }, 1600);
+      }
+    });
+  });
+
+  // ─── TAB NAVIGATION ──────────────────────────────────────────────────────
+
+  const tabButtons = document.querySelectorAll('[data-tab]');
+  const photoView  = document.querySelector('[data-photo-view]');
+  const workView   = document.querySelector('[data-work-view]');
+  const views      = { home: null, photos: photoView, work: workView };
+  const hideTimers = new Map();
+
+  function showTab(target, pushUrl) {
+    const next = Object.prototype.hasOwnProperty.call(views, target) ? target : 'home';
+
+    tabButtons.forEach(b => {
+      const on = b.dataset.tab === next;
+      b.classList.toggle('is-active', on);
+      b.setAttribute('aria-selected', on ? 'true' : 'false');
+    });
+
+    root.classList.toggle('is-photos', next === 'photos');
+    root.classList.toggle('is-work',   next === 'work');
+
+    Object.entries(views).forEach(([name, view]) => {
+      if (!view) return;
+      clearTimeout(hideTimers.get(name));
+      if (name === next) {
+        view.hidden = false;
+        view.scrollTop = 0;
+        requestAnimationFrame(() => view.classList.add('is-visible'));
+      } else {
+        view.classList.remove('is-visible');
+        hideTimers.set(name, setTimeout(() => { view.hidden = true; }, 180));
+      }
+    });
+
+    if (next === 'home') resetTilt();
+    if (pushUrl) history.replaceState(null, '', next === 'home' ? location.pathname : `#${next}`);
+    refreshMag();
+  }
+
+  tabButtons.forEach(b => b.addEventListener('click', () => showTab(b.dataset.tab, true)));
+  showTab(location.hash.replace('#', ''), false);
+
+  // ─── AMBIENT · WEBGL2 DEPTH SHADER ───────────────────────────────────────
+
+  if (!canvas) return;
+
+  const gl = canvas.getContext('webgl2', {
+    alpha: true,
+    premultipliedAlpha: true,
+    antialias: false,
+    powerPreference: 'low-power'
+  });
+
+  if (gl) {
+    startWebGL(gl);
+  } else {
+    startParticles();
+  }
+
+  // Domain-warped FBM shader.
+  // Renders at 50 % resolution — the blur reads as atmospheric softness.
+  // Alpha is pre-multiplied: dark areas are fully transparent, revealing the
+  // CSS body gradient. Bright noise patches are semi-transparent luminance.
+  function startWebGL(g) {
+    const VS = `#version 300 es
+in vec2 a;
+void main() { gl_Position = vec4(a, 0.0, 1.0); }`;
+
+    const FS = `#version 300 es
+precision highp float;
+uniform vec2  u_res;
+uniform vec2  u_cursor;
+uniform float u_time;
+out vec4 o;
+
+float h(vec2 p) {
+  p  = fract(p * vec2(234.34, 435.345));
+  p += dot(p, p + 34.23);
+  return fract(p.x * p.y);
+}
+float vn(vec2 p) {
+  vec2 i = floor(p), f = fract(p);
+  f = f * f * (3.0 - 2.0 * f);
+  return mix(mix(h(i), h(i+vec2(1,0)), f.x),
+             mix(h(i+vec2(0,1)), h(i+vec2(1,1)), f.x), f.y);
+}
+float fbm(vec2 p) {
+  float v = 0.0, a = 0.52;
+  mat2  m = mat2(1.6, 1.2, -1.2, 1.6);
+  for (int i = 0; i < 5; i++) { v += a * vn(p); p = m * p; a *= 0.45; }
+  return v;
+}
+
+void main() {
+  vec2  uv = gl_FragCoord.xy / u_res;
+  float t  = u_time * 0.065;
+
+  // Domain warp: fbm(fbm(uv)) — organic non-repeating nebula depth
+  vec2 q = vec2(
+    fbm(uv * 2.6 + vec2(t,              t * 0.70)),
+    fbm(uv * 2.6 + vec2(3.2 + t * 0.5, 1.8 + t * 0.42))
+  );
+  float n   = fbm(uv * 1.9 + 2.1 * q + vec2(t * 0.22, 0.0));
+  float lum = pow(n, 1.85) * 0.08;
+
+  // Cursor depth lens: subtle brightening — depth, not spotlight
+  vec2  cp  = vec2(u_cursor.x / u_res.x, 1.0 - u_cursor.y / u_res.y);
+  lum += smoothstep(0.55, 0.0, length(uv - cp)) * 0.030;
+
+  // Barely-cool tint harmonises with the warm-white fg (#f4f1ea)
+  vec3  col   = vec3(lum * 0.87, lum * 0.91, lum);
+  float alpha = min(lum * 12.0, 0.26);
+
+  o = vec4(col * alpha, alpha); // pre-multiplied
+}`;
+
+    function sh(type, src) {
+      const s = g.createShader(type);
+      g.shaderSource(s, src);
+      g.compileShader(s);
+      return s;
+    }
+
+    const prog = g.createProgram();
+    g.attachShader(prog, sh(g.VERTEX_SHADER,   VS));
+    g.attachShader(prog, sh(g.FRAGMENT_SHADER, FS));
+    g.linkProgram(prog);
+
+    if (!g.getProgramParameter(prog, g.LINK_STATUS)) {
+      startParticles();
       return;
     }
 
-    window.clearTimeout(toastTimer);
-    toast.textContent = message;
-    toast.classList.add("is-visible");
+    g.useProgram(prog);
 
-    toastTimer = window.setTimeout(() => {
-      toast.classList.remove("is-visible");
-    }, 1900);
-  }
+    const vbo = g.createBuffer();
+    g.bindBuffer(g.ARRAY_BUFFER, vbo);
+    g.bufferData(g.ARRAY_BUFFER,
+      new Float32Array([-1,-1, 1,-1, -1,1, -1,1, 1,-1, 1,1]),
+      g.STATIC_DRAW);
 
-  document.querySelectorAll("[data-message]").forEach((link) => {
-    link.addEventListener("click", (event) => {
-      event.preventDefault();
-      showToast(link.dataset.message);
-    });
-  });
+    const aLoc    = g.getAttribLocation(prog,  'a');
+    const uRes    = g.getUniformLocation(prog, 'u_res');
+    const uCursor = g.getUniformLocation(prog, 'u_cursor');
+    const uTime   = g.getUniformLocation(prog, 'u_time');
 
-  document.querySelectorAll("[data-copy]").forEach((link) => {
-    link.addEventListener("click", async (event) => {
-      event.preventDefault();
-      const originalLabel = link.dataset.label || "";
+    g.enableVertexAttribArray(aLoc);
+    g.vertexAttribPointer(aLoc, 2, g.FLOAT, false, 0, 0);
+    g.enable(g.BLEND);
+    g.blendFunc(g.ONE, g.ONE_MINUS_SRC_ALPHA);
+    g.clearColor(0, 0, 0, 0);
 
-      try {
-        await navigator.clipboard.writeText(link.dataset.copy);
-        link.dataset.label = "Copied";
-        link.classList.add("is-copied");
-        showToast("discord copied. hiba6053");
-        window.setTimeout(() => {
-          link.dataset.label = originalLabel;
-          link.classList.remove("is-copied");
-        }, 1300);
-      } catch {
-        link.dataset.label = link.dataset.copy;
-        link.classList.add("is-copied");
-        showToast("discord is hiba6053");
-        window.setTimeout(() => {
-          link.dataset.label = originalLabel;
-          link.classList.remove("is-copied");
-        }, 1600);
-      }
-    });
-  });
+    const SCALE = 0.5;
+    let W = 0, H = 0, rafId = 0;
 
-  const tabButtons = document.querySelectorAll("[data-tab]");
-  const photoView = document.querySelector("[data-photo-view]");
-  let photoHideTimer = 0;
+    function resize() {
+      W = Math.floor(window.innerWidth  * SCALE);
+      H = Math.floor(window.innerHeight * SCALE);
+      canvas.width  = W; canvas.height = H;
+      canvas.style.width  = `${window.innerWidth}px`;
+      canvas.style.height = `${window.innerHeight}px`;
+      g.viewport(0, 0, W, H);
+    }
 
-  tabButtons.forEach((button) => {
-    button.addEventListener("click", () => {
-      const target = button.dataset.tab;
-      const showPhotos = target === "photos";
+    function frame(t) {
+      g.clear(g.COLOR_BUFFER_BIT);
+      g.uniform2f(uRes,    W, H);
+      g.uniform2f(uCursor, cursorX * SCALE, cursorY * SCALE);
+      g.uniform1f(uTime,   t * 0.001);
+      g.drawArrays(g.TRIANGLES, 0, 6);
+      if (!reducedMotion.matches) rafId = requestAnimationFrame(frame);
+    }
 
-      tabButtons.forEach((item) => {
-        const selected = item === button;
-        item.classList.toggle("is-active", selected);
-        item.setAttribute("aria-selected", selected ? "true" : "false");
-      });
+    resize();
+    rafId = requestAnimationFrame(frame);
 
-      if (!photoView) {
-        return;
-      }
+    window.addEventListener('resize', () => {
+      cancelAnimationFrame(rafId);
+      resize();
+      rafId = requestAnimationFrame(frame);
+    }, { passive: true });
 
-      window.clearTimeout(photoHideTimer);
-
-      if (showPhotos) {
-        root.classList.add("is-photos");
-        photoView.hidden = false;
-        requestAnimationFrame(() => photoView.classList.add("is-visible"));
+    reducedMotion.addEventListener('change', () => {
+      if (reducedMotion.matches) {
+        cancelAnimationFrame(rafId);
+        // One static frame for reduced-motion users
+        g.clear(g.COLOR_BUFFER_BIT);
+        g.uniform2f(uRes,    W, H);
+        g.uniform2f(uCursor, W * 0.5, H * 0.5);
+        g.uniform1f(uTime,   0);
+        g.drawArrays(g.TRIANGLES, 0, 6);
       } else {
-        photoView.classList.remove("is-visible");
-        root.classList.remove("is-photos");
-        photoHideTimer = window.setTimeout(() => {
-          photoView.hidden = true;
-        }, 180);
+        rafId = requestAnimationFrame(frame);
       }
     });
-  });
-
-  if (!canvas) {
-    return;
   }
 
-  const context = canvas.getContext("2d", { alpha: true });
-  let width = 0;
-  let height = 0;
-  let pixelRatio = 1;
-  let particles = [];
-  let animationId = 0;
+  // Canvas 2D fallback: floating particles (no WebGL2 support)
+  function startParticles() {
+    const ctx = canvas.getContext('2d', { alpha: true });
+    let W = 0, H = 0, PR = 1, pts = [], rafId = 0;
 
-  function makeParticle() {
-    return {
-      x: Math.random() * width,
-      y: Math.random() * height,
-      radius: (Math.random() * 1.2 + 0.25) * pixelRatio,
-      alpha: Math.random() * 0.17 + 0.035,
-      vx: (Math.random() - 0.5) * 0.095 * pixelRatio,
-      vy: (Math.random() - 0.5) * 0.075 * pixelRatio,
-      drift: Math.random() * Math.PI * 2
-    };
-  }
-
-  function resizeCanvas() {
-    pixelRatio = Math.min(window.devicePixelRatio || 1, 2);
-    width = Math.floor(window.innerWidth * pixelRatio);
-    height = Math.floor(window.innerHeight * pixelRatio);
-
-    canvas.width = width;
-    canvas.height = height;
-    canvas.style.width = `${window.innerWidth}px`;
-    canvas.style.height = `${window.innerHeight}px`;
-
-    const particleCount = Math.min(86, Math.max(42, Math.floor(window.innerWidth / 18)));
-    particles = Array.from({ length: particleCount }, makeParticle);
-  }
-
-  function drawParticle(particle) {
-    context.beginPath();
-    context.fillStyle = `rgba(244, 241, 234, ${particle.alpha})`;
-    context.arc(particle.x, particle.y, particle.radius, 0, Math.PI * 2);
-    context.fill();
-  }
-
-  function draw() {
-    context.clearRect(0, 0, width, height);
-
-    for (const particle of particles) {
-      particle.drift += 0.002;
-      particle.x += particle.vx + Math.cos(particle.drift) * 0.018 * pixelRatio;
-      particle.y += particle.vy + Math.sin(particle.drift) * 0.014 * pixelRatio;
-
-      if (particle.x < -10) particle.x = width + 10;
-      if (particle.x > width + 10) particle.x = -10;
-      if (particle.y < -10) particle.y = height + 10;
-      if (particle.y > height + 10) particle.y = -10;
-
-      drawParticle(particle);
+    function mkPt() {
+      return {
+        x: Math.random() * W, y: Math.random() * H,
+        r: (Math.random() * 1.2 + 0.25) * PR,
+        a: Math.random() * 0.14 + 0.025,
+        vx: (Math.random() - 0.5) * 0.095 * PR,
+        vy: (Math.random() - 0.5) * 0.075 * PR,
+        d:  Math.random() * Math.PI * 2
+      };
     }
 
-    if (!reducedMotion.matches) {
-      animationId = requestAnimationFrame(draw);
+    function resize() {
+      PR = Math.min(window.devicePixelRatio || 1, 2);
+      W  = Math.floor(window.innerWidth  * PR);
+      H  = Math.floor(window.innerHeight * PR);
+      canvas.width  = W; canvas.height = H;
+      canvas.style.width  = `${window.innerWidth}px`;
+      canvas.style.height = `${window.innerHeight}px`;
+      pts = Array.from({ length: Math.min(86, Math.max(42, Math.floor(window.innerWidth / 18))) }, mkPt);
     }
-  }
 
-  function startCanvas() {
-    cancelAnimationFrame(animationId);
-    resizeCanvas();
+    function draw() {
+      ctx.clearRect(0, 0, W, H);
+      for (const p of pts) {
+        p.d  += 0.002;
+        p.x  += p.vx + Math.cos(p.d) * 0.018 * PR;
+        p.y  += p.vy + Math.sin(p.d) * 0.014 * PR;
+        if (p.x < -10)    p.x = W + 10;
+        if (p.x > W + 10) p.x = -10;
+        if (p.y < -10)    p.y = H + 10;
+        if (p.y > H + 10) p.y = -10;
+        ctx.beginPath();
+        ctx.fillStyle = `rgba(244,241,234,${p.a})`;
+        ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+        ctx.fill();
+      }
+      if (!reducedMotion.matches) rafId = requestAnimationFrame(draw);
+    }
+
+    resize();
     draw();
+    window.addEventListener('resize', () => { cancelAnimationFrame(rafId); resize(); draw(); }, { passive: true });
+    reducedMotion.addEventListener('change', () => { if (!reducedMotion.matches) rafId = requestAnimationFrame(draw); });
   }
 
-  startCanvas();
-  window.addEventListener("resize", startCanvas, { passive: true });
-  reducedMotion.addEventListener("change", startCanvas);
-
-  if (hero) {
-    hero.addEventListener("focusout", resetTilt);
-  }
 })();
+
