@@ -3,42 +3,38 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="color-scheme" content="dark">
+    <meta name="color-scheme" content="light dark">
     <meta
       name="description"
-      content="Hiba."
+      content="Hiba"
     >
     <title>Hiba</title>
 
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link
-      href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap"
-      rel="stylesheet"
-    >
     <link rel="stylesheet" href="style.css">
   </head>
   <body>
-    <canvas class="ambient-canvas" data-ambient aria-hidden="true"></canvas>
-    <div class="pointer-light" aria-hidden="true"></div>
-    <div class="grain" aria-hidden="true"></div>
-    <div class="cursor-ring" data-cursor-ring aria-hidden="true"></div>
-    <div class="cursor-dot" data-cursor-dot aria-hidden="true"></div>
-
-    <div class="tab-row" role="tablist" aria-label="Page sections">
-      <button class="tab-button is-active" type="button" role="tab" aria-selected="true" data-tab="home">
-        home
-      </button>
-      <button class="tab-button" type="button" role="tab" aria-selected="false" data-tab="work">
-        work
-      </button>
-      <button class="tab-button" type="button" role="tab" aria-selected="false" data-tab="photos">
-        photos
+    <div class="site-nav">
+      <div class="tab-row" role="tablist" aria-label="Page sections">
+        <button class="tab-button is-active" type="button" role="tab" aria-selected="true" data-tab="home">
+          home
+        </button>
+        <button class="tab-button" type="button" role="tab" aria-selected="false" data-tab="work">
+          work
+        </button>
+        <button class="tab-button" type="button" role="tab" aria-selected="false" data-tab="photos">
+          photos
+        </button>
+      </div>
+      <button class="theme-button" type="button" aria-pressed="false" data-theme-toggle>
+        dark mode
       </button>
     </div>
 
     <main class="page-shell">
       <section class="hero" data-hero aria-labelledby="hiba-title">
+        <p class="page-label">Hiba's home page</p>
+        <p class="page-meta">last updated: 06/04/2026</p>
+        <p class="star-rule" aria-hidden="true">* * *</p>
         <h1 class="hero-title" id="hiba-title" aria-label="Hiba">
           <span>H</span><span>i</span><span>b</span><span>a</span>
         </h1>
@@ -134,7 +130,18 @@
           <p class="work-kicker">proof of work</p>
           <h2 class="work-title" id="work-title">real things, quietly shipped.</h2>
           <div class="work-metrics" aria-label="Work metrics">
-            
+            <div class="metric-card">
+              <strong>5.1M+</strong>
+              <span>people used software I built</span>
+            </div>
+            <div class="metric-card">
+              <strong>20+</strong>
+              <span>released projects</span>
+            </div>
+            <div class="metric-card">
+              <strong>$4K+</strong>
+              <span>creator revenue generated</span>
+            </div>
           </div>
         </header>
 
@@ -247,7 +254,6 @@
     <p class="toast" data-toast role="status" aria-live="polite"></p>
 
     <footer class="corner-note" aria-label="Personal note">
-      
       <span>still becoming</span>
     </footer>
 
