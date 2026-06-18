@@ -122,77 +122,20 @@
     <section class="photo-view" data-photo-view aria-labelledby="photos-title" hidden>
       <div class="photo-wrap">
         <header class="photo-header">
-          <p class="photo-kicker">a few pictures</p>
-          <h2 class="photo-title" id="photos-title">the bat wall</h2>
-          <p class="photo-note">
-            batman art i keep pinned up. click a thumbnail below, use the
-            arrows, or hit play to let it run.
-          </p>
+          <p class="photo-kicker">a picture</p>
+          <h2 class="photo-title" id="photos-title">on the wall</h2>
         </header>
 
-        <figure class="photo-stage">
-          <div class="photo-frame">
-            <img
-              class="photo-main"
-              data-photo-main
-              src="assets/absolute-batman.jpg"
-              alt="Absolute Batman comic cover"
-              width="700"
-              height="1063"
-            >
-          </div>
-          <figcaption class="photo-caption">
-            <span class="photo-name" data-photo-name>absolute batman</span>
-            <span class="photo-count">
-              no. <span data-photo-index>1</span> of <span data-photo-total>6</span>
-            </span>
-          </figcaption>
+        <figure class="photo-card">
+          <img
+            src="assets/batman.jpg"
+            alt="Batman in the full suit"
+            loading="lazy"
+            width="900"
+            height="1200"
+          >
+          <figcaption>batman. still the best one.</figcaption>
         </figure>
-
-        <nav class="photo-controls" aria-label="Gallery controls">
-          <button class="photo-nav" type="button" data-photo-prev aria-label="Previous picture">
-            prev
-          </button>
-          <button class="photo-play" type="button" data-photo-play aria-pressed="false">
-            play
-          </button>
-          <button class="photo-nav" type="button" data-photo-next aria-label="Next picture">
-            next
-          </button>
-        </nav>
-
-        <ul class="photo-thumbs" data-photo-thumbs aria-label="Pick a picture">
-          <li>
-            <button type="button" class="is-active" data-photo-pick="0" data-photo-title="absolute batman" aria-label="absolute batman" aria-current="true">
-              <img src="assets/absolute-batman.jpg" alt="absolute batman" loading="lazy" width="110" height="167">
-            </button>
-          </li>
-          <li>
-            <button type="button" data-photo-pick="1" data-photo-title="the brute" aria-label="the brute">
-              <img src="assets/absolute-brute.jpg" alt="the brute" loading="lazy" width="110" height="167">
-            </button>
-          </li>
-          <li>
-            <button type="button" data-photo-pick="2" data-photo-title="night patrol" aria-label="night patrol">
-              <img src="assets/night-patrol.jpg" alt="night patrol" loading="lazy" width="110" height="167">
-            </button>
-          </li>
-          <li>
-            <button type="button" data-photo-pick="3" data-photo-title="rooftop watch" aria-label="rooftop watch">
-              <img src="assets/rooftop-watch.jpg" alt="rooftop watch" loading="lazy" width="110" height="167">
-            </button>
-          </li>
-          <li>
-            <button type="button" data-photo-pick="4" data-photo-title="the dark knight" aria-label="the dark knight">
-              <img src="assets/dark-knight.png" alt="the dark knight" loading="lazy" width="110" height="167">
-            </button>
-          </li>
-          <li>
-            <button type="button" data-photo-pick="5" data-photo-title="caped crusader" aria-label="caped crusader">
-              <img src="assets/caped-crusader.png" alt="caped crusader" loading="lazy" width="110" height="167">
-            </button>
-          </li>
-        </ul>
       </div>
     </section>
 
