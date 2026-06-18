@@ -1,4 +1,4 @@
-(function () {
+(function (exports) {
   'use strict';
 
   const root = document.documentElement;
@@ -147,4 +147,14 @@
     console.error('Unhandled promise rejection:', event.reason);
     showToast('something went wrong. check the console for details.');
   });
-})();
+
+  // Expose internals for testing in Node/CommonJS environments.
+  if (exports) {
+    exports.readTheme = readTheme;
+    exports.writeTheme = writeTheme;
+    exports.applyTheme = applyTheme;
+    exports.showToast = showToast;
+    exports.showTab = showTab;
+    exports.flashLabel = flashLabel;
+  }
+})(typeof module !== 'undefined' && module.exports ? module.exports : null);
