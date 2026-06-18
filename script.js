@@ -12,7 +12,6 @@
 
   let toastTimer = 0;
   let storageAvailable = true;
-  let pauseGallery = function () {};
 
   function readTheme() {
     try {
@@ -106,8 +105,6 @@
     root.classList.toggle('is-photos', next === 'photos');
     root.classList.toggle('is-work', next === 'work');
 
-    if (next !== 'photos') pauseGallery();
-
     Object.entries(views).forEach(([name, view]) => {
       if (view) view.hidden = name !== next;
     });
@@ -124,125 +121,6 @@
   tabButtons.forEach((button) => {
     button.addEventListener('click', () => showTab(button.dataset.tab, true));
   });
-
-  function setupGallery() {
-    if (!photoView) return;
-
-    const mainImg = photoView.querySelector('[data-photo-main]');
-    const nameEl = photoView.querySelector('[data-photo-name]');
-    const indexEl = photoView.querySelector('[data-photo-index]');
-    const totalEl = photoView.querySelector('[data-photo-total]');
-    const prevBtn = photoView.querySelector('[data-photo-prev]');
-    const nextBtn = photoView.querySelector('[data-photo-next]');
-    const playBtn = photoView.querySelector('[data-photo-play]');
-    const picks = Array.prototype.slice.call(
-      photoView.querySelectorAll('[data-photo-pick]')
-    );
-
-    if (!mainImg || picks.length === 0) return;
-
-    const slides = picks.map(function (button) {
-      const img = button.querySelector('img');
-      return {
-        button: button,
-        src: img ? img.getAttribute('src') : '',
-        title: button.dataset.photoTitle || (img ? img.alt : ''),
-      };
-    });
-
-    let current = 0;
-    let timer = 0;
-
-    function setPhoto(index) {
-      current = (index + slides.length) % slides.length;
-      const slide = slides[current];
-      mainImg.src = slide.src;
-      mainImg.alt = slide.title;
-      if (nameEl) nameEl.textContent = slide.title;
-      if (indexEl) indexEl.textContent = String(current + 1);
-
-      slides.forEach(function (entry, position) {
-        const active = position === current;
-        entry.button.classList.toggle('is-active', active);
-        if (active) entry.button.setAttribute('aria-current', 'true');
-        else entry.button.removeAttribute('aria-current');
-      });
-    }
-
-    function stop() {
-      if (timer) {
-        clearInterval(timer);
-        timer = 0;
-      }
-      if (playBtn) {
-        playBtn.textContent = 'play';
-        playBtn.setAttribute('aria-pressed', 'false');
-      }
-    }
-
-    function start() {
-      stop();
-      timer = setInterval(function () {
-        setPhoto(current + 1);
-      }, 3200);
-      if (playBtn) {
-        playBtn.textContent = 'pause';
-        playBtn.setAttribute('aria-pressed', 'true');
-      }
-    }
-
-    pauseGallery = stop;
-
-    if (totalEl) totalEl.textContent = String(slides.length);
-
-    if (prevBtn) prevBtn.addEventListener('click', function () {
-      stop();
-      setPhoto(current - 1);
-    });
-
-    if (nextBtn) nextBtn.addEventListener('click', function () {
-      stop();
-      setPhoto(current + 1);
-    });
-
-    if (playBtn) playBtn.addEventListener('click', function () {
-      if (timer) stop();
-      else start();
-    });
-
-    mainImg.addEventListener('click', function () {
-      stop();
-      setPhoto(current + 1);
-    });
-
-    picks.forEach(function (button, position) {
-      button.addEventListener('click', function () {
-        stop();
-        setPhoto(position);
-      });
-    });
-
-    document.addEventListener('keydown', function (event) {
-      if (!root.classList.contains('is-photos') || photoView.hidden) return;
-      if (event.key === 'ArrowLeft') {
-        event.preventDefault();
-        stop();
-        setPhoto(current - 1);
-      } else if (event.key === 'ArrowRight') {
-        event.preventDefault();
-        stop();
-        setPhoto(current + 1);
-      }
-    });
-
-    document.addEventListener('visibilitychange', function () {
-      if (document.hidden) stop();
-    });
-
-    setPhoto(0);
-  }
-
-  setupGallery();
 
   showTab(location.hash.replace('#', ''), false);
 
