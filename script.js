@@ -64,28 +64,26 @@
     });
   });
 
+  function flashLabel(element, tempLabel, message, duration) {
+    const originalLabel = element.dataset.label || '';
+    element.dataset.label = tempLabel;
+    element.classList.add('is-copied');
+    showToast(message);
+    setTimeout(() => {
+      element.dataset.label = originalLabel;
+      element.classList.remove('is-copied');
+    }, duration);
+  }
+
   document.querySelectorAll('[data-copy]').forEach((element) => {
     element.addEventListener('click', async (event) => {
       event.preventDefault();
-      const originalLabel = element.dataset.label || '';
 
       try {
         await navigator.clipboard.writeText(element.dataset.copy);
-        element.dataset.label = 'Copied';
-        element.classList.add('is-copied');
-        showToast('discord copied. hiba6053');
-        setTimeout(() => {
-          element.dataset.label = originalLabel;
-          element.classList.remove('is-copied');
-        }, 1300);
+        flashLabel(element, 'Copied', 'discord copied. hiba6053', 1300);
       } catch {
-        element.dataset.label = element.dataset.copy;
-        element.classList.add('is-copied');
-        showToast('discord is hiba6053');
-        setTimeout(() => {
-          element.dataset.label = originalLabel;
-          element.classList.remove('is-copied');
-        }, 1600);
+        flashLabel(element, element.dataset.copy, 'discord is hiba6053', 1600);
       }
     });
   });
@@ -103,13 +101,7 @@
     root.classList.toggle('is-work', next === 'work');
 
     Object.entries(views).forEach(([name, view]) => {
-      if (!view) return;
-
-      if (name === next) {
-        view.hidden = false;
-      } else {
-        view.hidden = true;
-      }
+      if (view) view.hidden = name !== next;
     });
 
     if (pushUrl) {
