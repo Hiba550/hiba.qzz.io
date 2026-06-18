@@ -4,3 +4,5 @@
 .gemini/
 PRODUCT.md
 README.md
+node_modules/
+coverage/

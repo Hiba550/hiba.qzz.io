@@ -1,4 +1,4 @@
-(function () {
+(function (exports) {
   'use strict';
 
   const root = document.documentElement;
@@ -122,4 +122,13 @@
   });
 
   showTab(location.hash.replace('#', ''), false);
-})();
+
+  // Expose internals for testing in Node/CommonJS environments.
+  if (exports) {
+    exports.readTheme = readTheme;
+    exports.writeTheme = writeTheme;
+    exports.applyTheme = applyTheme;
+    exports.showToast = showToast;
+    exports.showTab = showTab;
+  }
+})(typeof module !== 'undefined' && module.exports ? module.exports : null);
