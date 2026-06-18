@@ -11,11 +11,14 @@
   const themeKey = 'hiba-theme';
 
   let toastTimer = 0;
+  let storageAvailable = true;
 
   function readTheme() {
     try {
       return localStorage.getItem(themeKey);
-    } catch {
+    } catch (err) {
+      storageAvailable = false;
+      console.warn('Could not read theme preference from localStorage:', err);
       return null;
     }
   }
@@ -23,8 +26,10 @@
   function writeTheme(theme) {
     try {
       localStorage.setItem(themeKey, theme);
-    } catch {
-      // Theme still changes for this page view if storage is unavailable.
+    } catch (err) {
+      storageAvailable = false;
+      console.warn('Could not save theme preference to localStorage:', err);
+      showToast('theme set, but your browser won\u2019t remember it next visit');
     }
   }
 
@@ -113,7 +118,11 @@
     });
 
     if (pushUrl) {
-      history.replaceState(null, '', next === 'home' ? location.pathname : `#${next}`);
+      try {
+        history.replaceState(null, '', next === 'home' ? location.pathname : `#${next}`);
+      } catch (err) {
+        console.warn('Could not update URL for tab "' + next + '":', err);
+      }
     }
   }
 
@@ -122,4 +131,28 @@
   });
 
   showTab(location.hash.replace('#', ''), false);
+
+  document.querySelectorAll('img[loading]').forEach(function (img) {
+    img.addEventListener('error', function () {
+      if (img.dataset.errorHandled) return;
+      img.dataset.errorHandled = 'true';
+      console.warn('Image failed to load:', img.src);
+      img.alt = (img.alt || 'Image') + ' (failed to load)';
+      img.style.display = 'none';
+      var notice = document.createElement('p');
+      notice.textContent = 'image could not be loaded.';
+      notice.style.cssText = 'padding:1rem;color:var(--muted);font:0.9rem/1.4 "Courier New",monospace;text-align:center';
+      img.parentNode.insertBefore(notice, img.nextSibling);
+    });
+  });
+
+  window.addEventListener('error', function (event) {
+    console.error('Uncaught error:', event.error || event.message);
+    showToast('something went wrong. check the console for details.');
+  });
+
+  window.addEventListener('unhandledrejection', function (event) {
+    console.error('Unhandled promise rejection:', event.reason);
+    showToast('something went wrong. check the console for details.');
+  });
 })();
