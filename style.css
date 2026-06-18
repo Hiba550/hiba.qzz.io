@@ -16,6 +16,15 @@
   --toast-bg: #efede6;
   --selection-bg: #111;
   --selection-ink: #f2f0e8;
+
+  /* shared font stacks */
+  --font-body: Verdana, Arial, Helvetica, sans-serif;
+  --font-heading: "Times New Roman", Times, serif;
+  --font-mono: "Courier New", Courier, monospace;
+
+  /* shared layout */
+  --content-width: min(58rem, calc(100% - 1.25rem));
+
   color-scheme: light;
 }
 
@@ -63,7 +72,7 @@ body {
   overflow-x: hidden;
   background: var(--bg);
   color: var(--ink);
-  font: 16px/1.55 Verdana, Arial, Helvetica, sans-serif;
+  font: 16px/1.55 var(--font-body);
   letter-spacing: 0;
 }
 
@@ -96,7 +105,7 @@ button {
 }
 
 .site-nav {
-  width: min(58rem, calc(100% - 1.25rem));
+  width: var(--content-width);
   margin: 0.9rem auto 0;
   padding: 0;
   border-top: 1px solid var(--rule);
@@ -129,7 +138,7 @@ button {
   border: 0;
   background: transparent;
   color: var(--link);
-  font-family: Verdana, Arial, Helvetica, sans-serif;
+  font-family: var(--font-body);
   font-size: 0.95rem;
   line-height: 1.9;
   text-decoration: underline;
@@ -164,7 +173,11 @@ button {
 .tab-button:hover,
 .tab-button:focus-visible,
 .theme-button:hover,
-.theme-button:focus-visible {
+.theme-button:focus-visible,
+.social-link:hover,
+.social-link:focus-visible,
+.work-link:hover,
+.work-link:focus-visible {
   background: var(--hover-bg);
   color: var(--ink-strong);
 }
@@ -179,7 +192,7 @@ button {
 .page-shell,
 .photo-view,
 .work-view {
-  width: min(58rem, calc(100% - 1.25rem));
+  width: var(--content-width);
   margin: 0 auto;
 }
 
@@ -226,7 +239,7 @@ button {
 .work-link,
 .metric-card span,
 .release-grid span {
-  font-family: "Courier New", Courier, monospace;
+  font-family: var(--font-mono);
 }
 
 .page-label {
@@ -253,7 +266,7 @@ button {
   justify-content: center;
   margin: 0;
   color: var(--ink-strong);
-  font-family: "Times New Roman", Times, serif;
+  font-family: var(--font-heading);
   font-size: 5rem;
   font-weight: bold;
   line-height: 1;
@@ -296,7 +309,7 @@ button {
 .lead {
   margin: 0;
   color: var(--ink-strong);
-  font: bold 1.1rem/1.55 Verdana, Arial, Helvetica, sans-serif;
+  font: bold 1.1rem/1.55 var(--font-body);
   font-style: normal;
   text-transform: none;
 }
@@ -334,16 +347,12 @@ button {
   background: var(--button-bg);
   box-shadow: none;
   color: var(--button-ink) !important;
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-body);
   font-size: 0.95rem;
   font-weight: bold;
   line-height: 1.35;
   text-decoration: none;
   text-transform: uppercase;
-}
-
-.works-button {
-  font: bold 0.95rem/1.35 Arial, Helvetica, sans-serif;
 }
 
 .hire-button:hover,
@@ -394,12 +403,6 @@ button {
   content: "";
 }
 
-.social-link:hover,
-.social-link:focus-visible {
-  background: var(--hover-bg);
-  color: var(--ink-strong);
-}
-
 .hire-button:focus-visible,
 .works-button:focus-visible,
 .social-link:focus-visible,
@@ -410,12 +413,17 @@ button {
   outline-offset: 0.2rem;
 }
 
-.photo-view {
+.photo-view,
+.work-view {
   display: block;
   padding: 1rem 0 2rem;
   opacity: 1;
   transform: none;
   pointer-events: auto;
+}
+
+.work-view {
+  scrollbar-color: var(--rule) transparent;
 }
 
 .photo-card {
@@ -433,15 +441,6 @@ button {
   border: 0;
   object-fit: cover;
   filter: grayscale(1) contrast(1.1);
-}
-
-.work-view {
-  display: block;
-  padding: 1rem 0 2rem;
-  opacity: 1;
-  transform: none;
-  pointer-events: auto;
-  scrollbar-color: var(--rule) transparent;
 }
 
 .work-header {
@@ -467,7 +466,7 @@ button {
   max-width: none;
   margin: 0;
   color: var(--ink-strong);
-  font-family: "Times New Roman", Times, serif;
+  font-family: var(--font-heading);
   font-size: 2.75rem;
   font-weight: bold;
   line-height: 1.15;
@@ -494,7 +493,7 @@ button {
 .metric-card strong {
   display: block;
   color: var(--ink-strong);
-  font-family: "Times New Roman", Times, serif;
+  font-family: var(--font-heading);
   font-size: 2rem;
   font-weight: bold;
   line-height: 1.05;
@@ -536,11 +535,6 @@ button {
   background: transparent;
 }
 
-.project-card-featured,
-.android-card {
-  display: block;
-}
-
 .project-tone {
   margin: 0.35rem 0 0;
   color: var(--muted);
@@ -551,7 +545,7 @@ button {
 .project-copy h4 {
   margin: 0.15rem 0 0;
   color: var(--ink-strong);
-  font-family: "Times New Roman", Times, serif;
+  font-family: var(--font-heading);
   font-size: 2rem;
   font-weight: bold;
   line-height: 1.2;
@@ -634,12 +628,6 @@ button {
   margin: 0;
 }
 
-.work-link:hover,
-.work-link:focus-visible {
-  background: var(--hover-bg);
-  color: var(--ink-strong);
-}
-
 .release-grid {
   display: block;
   margin: 0.55rem 0;
@@ -665,7 +653,7 @@ button {
 .release-grid strong {
   display: inline;
   color: var(--ink-strong);
-  font-family: "Times New Roman", Times, serif;
+  font-family: var(--font-heading);
   font-size: 1.2rem;
   font-weight: bold;
   line-height: 1;
@@ -706,7 +694,7 @@ button {
 }
 
 .corner-note {
-  width: min(58rem, calc(100% - 1.25rem));
+  width: var(--content-width);
   margin: 0 auto 1.2rem;
   color: var(--dim);
   font-size: 0.86rem;
@@ -730,7 +718,8 @@ button {
   .photo-view,
   .work-view,
   .corner-note {
-    width: calc(100% - 1.1rem);
+    --content-width: calc(100% - 1.1rem);
+    width: var(--content-width);
   }
 
   .tab-button {
