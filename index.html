@@ -11,269 +11,243 @@
     <meta name="referrer" content="strict-origin-when-cross-origin">
     <meta
       name="description"
-      content="Hiba"
+      content="Hiba — i build stuff on the internet, kinda quietly. Minecraft Bedrock projects with 6M+ downloads, platform work, and Android apps."
     >
     <title>Hiba</title>
 
+    <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
     <link rel="stylesheet" href="style.css">
   </head>
   <body>
-    <div class="site-nav">
-      <div class="tab-row" role="tablist" aria-label="Page sections">
-        <button class="tab-button is-active" type="button" role="tab" aria-selected="true" data-tab="home">
-          home
-        </button>
-        <button class="tab-button" type="button" role="tab" aria-selected="false" data-tab="work">
-          work
-        </button>
-        <button class="tab-button" type="button" role="tab" aria-selected="false" data-tab="photos">
-          photos
+    <a class="skip-link" href="#work">skip to work</a>
+
+    <header class="site-header" data-header>
+      <div class="header-inner">
+        <a class="brand" href="#top" aria-label="Back to top">hiba</a>
+
+        <nav class="site-nav" aria-label="Sections">
+          <a class="nav-link" href="#work" data-nav="work">work</a>
+          <a class="nav-link" href="#photos" data-nav="photos">photos</a>
+          <a class="nav-link" href="#contact" data-nav="contact">contact</a>
+        </nav>
+
+        <button class="theme-toggle" type="button" aria-pressed="false" aria-label="Switch theme" data-theme-toggle>
+          <svg class="icon-sun" viewBox="0 0 24 24" aria-hidden="true">
+            <circle cx="12" cy="12" r="4.4"/>
+            <path d="M12 2.5v2.6M12 18.9v2.6M2.5 12h2.6M18.9 12h2.6M5.2 5.2l1.9 1.9M16.9 16.9l1.9 1.9M18.8 5.2l-1.9 1.9M7.1 16.9l-1.9 1.9"/>
+          </svg>
+          <svg class="icon-moon" viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M20.6 14.2A8.6 8.6 0 0 1 9.8 3.4a8.6 8.6 0 1 0 10.8 10.8Z"/>
+          </svg>
         </button>
       </div>
-      <button class="theme-button" type="button" aria-pressed="false" data-theme-toggle>
-        dark mode
-      </button>
-    </div>
+    </header>
 
-    <main class="page-shell">
-      <section class="hero" data-hero aria-labelledby="hiba-title">
-        <p class="page-label">Hiba's home page</p>
-        <p class="page-meta">last updated: 06/04/2026</p>
-        <p class="star-rule" aria-hidden="true">* * *</p>
-        <h1 class="hero-title" id="hiba-title" aria-label="Hiba">
-          <span>H</span><span>i</span><span>b</span><span>a</span>
+    <main id="top">
+      <!-- Intro -->
+      <section class="hero" aria-labelledby="intro-title">
+        <p class="eyebrow reveal" data-stagger="0">hiba &middot; b. 2006 &middot; somewhere on the internet</p>
+
+        <h1 class="hero-title reveal" data-stagger="1" id="intro-title">
+          i build stuff on the internet,<br>
+          <em>kinda quietly.</em>
         </h1>
 
-        <div class="identity" aria-label="Basic details">
-          <span><time datetime="2006-10-03">03/10/2006</time></span>
+        <p class="hero-sub reveal" data-stagger="2">
+          Minecraft Bedrock projects that somehow reached millions, a platform
+          that has to stay online, and an Android app or two. I like shipping
+          things people actually use &mdash; and keeping them from breaking.
+        </p>
+
+        <div class="hero-actions reveal" data-stagger="3">
+          <a class="button button-primary" href="mailto:hibajiyath5@gmail.com?subject=Project%20with%20Hiba">
+            hire me
+            <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8h9M8.5 4.5 12 8l-3.5 3.5"/></svg>
+          </a>
+          <a class="button button-ghost" href="#work">see the work</a>
         </div>
 
-        <div class="copy-stack">
-          <p class="lead">...</p>
-          <p class="quiet-line">i build stuff on the internet, kinda quietly.</p>
-          <p class="scale-line">somehow, millions reached.</p>
-        </div>
-
-        <div class="hero-cta">
-          <a
-            class="hire-button"
-            href="mailto:hibajiyath5@gmail.com?subject=Project%20with%20Hiba"
-            aria-label="Hire Hiba by email"
-          >
-            <span>HIRE ME</span>
-          </a>
-          <button class="works-button" type="button" data-tab="work" aria-label="View my work">
-            <span>MY WORKS</span>
-          </button>
-        </div>
-
-        <nav class="socials" aria-label="Hiba links">
-          <a
-            class="social-link"
-            href="https://github.com/hiba550"
-            target="_blank"
-            rel="noreferrer"
-            aria-label="GitHub"
-            data-label="GitHub"
-          >
-            <svg viewBox="0 0 24 24" aria-hidden="true">
-              <path d="M12 2C6.48 2 2 6.58 2 12.26c0 4.54 2.87 8.39 6.84 9.75.5.1.68-.22.68-.49v-1.9c-2.78.62-3.37-1.22-3.37-1.22-.46-1.19-1.11-1.51-1.11-1.51-.91-.64.07-.63.07-.63 1 .07 1.53 1.06 1.53 1.06.89 1.56 2.34 1.11 2.91.85.09-.66.35-1.11.63-1.37-2.22-.26-4.56-1.14-4.56-5.07 0-1.12.39-2.03 1.03-2.75-.1-.26-.45-1.3.1-2.71 0 0 .84-.28 2.75 1.05A9.36 9.36 0 0 1 12 6.98c.85 0 1.71.12 2.51.34 1.91-1.33 2.75-1.05 2.75-1.05.55 1.41.2 2.45.1 2.71.64.72 1.03 1.63 1.03 2.75 0 3.94-2.34 4.81-4.57 5.07.36.32.68.94.68 1.9v2.82c0 .27.18.59.69.49A10.17 10.17 0 0 0 22 12.26C22 6.58 17.52 2 12 2Z"/>
-            </svg>
-          </a>
-
-          <a
-            class="social-link"
-            href="#x"
-            aria-label="X or Twitter"
-            data-label="X"
-            data-message="i dont really reply on x, discord is better :)"
-          >
-            <svg viewBox="0 0 24 24" aria-hidden="true">
-              <path d="M17.53 3h3.12l-6.82 7.79L21.86 21h-6.29l-4.92-6.44L5.01 21H1.88l7.3-8.34L1.47 3h6.45l4.45 5.88L17.53 3Zm-1.1 16.2h1.73L6.98 4.71H5.12L16.43 19.2Z"/>
-            </svg>
-          </a>
-
-          <a
-            class="social-link"
-            href="#discord"
-            aria-label="Discord"
-            data-label="Discord"
-            data-copy="hiba6053"
-          >
-            <svg viewBox="0 0 24 24" aria-hidden="true">
-              <path d="M19.54 5.34A16.74 16.74 0 0 0 15.48 4l-.2.39a13.9 13.9 0 0 1 3.02 1.53 12.7 12.7 0 0 0-4.6-1.4 13.09 13.09 0 0 0-3.4 0 12.7 12.7 0 0 0-4.6 1.4 13.9 13.9 0 0 1 3.02-1.53L8.52 4c-1.42.25-2.78.7-4.06 1.34C1.89 9.14 1.19 12.84 1.54 16.48A16.33 16.33 0 0 0 6.51 19c.4-.54.75-1.11 1.05-1.72-.58-.22-1.13-.49-1.65-.81l.4-.31c3.19 1.48 8.19 1.48 11.34 0l.4.31c-.52.32-1.07.59-1.65.81.3.61.65 1.18 1.05 1.72a16.33 16.33 0 0 0 4.97-2.52c.43-4.22-.72-7.89-2.88-11.14ZM8.56 14.26c-.95 0-1.74-.89-1.74-1.98s.77-1.98 1.74-1.98c.98 0 1.77.89 1.75 1.98 0 1.09-.77 1.98-1.75 1.98Zm6.88 0c-.95 0-1.75-.89-1.75-1.98s.78-1.98 1.75-1.98c.98 0 1.76.89 1.75 1.98 0 1.09-.77 1.98-1.75 1.98Z"/>
-            </svg>
-          </a>
-
-          <a
-            class="social-link"
-            href="mailto:hibajiyath5@gmail.com"
-            aria-label="Email"
-            data-label="Email"
-          >
-            <svg viewBox="0 0 24 24" aria-hidden="true">
-              <path d="M4.5 5.75h15A2.5 2.5 0 0 1 22 8.25v7.5a2.5 2.5 0 0 1-2.5 2.5h-15A2.5 2.5 0 0 1 2 15.75v-7.5a2.5 2.5 0 0 1 2.5-2.5Zm0 1.5a1 1 0 0 0-.79.39l7.67 5.33c.37.26.87.26 1.24 0l7.67-5.33a1 1 0 0 0-.79-.39h-15Zm16 2.07-7.02 4.88a2.6 2.6 0 0 1-2.96 0L3.5 9.32v6.43a1 1 0 0 0 1 1h15a1 1 0 0 0 1-1V9.32Z"/>
-            </svg>
-          </a>
-        </nav>
+        <ul class="socials reveal" data-stagger="4" aria-label="Links">
+          <li>
+            <a class="social-link" href="https://github.com/hiba550" target="_blank" rel="noreferrer">
+              <svg viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M12 2C6.48 2 2 6.58 2 12.26c0 4.54 2.87 8.39 6.84 9.75.5.1.68-.22.68-.49v-1.9c-2.78.62-3.37-1.22-3.37-1.22-.46-1.19-1.11-1.51-1.11-1.51-.91-.64.07-.63.07-.63 1 .07 1.53 1.06 1.53 1.06.89 1.56 2.34 1.11 2.91.85.09-.66.35-1.11.63-1.37-2.22-.26-4.56-1.14-4.56-5.07 0-1.12.39-2.03 1.03-2.75-.1-.26-.45-1.3.1-2.71 0 0 .84-.28 2.75 1.05A9.36 9.36 0 0 1 12 6.98c.85 0 1.71.12 2.51.34 1.91-1.33 2.75-1.05 2.75-1.05.55 1.41.2 2.45.1 2.71.64.72 1.03 1.63 1.03 2.75 0 3.94-2.34 4.81-4.57 5.07.36.32.68.94.68 1.9v2.82c0 .27.18.59.69.49A10.17 10.17 0 0 0 22 12.26C22 6.58 17.52 2 12 2Z"/>
+              </svg>
+              <span>GitHub</span>
+            </a>
+          </li>
+          <li>
+            <a class="social-link" href="#x" data-message="i dont really reply on x, discord is better :)">
+              <svg viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M17.53 3h3.12l-6.82 7.79L21.86 21h-6.29l-4.92-6.44L5.01 21H1.88l7.3-8.34L1.47 3h6.45l4.45 5.88L17.53 3Zm-1.1 16.2h1.73L6.98 4.71H5.12L16.43 19.2Z"/>
+              </svg>
+              <span>X</span>
+            </a>
+          </li>
+          <li>
+            <button class="social-link" type="button" data-copy="hiba6053" data-copied-message="discord copied &mdash; hiba6053">
+              <svg viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M19.54 5.34A16.74 16.74 0 0 0 15.48 4l-.2.39a13.9 13.9 0 0 1 3.02 1.53 12.7 12.7 0 0 0-4.6-1.4 13.09 13.09 0 0 0-3.4 0 12.7 12.7 0 0 0-4.6 1.4 13.9 13.9 0 0 1 3.02-1.53L8.52 4c-1.42.25-2.78.7-4.06 1.34C1.89 9.14 1.19 12.84 1.54 16.48A16.33 16.33 0 0 0 6.51 19c.4-.54.75-1.11 1.05-1.72-.58-.22-1.13-.49-1.65-.81l.4-.31c3.19 1.48 8.19 1.48 11.34 0l.4.31c-.52.32-1.07.59-1.65.81.3.61.65 1.18 1.05 1.72a16.33 16.33 0 0 0 4.97-2.52c.43-4.22-.72-7.89-2.88-11.14ZM8.56 14.26c-.95 0-1.74-.89-1.74-1.98s.77-1.98 1.74-1.98c.98 0 1.77.89 1.75 1.98 0 1.09-.77 1.98-1.75 1.98Zm6.88 0c-.95 0-1.75-.89-1.75-1.98s.78-1.98 1.75-1.98c.98 0 1.76.89 1.75 1.98 0 1.09-.77 1.98-1.75 1.98Z"/>
+              </svg>
+              <span>Discord</span>
+            </button>
+          </li>
+          <li>
+            <a class="social-link" href="mailto:hibajiyath5@gmail.com">
+              <svg viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M4.5 5.75h15A2.5 2.5 0 0 1 22 8.25v7.5a2.5 2.5 0 0 1-2.5 2.5h-15A2.5 2.5 0 0 1 2 15.75v-7.5a2.5 2.5 0 0 1 2.5-2.5Zm0 1.5a1 1 0 0 0-.79.39l7.67 5.33c.37.26.87.26 1.24 0l7.67-5.33a1 1 0 0 0-.79-.39h-15Zm16 2.07-7.02 4.88a2.6 2.6 0 0 1-2.96 0L3.5 9.32v6.43a1 1 0 0 0 1 1h15a1 1 0 0 0 1-1V9.32Z"/>
+              </svg>
+              <span>Email</span>
+            </a>
+          </li>
+        </ul>
       </section>
-    </main>
 
-    <section class="photo-view" data-photo-view aria-labelledby="photos-title" hidden>
-      <div class="photo-wrap">
-        <header class="photo-header">
-          <p class="photo-kicker">a picture</p>
-          <h2 class="photo-title" id="photos-title">on the wall</h2>
+      <!-- Numbers -->
+      <section class="stats reveal" aria-label="A few numbers">
+        <dl class="stats-row">
+          <div class="stat">
+            <dt>downloads</dt>
+            <dd><span data-count="6" data-suffix="M+">6M+</span></dd>
+          </div>
+          <div class="stat">
+            <dt>things released</dt>
+            <dd><span data-count="20" data-suffix="+">20+</span></dd>
+          </div>
+          <div class="stat">
+            <dt>earned from creator work</dt>
+            <dd><span data-count="4" data-prefix="$" data-suffix="K+">$4K+</span></dd>
+          </div>
+        </dl>
+      </section>
+
+      <!-- Work -->
+      <section class="work" id="work" aria-labelledby="work-title">
+        <header class="section-header reveal">
+          <p class="eyebrow">selected work</p>
+          <h2 class="section-title" id="work-title">things i have shipped</h2>
         </header>
 
-        <figure class="photo-card">
-          <img
-            src="assets/batman.jpg"
-            alt="Batman in the full suit"
-            loading="lazy"
-            width="900"
-            height="1200"
-          >
+        <article class="project reveal" aria-labelledby="project-bedrock">
+          <div class="project-meta">
+            <span class="project-index">01</span>
+            <span class="project-field">web / platform</span>
+          </div>
+          <div class="project-body">
+            <h3 class="project-title" id="project-bedrock">
+              <a href="https://bedrockgraphics.com" target="_blank" rel="noreferrer">
+                Bedrock Graphics
+                <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M4.5 11.5 11.5 4.5M6 4.5h5.5V10"/></svg>
+              </a>
+            </h3>
+            <p>
+              Helped build and keep Bedrock Graphics running &mdash; creator
+              uploads, file delivery, storage, deployments, and the boring
+              server work that makes a platform stay online.
+            </p>
+            <ul class="tag-row" aria-label="Stack">
+              <li>Cloudflare</li>
+              <li>Contabo</li>
+              <li>GCP</li>
+              <li>Object storage</li>
+              <li>Deployment</li>
+            </ul>
+          </div>
+        </article>
+
+        <article class="project reveal" aria-labelledby="project-quillphen">
+          <div class="project-meta">
+            <span class="project-index">02</span>
+            <span class="project-field">minecraft bedrock</span>
+          </div>
+          <div class="project-body">
+            <h3 class="project-title" id="project-quillphen">Quillphen</h3>
+            <p>
+              A bunch of public Minecraft Bedrock projects I kept updating
+              because people actually used them. Mostly compatibility fixes,
+              performance work, release chores, and keeping old things from
+              breaking. Six million downloads later, still at it.
+            </p>
+            <div class="project-links">
+              <a class="text-link" href="https://modrinth.com/user/quillphen" target="_blank" rel="noreferrer">Modrinth</a>
+              <a class="text-link" href="https://www.curseforge.com/members/quillphen/projects" target="_blank" rel="noreferrer">CurseForge</a>
+            </div>
+          </div>
+        </article>
+
+        <article class="project reveal" aria-labelledby="project-ringsmart">
+          <div class="project-meta">
+            <span class="project-index">03</span>
+            <span class="project-field">android</span>
+          </div>
+          <div class="project-body">
+            <h3 class="project-title" id="project-ringsmart">Ringsmart</h3>
+            <p>
+              An Android app that changed phone profiles based on places.
+              I worked on geofencing, background behavior, and the little
+              state problems that show up when an app has to keep running
+              quietly.
+            </p>
+            <ul class="tag-row" aria-label="Stack">
+              <li>Kotlin</li>
+              <li>Jetpack Compose</li>
+              <li>Flutter</li>
+              <li>Geofencing</li>
+              <li>Background services</li>
+            </ul>
+          </div>
+        </article>
+      </section>
+
+      <!-- Photo -->
+      <section class="photos" id="photos" aria-labelledby="photos-title">
+        <header class="section-header reveal">
+          <p class="eyebrow">off topic</p>
+          <h2 class="section-title" id="photos-title">a picture on the wall</h2>
+        </header>
+
+        <figure class="photo-card reveal">
+          <div class="photo-frame">
+            <img
+              src="assets/batman.jpg"
+              alt="Batman in the full suit"
+              loading="lazy"
+              width="900"
+              height="1200"
+            >
+          </div>
           <figcaption>batman. still the best one.</figcaption>
         </figure>
-      </div>
-    </section>
+      </section>
 
-    <div class="work-view" data-work-view aria-labelledby="work-title" hidden>
-      <div class="work-wrap">
-        <header class="work-header">
-          <p class="work-kicker">some work</p>
-          <h2 class="work-title" id="work-title">things i have shipped</h2>
-          <div class="work-metrics" aria-label="Work metrics">
-            <div class="metric-card">
-              <strong>6M+</strong>
-              <span>people used stuff i worked on</span>
-            </div>
-            <div class="metric-card">
-              <strong>20+</strong>
-              <span>things released</span>
-            </div>
-            <div class="metric-card">
-              <strong>$4K+</strong>
-              <span>earned from creator work</span>
-            </div>
+      <!-- Contact -->
+      <footer class="contact" id="contact" aria-labelledby="contact-title">
+        <div class="contact-inner reveal">
+          <p class="eyebrow">say hi</p>
+          <h2 class="section-title" id="contact-title">
+            got something to build?
+          </h2>
+          <p class="contact-sub">
+            Email works. Discord is faster.
+          </p>
+          <div class="contact-actions">
+            <a class="button button-primary" href="mailto:hibajiyath5@gmail.com?subject=Project%20with%20Hiba">
+              hibajiyath5@gmail.com
+            </a>
+            <button class="button button-ghost" type="button" data-copy="hiba6053" data-copied-message="discord copied &mdash; hiba6053">
+              copy discord
+            </button>
           </div>
-        </header>
+        </div>
 
-        <section class="work-section work-section-featured" aria-labelledby="web-platform-title">
-          <div class="section-heading">
-            <h3 id="web-platform-title">WEB / PLATFORM</h3>
-          </div>
-
-          <article class="project-card project-card-featured">
-            <div class="project-copy">
-              <p class="project-tone">site, hosting, and backend work</p>
-              <h4>Bedrock Graphics</h4>
-              <p>
-                Helped build and keep Bedrock Graphics running. Creator uploads,
-                file delivery, storage, deployments, and the boring server work
-                that makes a platform stay online.
-              </p>
-            </div>
-
-            <div class="project-side">
-              
-              <div class="tag-row" aria-label="Infrastructure tags">
-                <span>Cloudflare</span>
-                <span>Contabo</span>
-                <span>GCP</span>
-                <span>Object Storage</span>
-                <span>Deployment</span>
-              </div>
-              <a class="work-link" href="https://bedrockgraphics.com" target="_blank" rel="noreferrer">
-                Open site
-              </a>
-            </div>
-          </article>
-        </section>
-
-        <section class="work-section" aria-labelledby="minecraft-ecosystem-title">
-          <div class="section-heading">
-            <h3 id="minecraft-ecosystem-title">SOFTWARE PEOPLE USED</h3>
-          </div>
-
-          <article class="project-card">
-            <div class="project-copy">
-              <p class="project-tone">mods, tools, releases</p>
-              <h4>Quillphen stuff</h4>
-              <p>
-                A bunch of public Minecraft Bedrock projects I kept updating
-                because people actually used them. Mostly compatibility fixes,
-                performance work, release chores, and keeping old things from
-                breaking.
-              </p>
-            </div>
-
-            <div class="release-grid" aria-label="Release signals">
-              <div>
-                <strong>6M+</strong>
-                <span>downloads</span>
-              </div>
-              <div>
-                <strong>20+</strong>
-                <span>projects</span>
-              </div>
-              <div>
-                <strong>$4K+</strong>
-                <span>earned</span>
-              </div>
-            </div>
-
-            <div class="project-links">
-              <a class="work-link work-link-quiet" href="https://modrinth.com/user/quillphen" target="_blank" rel="noreferrer">
-                Modrinth
-              </a>
-              <a class="work-link work-link-quiet" href="https://www.curseforge.com/members/quillphen/projects" target="_blank" rel="noreferrer">
-                CurseForge
-              </a>
-            </div>
-          </article>
-        </section>
-
-        <section class="work-section" aria-labelledby="android-title">
-          <div class="section-heading">
-            <h3 id="android-title">ANDROID</h3>
-          </div>
-
-          <article class="project-card android-card">
-            <div class="project-copy">
-              <p class="project-tone">phone automation app</p>
-              <h4>Ringsmart</h4>
-              <p>
-                An Android app that changed phone profiles based on places.
-                I worked on geofencing, background behavior, and the little
-                state problems that show up when an app has to keep running
-                quietly.
-              </p>
-              <div class="tag-row" aria-label="Android technologies">
-                <span>Kotlin</span>
-                <span>Jetpack Compose</span>
-                <span>Flutter</span>
-                <span>Geofencing</span>
-                <span>Background services</span>
-              </div>
-            </div>
-
-            <div class="phone-ghost" aria-hidden="true">
-              <span></span>
-              <i></i>
-              <b></b>
-            </div>
-          </article>
-        </section>
-      </div>
-    </div>
+        <div class="footer-line reveal">
+          <span>still becoming</span>
+          <span class="footer-meta">last updated 07/07/2026</span>
+        </div>
+      </footer>
+    </main>
 
     <p class="toast" data-toast role="status" aria-live="polite"></p>
-
-    <footer class="corner-note" aria-label="Personal note">
-      <span>still becoming</span>
-    </footer>
 
     <script src="script.js" defer></script>
   </body>
