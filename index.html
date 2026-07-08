@@ -19,17 +19,18 @@
     <link rel="stylesheet" href="style.css">
   </head>
   <body>
-    <a class="skip-link" href="#work">skip to work</a>
+    <a class="skip-link" href="#view-home">skip to content</a>
 
     <header class="site-header" data-header>
       <div class="header-inner">
-        <a class="brand" href="#top" aria-label="Back to top">hiba</a>
+        <button class="brand" type="button" data-tab-link="home" aria-label="Home">hiba</button>
 
-        <nav class="site-nav" aria-label="Sections">
-          <a class="nav-link" href="#work" data-nav="work">work</a>
-          <a class="nav-link" href="#photos" data-nav="photos">photos</a>
-          <a class="nav-link" href="#contact" data-nav="contact">contact</a>
-        </nav>
+        <div class="tabs" role="tablist" aria-label="Sections" data-tablist>
+          <span class="tab-indicator" data-tab-indicator aria-hidden="true"></span>
+          <button class="tab" type="button" role="tab" id="tab-home" aria-controls="view-home" aria-selected="true" data-tab="home">home</button>
+          <button class="tab" type="button" role="tab" id="tab-work" aria-controls="view-work" aria-selected="false" tabindex="-1" data-tab="work">work</button>
+          <button class="tab" type="button" role="tab" id="tab-photos" aria-controls="view-photos" aria-selected="false" tabindex="-1" data-tab="photos">photos</button>
+        </div>
 
         <button class="theme-toggle" type="button" aria-pressed="false" aria-label="Switch theme" data-theme-toggle>
           <svg class="icon-sun" viewBox="0 0 24 24" aria-hidden="true">
@@ -43,89 +44,106 @@
       </div>
     </header>
 
-    <main id="top">
-      <!-- Intro -->
-      <section class="hero" aria-labelledby="intro-title">
-        <p class="eyebrow reveal" data-stagger="0">hiba &middot; b. 2006 &middot; somewhere on the internet</p>
+    <main>
+      <!-- home -->
+      <section class="view is-active" id="view-home" role="tabpanel" aria-labelledby="tab-home" data-view="home">
+        <div class="hero">
+          <p class="eyebrow reveal">hiba &middot; b. 2006 &middot; somewhere on the internet</p>
 
-        <h1 class="hero-title reveal" data-stagger="1" id="intro-title">
-          i build stuff on the internet,<br>
-          <em>kinda quietly.</em>
-        </h1>
+          <h1 class="hero-title reveal">
+            i build stuff on the internet,<br>
+            <em>kinda quietly.</em>
+          </h1>
 
-        <p class="hero-sub reveal" data-stagger="2">
-          Minecraft Bedrock projects that somehow reached millions, a platform
-          that has to stay online, and an Android app or two. I like shipping
-          things people actually use &mdash; and keeping them from breaking.
-        </p>
+          <p class="hero-sub reveal">
+            Minecraft Bedrock projects that somehow reached millions, a platform
+            that has to stay online, and an Android app or two. I like shipping
+            things people actually use &mdash; and keeping them from breaking.
+          </p>
 
-        <div class="hero-actions reveal" data-stagger="3">
-          <a class="button button-primary" href="mailto:hibajiyath5@gmail.com?subject=Project%20with%20Hiba">
-            hire me
-            <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8h9M8.5 4.5 12 8l-3.5 3.5"/></svg>
-          </a>
-          <a class="button button-ghost" href="#work">see the work</a>
+          <div class="hero-actions reveal">
+            <a class="button button-primary" href="mailto:hibajiyath5@gmail.com?subject=Project%20with%20Hiba">
+              hire me
+              <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8h9M8.5 4.5 12 8l-3.5 3.5"/></svg>
+            </a>
+            <button class="button button-ghost" type="button" data-tab-link="work">see the work</button>
+          </div>
+
+          <ul class="socials reveal" aria-label="Links">
+            <li>
+              <a class="social-link" href="https://github.com/hiba550" target="_blank" rel="noreferrer">
+                <svg viewBox="0 0 24 24" aria-hidden="true">
+                  <path d="M12 2C6.48 2 2 6.58 2 12.26c0 4.54 2.87 8.39 6.84 9.75.5.1.68-.22.68-.49v-1.9c-2.78.62-3.37-1.22-3.37-1.22-.46-1.19-1.11-1.51-1.11-1.51-.91-.64.07-.63.07-.63 1 .07 1.53 1.06 1.53 1.06.89 1.56 2.34 1.11 2.91.85.09-.66.35-1.11.63-1.37-2.22-.26-4.56-1.14-4.56-5.07 0-1.12.39-2.03 1.03-2.75-.1-.26-.45-1.3.1-2.71 0 0 .84-.28 2.75 1.05A9.36 9.36 0 0 1 12 6.98c.85 0 1.71.12 2.51.34 1.91-1.33 2.75-1.05 2.75-1.05.55 1.41.2 2.45.1 2.71.64.72 1.03 1.63 1.03 2.75 0 3.94-2.34 4.81-4.57 5.07.36.32.68.94.68 1.9v2.82c0 .27.18.59.69.49A10.17 10.17 0 0 0 22 12.26C22 6.58 17.52 2 12 2Z"/>
+                </svg>
+                <span>GitHub</span>
+              </a>
+            </li>
+            <li>
+              <a class="social-link" href="#x" data-message="i dont really reply on x, discord is better :)">
+                <svg viewBox="0 0 24 24" aria-hidden="true">
+                  <path d="M17.53 3h3.12l-6.82 7.79L21.86 21h-6.29l-4.92-6.44L5.01 21H1.88l7.3-8.34L1.47 3h6.45l4.45 5.88L17.53 3Zm-1.1 16.2h1.73L6.98 4.71H5.12L16.43 19.2Z"/>
+                </svg>
+                <span>X</span>
+              </a>
+            </li>
+            <li>
+              <button class="social-link" type="button" data-copy="hiba6053" data-copied-message="discord copied &mdash; hiba6053">
+                <svg viewBox="0 0 24 24" aria-hidden="true">
+                  <path d="M19.54 5.34A16.74 16.74 0 0 0 15.48 4l-.2.39a13.9 13.9 0 0 1 3.02 1.53 12.7 12.7 0 0 0-4.6-1.4 13.09 13.09 0 0 0-3.4 0 12.7 12.7 0 0 0-4.6 1.4 13.9 13.9 0 0 1 3.02-1.53L8.52 4c-1.42.25-2.78.7-4.06 1.34C1.89 9.14 1.19 12.84 1.54 16.48A16.33 16.33 0 0 0 6.51 19c.4-.54.75-1.11 1.05-1.72-.58-.22-1.13-.49-1.65-.81l.4-.31c3.19 1.48 8.19 1.48 11.34 0l.4.31c-.52.32-1.07.59-1.65.81.3.61.65 1.18 1.05 1.72a16.33 16.33 0 0 0 4.97-2.52c.43-4.22-.72-7.89-2.88-11.14ZM8.56 14.26c-.95 0-1.74-.89-1.74-1.98s.77-1.98 1.74-1.98c.98 0 1.77.89 1.75 1.98 0 1.09-.77 1.98-1.75 1.98Zm6.88 0c-.95 0-1.75-.89-1.75-1.98s.78-1.98 1.75-1.98c.98 0 1.76.89 1.75 1.98 0 1.09-.77 1.98-1.75 1.98Z"/>
+                </svg>
+                <span>Discord</span>
+              </button>
+            </li>
+            <li>
+              <a class="social-link" href="mailto:hibajiyath5@gmail.com">
+                <svg viewBox="0 0 24 24" aria-hidden="true">
+                  <path d="M4.5 5.75h15A2.5 2.5 0 0 1 22 8.25v7.5a2.5 2.5 0 0 1-2.5 2.5h-15A2.5 2.5 0 0 1 2 15.75v-7.5a2.5 2.5 0 0 1 2.5-2.5Zm0 1.5a1 1 0 0 0-.79.39l7.67 5.33c.37.26.87.26 1.24 0l7.67-5.33a1 1 0 0 0-.79-.39h-15Zm16 2.07-7.02 4.88a2.6 2.6 0 0 1-2.96 0L3.5 9.32v6.43a1 1 0 0 0 1 1h15a1 1 0 0 0 1-1V9.32Z"/>
+                </svg>
+                <span>Email</span>
+              </a>
+            </li>
+          </ul>
         </div>
 
-        <ul class="socials reveal" data-stagger="4" aria-label="Links">
-          <li>
-            <a class="social-link" href="https://github.com/hiba550" target="_blank" rel="noreferrer">
-              <svg viewBox="0 0 24 24" aria-hidden="true">
-                <path d="M12 2C6.48 2 2 6.58 2 12.26c0 4.54 2.87 8.39 6.84 9.75.5.1.68-.22.68-.49v-1.9c-2.78.62-3.37-1.22-3.37-1.22-.46-1.19-1.11-1.51-1.11-1.51-.91-.64.07-.63.07-.63 1 .07 1.53 1.06 1.53 1.06.89 1.56 2.34 1.11 2.91.85.09-.66.35-1.11.63-1.37-2.22-.26-4.56-1.14-4.56-5.07 0-1.12.39-2.03 1.03-2.75-.1-.26-.45-1.3.1-2.71 0 0 .84-.28 2.75 1.05A9.36 9.36 0 0 1 12 6.98c.85 0 1.71.12 2.51.34 1.91-1.33 2.75-1.05 2.75-1.05.55 1.41.2 2.45.1 2.71.64.72 1.03 1.63 1.03 2.75 0 3.94-2.34 4.81-4.57 5.07.36.32.68.94.68 1.9v2.82c0 .27.18.59.69.49A10.17 10.17 0 0 0 22 12.26C22 6.58 17.52 2 12 2Z"/>
-              </svg>
-              <span>GitHub</span>
-            </a>
-          </li>
-          <li>
-            <a class="social-link" href="#x" data-message="i dont really reply on x, discord is better :)">
-              <svg viewBox="0 0 24 24" aria-hidden="true">
-                <path d="M17.53 3h3.12l-6.82 7.79L21.86 21h-6.29l-4.92-6.44L5.01 21H1.88l7.3-8.34L1.47 3h6.45l4.45 5.88L17.53 3Zm-1.1 16.2h1.73L6.98 4.71H5.12L16.43 19.2Z"/>
-              </svg>
-              <span>X</span>
-            </a>
-          </li>
-          <li>
-            <button class="social-link" type="button" data-copy="hiba6053" data-copied-message="discord copied &mdash; hiba6053">
-              <svg viewBox="0 0 24 24" aria-hidden="true">
-                <path d="M19.54 5.34A16.74 16.74 0 0 0 15.48 4l-.2.39a13.9 13.9 0 0 1 3.02 1.53 12.7 12.7 0 0 0-4.6-1.4 13.09 13.09 0 0 0-3.4 0 12.7 12.7 0 0 0-4.6 1.4 13.9 13.9 0 0 1 3.02-1.53L8.52 4c-1.42.25-2.78.7-4.06 1.34C1.89 9.14 1.19 12.84 1.54 16.48A16.33 16.33 0 0 0 6.51 19c.4-.54.75-1.11 1.05-1.72-.58-.22-1.13-.49-1.65-.81l.4-.31c3.19 1.48 8.19 1.48 11.34 0l.4.31c-.52.32-1.07.59-1.65.81.3.61.65 1.18 1.05 1.72a16.33 16.33 0 0 0 4.97-2.52c.43-4.22-.72-7.89-2.88-11.14ZM8.56 14.26c-.95 0-1.74-.89-1.74-1.98s.77-1.98 1.74-1.98c.98 0 1.77.89 1.75 1.98 0 1.09-.77 1.98-1.75 1.98Zm6.88 0c-.95 0-1.75-.89-1.75-1.98s.78-1.98 1.75-1.98c.98 0 1.76.89 1.75 1.98 0 1.09-.77 1.98-1.75 1.98Z"/>
-              </svg>
-              <span>Discord</span>
-            </button>
-          </li>
-          <li>
-            <a class="social-link" href="mailto:hibajiyath5@gmail.com">
-              <svg viewBox="0 0 24 24" aria-hidden="true">
-                <path d="M4.5 5.75h15A2.5 2.5 0 0 1 22 8.25v7.5a2.5 2.5 0 0 1-2.5 2.5h-15A2.5 2.5 0 0 1 2 15.75v-7.5a2.5 2.5 0 0 1 2.5-2.5Zm0 1.5a1 1 0 0 0-.79.39l7.67 5.33c.37.26.87.26 1.24 0l7.67-5.33a1 1 0 0 0-.79-.39h-15Zm16 2.07-7.02 4.88a2.6 2.6 0 0 1-2.96 0L3.5 9.32v6.43a1 1 0 0 0 1 1h15a1 1 0 0 0 1-1V9.32Z"/>
-              </svg>
-              <span>Email</span>
-            </a>
-          </li>
-        </ul>
+        <div class="stats reveal" aria-label="A few numbers">
+          <dl class="stats-row">
+            <div class="stat">
+              <dt>downloads</dt>
+              <dd><span data-count="6" data-suffix="M+">6M+</span></dd>
+            </div>
+            <div class="stat">
+              <dt>things released</dt>
+              <dd><span data-count="20" data-suffix="+">20+</span></dd>
+            </div>
+            <div class="stat">
+              <dt>earned from creator work</dt>
+              <dd><span data-count="4" data-prefix="$" data-suffix="K+">$4K+</span></dd>
+            </div>
+          </dl>
+        </div>
+
+        <div class="contact reveal">
+          <div class="contact-inner">
+            <p class="eyebrow">say hi</p>
+            <h2 class="section-title">got something to build?</h2>
+            <p class="contact-sub">Email works. Discord is faster.</p>
+            <div class="contact-actions">
+              <a class="button button-primary" href="mailto:hibajiyath5@gmail.com?subject=Project%20with%20Hiba">
+                hibajiyath5@gmail.com
+              </a>
+              <button class="button button-ghost" type="button" data-copy="hiba6053" data-copied-message="discord copied &mdash; hiba6053">
+                copy discord
+              </button>
+            </div>
+          </div>
+        </div>
       </section>
 
-      <!-- Numbers -->
-      <section class="stats reveal" aria-label="A few numbers">
-        <dl class="stats-row">
-          <div class="stat">
-            <dt>downloads</dt>
-            <dd><span data-count="6" data-suffix="M+">6M+</span></dd>
-          </div>
-          <div class="stat">
-            <dt>things released</dt>
-            <dd><span data-count="20" data-suffix="+">20+</span></dd>
-          </div>
-          <div class="stat">
-            <dt>earned from creator work</dt>
-            <dd><span data-count="4" data-prefix="$" data-suffix="K+">$4K+</span></dd>
-          </div>
-        </dl>
-      </section>
-
-      <!-- Work -->
-      <section class="work" id="work" aria-labelledby="work-title">
+      <!-- work -->
+      <section class="view" id="view-work" role="tabpanel" aria-labelledby="tab-work" data-view="work">
         <header class="section-header reveal">
           <p class="eyebrow">selected work</p>
-          <h2 class="section-title" id="work-title">things i have shipped</h2>
+          <h2 class="section-title">things i have shipped</h2>
         </header>
 
         <article class="project reveal" aria-labelledby="project-bedrock">
@@ -199,11 +217,11 @@
         </article>
       </section>
 
-      <!-- Photo -->
-      <section class="photos" id="photos" aria-labelledby="photos-title">
+      <!-- photos -->
+      <section class="view" id="view-photos" role="tabpanel" aria-labelledby="tab-photos" data-view="photos">
         <header class="section-header reveal">
           <p class="eyebrow">off topic</p>
-          <h2 class="section-title" id="photos-title">a picture on the wall</h2>
+          <h2 class="section-title">a picture on the wall</h2>
         </header>
 
         <figure class="photo-card reveal">
@@ -220,30 +238,9 @@
         </figure>
       </section>
 
-      <!-- Contact -->
-      <footer class="contact" id="contact" aria-labelledby="contact-title">
-        <div class="contact-inner reveal">
-          <p class="eyebrow">say hi</p>
-          <h2 class="section-title" id="contact-title">
-            got something to build?
-          </h2>
-          <p class="contact-sub">
-            Email works. Discord is faster.
-          </p>
-          <div class="contact-actions">
-            <a class="button button-primary" href="mailto:hibajiyath5@gmail.com?subject=Project%20with%20Hiba">
-              hibajiyath5@gmail.com
-            </a>
-            <button class="button button-ghost" type="button" data-copy="hiba6053" data-copied-message="discord copied &mdash; hiba6053">
-              copy discord
-            </button>
-          </div>
-        </div>
-
-        <div class="footer-line reveal">
-          <span>still becoming</span>
-          <span class="footer-meta">last updated 07/07/2026</span>
-        </div>
+      <footer class="footer-line">
+        <span>still becoming</span>
+        <span class="footer-meta">last updated 07/07/2026</span>
       </footer>
     </main>
 

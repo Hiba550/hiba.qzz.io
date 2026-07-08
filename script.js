@@ -67,21 +67,8 @@
   const header = document.querySelector('[data-header]');
   let scrollTicking = false;
 
-  function atPageBottom() {
-    return window.innerHeight + window.scrollY >= root.scrollHeight - 4;
-  }
-
-  function onScroll() {
+  function updateHeader() {
     if (header) header.classList.toggle('is-scrolled', window.scrollY > 8);
-
-    // the ends of the page never cross the observers' bands — handle them here
-    if (atPageBottom()) {
-      revealElements.forEach((el) => el.classList.add('is-visible'));
-      setCurrentNav('contact');
-    } else if (window.scrollY < 120) {
-      setCurrentNav(null);
-    }
-
     scrollTicking = false;
   }
 
@@ -90,38 +77,165 @@
     () => {
       if (!scrollTicking) {
         scrollTicking = true;
-        requestAnimationFrame(onScroll);
+        requestAnimationFrame(updateHeader);
       }
     },
     { passive: true }
   );
+  updateHeader();
 
   /* ----------------------------------------------------------------
-     reveal on scroll
+     tabs — sliding indicator, animated view switch, hash routing
   ---------------------------------------------------------------- */
 
-  const revealElements = document.querySelectorAll('.reveal');
+  const tablist = document.querySelector('[data-tablist]');
+  const indicator = document.querySelector('[data-tab-indicator]');
+  const tabs = Array.from(document.querySelectorAll('[data-tab]'));
+  const views = {};
 
-  revealElements.forEach((el) => {
-    const stagger = el.dataset.stagger;
-    if (stagger) el.style.setProperty('--stagger', stagger);
+  document.querySelectorAll('[data-view]').forEach((view) => {
+    views[view.dataset.view] = view;
+    // stagger order for the entrance animation
+    view.querySelectorAll('.reveal').forEach((el, i) => {
+      el.style.setProperty('--stagger', String(Math.min(i, 8)));
+    });
   });
 
-  if ('IntersectionObserver' in window && !reducedMotion.matches) {
-    const revealObserver = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add('is-visible');
-            revealObserver.unobserve(entry.target);
-          }
-        });
-      },
-      { threshold: 0.12, rootMargin: '0px 0px -8% 0px' }
-    );
-    revealElements.forEach((el) => revealObserver.observe(el));
+  let activeName = 'home';
+  let pendingCommit = null;
+  let pendingTimer = 0;
+
+  function moveIndicator() {
+    if (!indicator || !tablist) return;
+    const current = tabs.find((tab) => tab.dataset.tab === activeName);
+    if (!current) return;
+    indicator.style.width = current.offsetWidth + 'px';
+    indicator.style.transform = 'translateX(' + current.offsetLeft + 'px)';
+    tablist.classList.add('is-ready');
+  }
+
+  function setTabState(name) {
+    tabs.forEach((tab) => {
+      const selected = tab.dataset.tab === name;
+      tab.setAttribute('aria-selected', String(selected));
+      tab.tabIndex = selected ? 0 : -1;
+    });
+    moveIndicator();
+  }
+
+  function finalizePending() {
+    if (pendingCommit) {
+      clearTimeout(pendingTimer);
+      const commit = pendingCommit;
+      pendingCommit = null;
+      commit();
+    }
+  }
+
+  function enterView(view, animate) {
+    view.classList.add('is-active');
+    window.scrollTo(0, 0);
+    if (animate && !reducedMotion.matches) {
+      view.classList.remove('is-entering');
+      void view.offsetWidth; // restart the entrance animation
+      view.classList.add('is-entering');
+    }
+  }
+
+  function showView(name, options) {
+    const opts = options || {};
+    const next = views[name] ? name : 'home';
+
+    finalizePending();
+    if (next === activeName) {
+      setTabState(next);
+      return;
+    }
+
+    if (opts.push !== false) {
+      try {
+        const url = next === 'home' ? location.pathname + location.search : '#' + next;
+        history.pushState(null, '', url);
+      } catch (err) {
+        /* sandboxed contexts may refuse; tab still switches */
+      }
+    }
+
+    document.title = next === 'home' ? 'Hiba' : 'Hiba — ' + next;
+
+    const current = views[activeName];
+    activeName = next;
+    setTabState(next);
+
+    const commit = () => {
+      pendingCommit = null;
+      current.classList.remove('is-active', 'is-leaving');
+      enterView(views[next], opts.animate !== false);
+    };
+
+    if (opts.animate === false || reducedMotion.matches) {
+      commit();
+    } else {
+      current.classList.add('is-leaving');
+      pendingCommit = commit;
+      pendingTimer = setTimeout(commit, 160);
+    }
+  }
+
+  tabs.forEach((tab) => {
+    tab.addEventListener('click', () => showView(tab.dataset.tab));
+  });
+
+  document.querySelectorAll('[data-tab-link]').forEach((el) => {
+    el.addEventListener('click', () => showView(el.dataset.tabLink));
+  });
+
+  // roving focus per the ARIA tabs pattern
+  if (tablist) {
+    tablist.addEventListener('keydown', (event) => {
+      const keys = ['ArrowLeft', 'ArrowRight', 'Home', 'End'];
+      if (!keys.includes(event.key)) return;
+      event.preventDefault();
+
+      const index = tabs.findIndex((tab) => tab.dataset.tab === activeName);
+      let nextIndex = index;
+      if (event.key === 'ArrowLeft') nextIndex = (index - 1 + tabs.length) % tabs.length;
+      if (event.key === 'ArrowRight') nextIndex = (index + 1) % tabs.length;
+      if (event.key === 'Home') nextIndex = 0;
+      if (event.key === 'End') nextIndex = tabs.length - 1;
+
+      tabs[nextIndex].focus();
+      showView(tabs[nextIndex].dataset.tab);
+    });
+  }
+
+  window.addEventListener('popstate', () => {
+    showView(location.hash.replace('#', '') || 'home', { push: false });
+  });
+
+  let resizeTicking = false;
+  window.addEventListener('resize', () => {
+    if (!resizeTicking) {
+      resizeTicking = true;
+      requestAnimationFrame(() => {
+        moveIndicator();
+        resizeTicking = false;
+      });
+    }
+  });
+
+  // initial view: honor a #work / #photos deep link, no leave animation
+  const initial = location.hash.replace('#', '');
+  if (views[initial] && initial !== 'home') {
+    showView(initial, { push: false, animate: false });
+    enterView(views[initial], true);
   } else {
-    revealElements.forEach((el) => el.classList.add('is-visible'));
+    setTabState('home');
+    if (!reducedMotion.matches) views.home.classList.add('is-entering');
+  }
+
+  if (document.fonts && document.fonts.ready) {
+    document.fonts.ready.then(moveIndicator);
   }
 
   /* ----------------------------------------------------------------
@@ -148,8 +262,6 @@
     requestAnimationFrame(frame);
   }
 
-  const counters = document.querySelectorAll('[data-count]');
-
   if ('IntersectionObserver' in window && !reducedMotion.matches) {
     const countObserver = new IntersectionObserver(
       (entries) => {
@@ -162,38 +274,7 @@
       },
       { threshold: 0.6 }
     );
-    counters.forEach((el) => countObserver.observe(el));
-  }
-
-  /* ----------------------------------------------------------------
-     active section in nav
-  ---------------------------------------------------------------- */
-
-  const navLinks = document.querySelectorAll('[data-nav]');
-  const sections = [];
-
-  navLinks.forEach((link) => {
-    const section = document.getElementById(link.dataset.nav);
-    if (section) sections.push(section);
-  });
-
-  function setCurrentNav(id) {
-    navLinks.forEach((link) => {
-      link.classList.toggle('is-current', link.dataset.nav === id);
-    });
-  }
-
-  if ('IntersectionObserver' in window && sections.length) {
-    const sectionObserver = new IntersectionObserver(
-      (entries) => {
-        if (atPageBottom() || window.scrollY < 120) return;
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) setCurrentNav(entry.target.id);
-        });
-      },
-      { rootMargin: '-40% 0px -55% 0px' }
-    );
-    sections.forEach((section) => sectionObserver.observe(section));
+    document.querySelectorAll('[data-count]').forEach((el) => countObserver.observe(el));
   }
 
   /* ----------------------------------------------------------------
@@ -234,8 +315,6 @@
   /* ----------------------------------------------------------------
      graceful image failure
   ---------------------------------------------------------------- */
-
-  onScroll();
 
   document.querySelectorAll('img[loading]').forEach((img) => {
     img.addEventListener('error', () => {

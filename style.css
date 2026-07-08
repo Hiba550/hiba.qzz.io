@@ -15,6 +15,7 @@
   --accent: #9a5b2e;
   --accent-soft: rgba(154, 91, 46, 0.09);
   --button-ink: #f7f5f0;
+  --tab-pill: #fffdf9;
   --shadow-soft: 0 1px 2px rgba(24, 20, 14, 0.05), 0 8px 24px rgba(24, 20, 14, 0.06);
   --shadow-lift: 0 2px 4px rgba(24, 20, 14, 0.06), 0 18px 44px rgba(24, 20, 14, 0.12);
   --selection-bg: #21201d;
@@ -43,6 +44,7 @@
   --accent: #d79c66;
   --accent-soft: rgba(215, 156, 102, 0.1);
   --button-ink: #131211;
+  --tab-pill: #2c2a27;
   --shadow-soft: 0 1px 2px rgba(0, 0, 0, 0.4), 0 8px 24px rgba(0, 0, 0, 0.35);
   --shadow-lift: 0 2px 4px rgba(0, 0, 0, 0.45), 0 18px 44px rgba(0, 0, 0, 0.5);
   --selection-bg: #e8e4dc;
@@ -59,8 +61,6 @@
 html {
   min-height: 100%;
   background: var(--bg);
-  scroll-behavior: smooth;
-  scroll-padding-top: 5.5rem;
   -webkit-text-size-adjust: 100%;
 }
 
@@ -170,6 +170,9 @@ button {
 }
 
 .brand {
+  padding: 0;
+  border: 0;
+  background: none;
   font-family: var(--font-serif);
   font-size: 1.2rem;
   font-weight: 600;
@@ -184,41 +187,59 @@ button {
   opacity: 0.6;
 }
 
-.site-nav {
-  display: flex;
-  gap: 0.25rem;
-  margin-left: auto;
-}
-
-.nav-link {
+.tabs {
   position: relative;
-  padding: 0.35rem 0.6rem;
+  display: flex;
+  gap: 2px;
+  margin-left: auto;
+  padding: 3px;
+  border: 1px solid var(--line);
   border-radius: 999px;
-  color: var(--muted);
-  font-size: 0.92rem;
-  text-decoration: none;
-  transition: color 0.25s ease, background-color 0.25s ease;
-}
-
-.nav-link:hover {
-  color: var(--ink-strong);
   background: var(--bg-raised);
 }
 
-.nav-link.is-current {
+.tab {
+  position: relative;
+  z-index: 1;
+  padding: 0.34rem 0.9rem;
+  border: 0;
+  border-radius: 999px;
+  background: none;
+  color: var(--muted);
+  font-size: 0.9rem;
+  line-height: 1.4;
+  transition: color 0.3s ease;
+}
+
+.tab:hover {
   color: var(--ink-strong);
 }
 
-.nav-link.is-current::after {
-  content: "";
+.tab[aria-selected="true"] {
+  color: var(--ink-strong);
+}
+
+.tab-indicator {
   position: absolute;
-  left: 50%;
-  bottom: -0.15rem;
-  width: 3px;
-  height: 3px;
-  border-radius: 50%;
-  background: var(--accent);
-  transform: translateX(-50%);
+  top: 3px;
+  bottom: 3px;
+  left: 0;
+  width: 2rem;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: var(--tab-pill);
+  box-shadow: var(--shadow-soft);
+  opacity: 0;
+  transition:
+    transform 0.45s var(--ease-spring),
+    width 0.45s var(--ease-spring),
+    opacity 0.3s ease,
+    background-color 0.45s ease,
+    border-color 0.45s ease;
+}
+
+.tabs.is-ready .tab-indicator {
+  opacity: 1;
 }
 
 .theme-toggle {
@@ -289,6 +310,47 @@ main {
   margin: 0 auto;
 }
 
+/* tab views — without JS they all stack like a single page */
+.view {
+  padding-top: clamp(3rem, 8vh, 5.5rem);
+}
+
+.view:focus {
+  outline: none;
+}
+
+.js .view {
+  display: none;
+  min-height: calc(100svh - 16rem);
+}
+
+.js .view.is-active {
+  display: block;
+}
+
+.js .view.is-leaving {
+  animation: view-sink 0.16s ease both;
+}
+
+@keyframes view-sink {
+  to {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+}
+
+.js .view.is-entering .reveal {
+  animation: view-rise 0.75s var(--ease-out) both;
+  animation-delay: calc(var(--stagger, 0) * 80ms);
+}
+
+@keyframes view-rise {
+  from {
+    opacity: 0;
+    transform: translateY(1.1rem);
+  }
+}
+
 .eyebrow {
   margin: 0;
   color: var(--muted);
@@ -324,7 +386,7 @@ main {
 ------------------------------------------------------------------- */
 
 .hero {
-  padding: clamp(4.5rem, 12vh, 8rem) 0 0;
+  padding-top: clamp(1.5rem, 5vh, 3.5rem);
 }
 
 .hero-title {
@@ -525,10 +587,6 @@ main {
    work
 ------------------------------------------------------------------- */
 
-.work {
-  padding-top: clamp(4.5rem, 12vh, 7.5rem);
-}
-
 .section-header {
   margin-bottom: 2.6rem;
 }
@@ -669,10 +727,6 @@ main {
    photo
 ------------------------------------------------------------------- */
 
-.photos {
-  padding-top: clamp(4.5rem, 12vh, 7.5rem);
-}
-
 .photo-card {
   width: min(17rem, 78%);
   margin: 0 auto;
@@ -720,11 +774,11 @@ main {
 ------------------------------------------------------------------- */
 
 .contact {
-  padding: clamp(4.5rem, 12vh, 7.5rem) 0 2.4rem;
+  padding-top: clamp(4rem, 10vh, 6.5rem);
 }
 
 .contact-inner {
-  padding: 2.6rem 0 3rem;
+  padding: 2.6rem 0 0.5rem;
   border-top: 1px solid var(--line);
 }
 
@@ -745,7 +799,8 @@ main {
   align-items: baseline;
   justify-content: space-between;
   gap: 1rem;
-  padding-top: 1.4rem;
+  margin-top: clamp(3.5rem, 9vh, 5.5rem);
+  padding: 1.4rem 0 2rem;
   border-top: 1px solid var(--line);
   color: var(--faint);
   font-family: var(--font-mono);
@@ -794,24 +849,6 @@ main {
 }
 
 /* ------------------------------------------------------------------
-   reveal-on-scroll (only when JS is present)
-------------------------------------------------------------------- */
-
-.js .reveal {
-  opacity: 0;
-  transform: translateY(1.1rem);
-  transition:
-    opacity 0.8s var(--ease-out),
-    transform 0.8s var(--ease-out);
-  transition-delay: calc(var(--stagger, 0) * 90ms);
-}
-
-.js .reveal.is-visible {
-  opacity: 1;
-  transform: none;
-}
-
-/* ------------------------------------------------------------------
    responsive
 ------------------------------------------------------------------- */
 
@@ -825,12 +862,12 @@ main {
   }
 
   .header-inner {
-    gap: 0.75rem;
+    gap: 0.65rem;
   }
 
-  .nav-link {
-    padding-inline: 0.45rem;
-    font-size: 0.88rem;
+  .tab {
+    padding-inline: 0.65rem;
+    font-size: 0.86rem;
   }
 
   .stats-row {
@@ -904,9 +941,9 @@ main {
     transition-delay: 0ms !important;
   }
 
-  .js .reveal {
-    opacity: 1;
-    transform: none;
+  .js .view.is-entering .reveal,
+  .js .view.is-leaving {
+    animation: none;
   }
 
   .photo-frame {
