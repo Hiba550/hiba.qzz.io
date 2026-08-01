@@ -1,15 +1,16 @@
 name: Update portfolio stats
 
 on:
-  push:
-    paths:
-      - '.github/workflows/update-portfolio-stats.yml'
+  issues:
+    types: [opened]
 
 permissions:
   contents: write
+  issues: read
 
 jobs:
   update:
+    if: github.event.issue.title == 'run-portfolio-stats-update'
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
