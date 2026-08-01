@@ -129,11 +129,13 @@
   ---------------------------------------------------------------- */
 
   function animateCount(el) {
-    const target = parseFloat(el.dataset.count);
+    const rawTarget = el.dataset.count;
+    const target = parseFloat(rawTarget);
     if (Number.isNaN(target)) return;
 
     const prefix = el.dataset.prefix || '';
     const suffix = el.dataset.suffix || '';
+    const decimals = (rawTarget.split('.')[1] || '').length;
     const duration = 900;
     let start = 0;
 
@@ -141,7 +143,11 @@
       if (!start) start = now;
       const progress = Math.min((now - start) / duration, 1);
       const eased = 1 - Math.pow(1 - progress, 3);
-      el.textContent = prefix + Math.round(target * eased) + suffix;
+      const value = target * eased;
+      const displayValue = decimals
+        ? value.toFixed(decimals)
+        : String(Math.round(value));
+      el.textContent = prefix + displayValue + suffix;
       if (progress < 1) requestAnimationFrame(frame);
     }
 
