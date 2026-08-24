@@ -14,6 +14,12 @@
 
   const studioLogo = 'https://raw.githubusercontent.com/Jiyath5516F/Seraphic-RTX/main/assets/img/logo/header-logo.png';
 
+  const favicon = document.querySelector('link[rel~="icon"]');
+  if (favicon) {
+    favicon.href = studioLogo;
+    favicon.type = 'image/png';
+  }
+
   const headerLogo = document.querySelector('.brand img');
   if (headerLogo) {
     headerLogo.src = studioLogo;
@@ -48,6 +54,9 @@
     .find((card) => card.textContent.includes('0x4a4b / Seraphic'));
 
   if (seraphicCard) {
+    const mark = seraphicCard.querySelector('.person-mark');
+    if (mark) mark.textContent = '0x';
+
     const details = seraphicCard.querySelector('dl');
     if (details && !details.querySelector('[data-seraphic-discord]')) {
       const row = document.createElement('div');
@@ -68,6 +77,87 @@
     discordButton.innerHTML = 'Discord: 0x4a4b <span data-copy-label>copy</span>';
     contactActions.appendChild(discordButton);
   }
+
+  function setText(selector, text) {
+    const element = document.querySelector(selector);
+    if (element) element.textContent = text;
+  }
+
+  function setHTML(selector, html) {
+    const element = document.querySelector(selector);
+    if (element) element.innerHTML = html;
+  }
+
+  function rewritePortfolioCopy() {
+    setText('#hero-title span', 'Minecraft Add-Ons,');
+    setText('#hero-title em', 'PBR packs & creator tools.');
+    setText('.hero-intro', 'We are two brothers who have been building and publishing Minecraft projects for years. QuillPhen focuses on gameplay and add-ons; 0x4a4b focuses on PBR/RTX visuals, textures and Bedrock graphics tools.');
+
+    setText('#statement-title', 'We work on different parts of the same Minecraft experience.');
+    setText('.statement-copy', 'QuillPhen handles gameplay systems, scripting, testing, releases and player support. 0x4a4b handles PBR materials, textures, visual technology and presentation. When a project needs both, we build it together.');
+
+    setText('.case-ore .case-eyebrow', 'Bedrock Add-On · QuillPhen');
+    setText('.case-ore .case-lede', 'Ore Vein Miner lets players mine connected ores by crouching and breaking one block. It keeps familiar enchantment behavior and includes limits and configuration so it fits normal survival play.');
+    setHTML('.case-ore .media-caption', '<span>Gameplay preview</span> Mining a connected ore vein.');
+
+    setText('.case-echo .case-eyebrow', 'Bedrock Add-On · QuillPhen');
+    setText('.case-echo .case-lede', 'Build Echo remembers blocks lost to explosions and leaves a holographic guide showing what used to be there. Players can gather the materials and restore the build instead of guessing or rolling back the whole area.');
+    setHTML('.case-echo .media-caption', '<span>Gameplay preview</span> Holographic blocks mark what was destroyed.');
+
+    setText('.visual-heading h2', 'Seraphic RTX & PBR');
+    setText('.visual-heading > p:last-child', '0x4a4b has spent years working on Minecraft Bedrock PBR materials and RTX visuals, including height and normal maps, emissive textures, glass, fog and material response. The videos and screenshots below are from that work.');
+    setText('.cinema-label', 'Watch Seraphic RTX showcase');
+
+    setText('.catalogue-heading h2', 'More released projects');
+    setText('.catalogue-heading > p:last-child', 'A few smaller releases that show the range of what we build, publish and continue to maintain.');
+
+    const productDescriptions = [...document.querySelectorAll('.product-card')];
+    productDescriptions.forEach((card) => {
+      const title = card.querySelector('h3')?.textContent.trim();
+      const copy = card.querySelector('.product-copy p');
+      if (!copy) return;
+      if (title === 'Waypoints Teleport') copy.textContent = 'Save named locations and teleport through a simple menu, with optional XP costs, cooldowns and limits for survival worlds.';
+      if (title === 'Mob Health Bar') copy.textContent = 'Shows mob health above entities so players can read combat at a glance without adding a large HUD.';
+      if (title === 'Seraphic Glowing Ores') copy.textContent = 'Adds emissive ore textures for RTX/PBR worlds, making ores easier to spot while keeping caves dark.';
+      if (title === 'Seraphic RTX Normals') copy.textContent = 'Adds normal-map depth across vanilla textures to improve surface detail under RTX/PBR lighting.';
+    });
+
+    setText('.platform-callout .section-label', 'Built by our team');
+    setText('.platform-callout h3', 'Bedrock Graphics');
+    setText('.platform-callout-copy > p:last-child', 'Bedrock Graphics is a Minecraft Bedrock publishing hub we built for graphics-focused creators and players. Creators can make profiles, publish and version packs, upload files and galleries, write release notes, manage project links, receive comments and ratings, and track downloads and project analytics. It covers texture and PBR packs, BetterRTX presets, shaders, behaviour packs and creator utilities.');
+
+    setText('#tooling-title', 'Tools we built for our own workflow');
+    setText('.tooling-copy > p:not(.section-label)', 'Our JE2BE converter handles repetitive parts of moving resource packs from Java to Bedrock, including texture mapping, LabPBR-to-MER conversion, texture-set generation and RTX checks.');
+
+    setText('#team-title', 'Who works on what');
+
+    setText('#direction-title', 'What we want to build for Marketplace');
+    setText('.direction-intro', 'We want to keep making the same kinds of projects we already enjoy building, but at Marketplace scale: useful Bedrock add-ons, complete visual packs and projects where gameplay and graphics are designed together.');
+
+    const directionItems = [...document.querySelectorAll('.direction-item')];
+    directionItems.forEach((item, index) => {
+      const heading = item.querySelector('h3');
+      const copy = item.querySelector('p');
+      if (!heading || !copy) return;
+      if (index === 0) {
+        heading.textContent = 'Add-Ons for real worlds';
+        copy.textContent = 'Useful mechanics that work cleanly in existing survival worlds, with sensible configuration and multiplayer support.';
+      }
+      if (index === 1) {
+        heading.textContent = 'Complete visual packs';
+        copy.textContent = 'Consistent PBR and texture work across the game rather than one-off showcase assets.';
+      }
+      if (index === 2) {
+        heading.textContent = 'Gameplay + visuals';
+        copy.textContent = 'Projects where the mechanic and the art direction are planned together from the start.';
+      }
+    });
+
+    setText('#contact-title', 'We are looking for a long-term Marketplace publishing partner.');
+    setText('.contact-copy > p:last-child', 'We want to publish original Add-Ons and texture packs, learn the Marketplace production process properly, and keep supporting the products after release.');
+  }
+
+  rewritePortfolioCopy();
 
   function showToast(message) {
     if (!toast) return;
