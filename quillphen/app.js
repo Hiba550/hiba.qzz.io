@@ -106,12 +106,165 @@
     if (element) element.innerHTML = html;
   }
 
-  function addMinecraftCSSCredit() {
-    const toolingCopy = document.querySelector('.tooling-copy');
-    if (!toolingCopy || toolingCopy.querySelector('.minecraft-css-note')) return;
+  function addEvidenceStyles() {
+    if (document.getElementById('portfolio-evidence-styles')) return;
 
     const style = document.createElement('style');
+    style.id = 'portfolio-evidence-styles';
     style.textContent = `
+      .public-proof {
+        padding: clamp(42px, 6vw, 78px) 0;
+        color: var(--paper);
+        background: #0b0d0c;
+        border-top: 1px solid rgba(255,255,255,.08);
+        border-bottom: 1px solid rgba(255,255,255,.08);
+      }
+      .public-proof-heading {
+        display: grid;
+        grid-template-columns: minmax(0, .65fr) minmax(0, 1.35fr);
+        gap: 32px;
+        align-items: end;
+        margin-bottom: 28px;
+      }
+      .public-proof-heading h2 {
+        max-width: 760px;
+        font-size: clamp(2rem, 4.2vw, 4.6rem);
+        line-height: .96;
+        letter-spacing: -.055em;
+      }
+      .public-proof-heading p:last-child {
+        max-width: 560px;
+        margin-top: 14px;
+        color: rgba(242,240,232,.58);
+        line-height: 1.6;
+      }
+      .public-proof-grid {
+        display: grid;
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+        border: 1px solid rgba(255,255,255,.12);
+      }
+      .public-proof-card {
+        min-height: 150px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        padding: 22px;
+        color: inherit;
+        background: rgba(255,255,255,.025);
+        border-right: 1px solid rgba(255,255,255,.12);
+        text-decoration: none;
+        transition: background-color .2s ease;
+      }
+      .public-proof-card:last-child { border-right: 0; }
+      .public-proof-card:hover { background: rgba(255,255,255,.055); }
+      .public-proof-card small {
+        color: rgba(242,240,232,.48);
+        font-family: var(--mono);
+        font-size: .62rem;
+        letter-spacing: .08em;
+        text-transform: uppercase;
+      }
+      .public-proof-card strong {
+        display: block;
+        margin-top: 22px;
+        font-size: clamp(1.8rem, 3vw, 3.2rem);
+        line-height: 1;
+        letter-spacing: -.05em;
+      }
+      .public-proof-card span {
+        display: block;
+        margin-top: 7px;
+        color: rgba(242,240,232,.68);
+        font-size: .86rem;
+      }
+      .project-context {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 1px;
+        margin: 26px 0 0;
+        background: rgba(11,13,12,.12);
+        border: 1px solid rgba(11,13,12,.14);
+      }
+      .project-context > div {
+        padding: 13px 14px;
+        background: rgba(255,255,255,.32);
+      }
+      .project-context dt {
+        margin-bottom: 5px;
+        color: rgba(11,13,12,.5);
+        font-family: var(--mono);
+        font-size: .57rem;
+        letter-spacing: .08em;
+        text-transform: uppercase;
+      }
+      .project-context dd {
+        margin: 0;
+        color: rgba(11,13,12,.84);
+        font-size: .78rem;
+        line-height: 1.45;
+      }
+      .player-loop {
+        display: grid;
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+        gap: 1px;
+        margin: 24px 0 0;
+        padding: 0;
+        list-style: none;
+        background: rgba(11,13,12,.12);
+        border: 1px solid rgba(11,13,12,.14);
+        counter-reset: loop;
+      }
+      .player-loop li {
+        counter-increment: loop;
+        min-height: 104px;
+        padding: 14px;
+        background: rgba(255,255,255,.34);
+        color: rgba(11,13,12,.72);
+        font-size: .74rem;
+        line-height: 1.5;
+      }
+      .player-loop li::before {
+        content: '0' counter(loop);
+        display: block;
+        margin-bottom: 13px;
+        color: var(--cyan-dark, #2d8c91);
+        font-family: var(--mono);
+        font-size: .58rem;
+        font-weight: 600;
+      }
+      .case-echo .media-frame video {
+        width: 100%;
+        height: 100%;
+        display: block;
+        object-fit: cover;
+        background: #050706;
+      }
+      .project-link-row {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 18px;
+        align-items: center;
+      }
+      .secondary-project-link {
+        color: inherit;
+        font-family: var(--mono);
+        font-size: .68rem;
+        font-weight: 600;
+        text-decoration: underline;
+        text-underline-offset: 4px;
+      }
+      .seraphic-pbr-proof {
+        max-width: 820px;
+        margin-top: 16px;
+        color: rgba(242,240,232,.62);
+        font-size: .88rem;
+        line-height: 1.65;
+      }
+      .seraphic-pbr-proof a {
+        color: inherit;
+        text-decoration: underline;
+        text-underline-offset: 3px;
+      }
       .minecraft-css-note {
         margin-top: 34px;
         padding: 18px 20px;
@@ -130,20 +283,27 @@
         text-decoration: underline;
         text-underline-offset: 3px;
       }
-      .seraphic-pbr-proof {
-        max-width: 820px;
-        margin-top: 16px;
-        color: rgba(242,240,232,.62);
-        font-size: .88rem;
-        line-height: 1.65;
+      @media (max-width: 900px) {
+        .public-proof-heading { grid-template-columns: 1fr; }
+        .public-proof-grid { grid-template-columns: 1fr 1fr; }
+        .public-proof-card:nth-child(2) { border-right: 0; }
+        .public-proof-card:nth-child(-n+2) { border-bottom: 1px solid rgba(255,255,255,.12); }
+        .project-context { grid-template-columns: 1fr; }
+        .player-loop { grid-template-columns: 1fr 1fr; }
       }
-      .seraphic-pbr-proof a {
-        color: inherit;
-        text-decoration: underline;
-        text-underline-offset: 3px;
+      @media (max-width: 560px) {
+        .public-proof-grid { grid-template-columns: 1fr; }
+        .public-proof-card { border-right: 0; border-bottom: 1px solid rgba(255,255,255,.12); }
+        .public-proof-card:last-child { border-bottom: 0; }
+        .player-loop { grid-template-columns: 1fr; }
       }
     `;
     document.head.appendChild(style);
+  }
+
+  function addMinecraftCSSCredit() {
+    const toolingCopy = document.querySelector('.tooling-copy');
+    if (!toolingCopy || toolingCopy.querySelector('.minecraft-css-note')) return;
 
     const note = document.createElement('p');
     note.className = 'minecraft-css-note';
@@ -162,6 +322,134 @@
     proof.className = 'seraphic-pbr-proof reveal';
     proof.innerHTML = 'Additional PBR work: <a href="https://modrinth.com/resourcepack/seraphic-pbr" target="_blank" rel="noreferrer">Seraphic PBR for Java Edition</a> has 86K+ Modrinth downloads and includes LabPBR, AO, POM, entity PBR and emissive entities.';
     heading.appendChild(proof);
+
+    const links = document.querySelector('.visual-links');
+    if (links && !links.querySelector('[data-seraphic-pbr-link]')) {
+      const modrinth = document.createElement('a');
+      modrinth.className = 'text-button text-button-light';
+      modrinth.href = 'https://modrinth.com/resourcepack/seraphic-pbr';
+      modrinth.target = '_blank';
+      modrinth.rel = 'noreferrer';
+      modrinth.dataset.seraphicPbrLink = 'true';
+      modrinth.innerHTML = 'Seraphic PBR on Modrinth <span aria-hidden="true">↗</span>';
+      links.appendChild(modrinth);
+    }
+  }
+
+  function replaceBuildEchoDemo() {
+    const frame = document.querySelector('.case-echo .media-frame');
+    if (!frame || frame.querySelector('video')) return;
+
+    const image = frame.querySelector('img');
+    const video = document.createElement('video');
+    video.src = 'assets/buildecho-demo.mp4';
+    video.autoplay = true;
+    video.muted = true;
+    video.loop = true;
+    video.playsInline = true;
+    video.controls = true;
+    video.preload = 'metadata';
+    video.setAttribute('aria-label', 'Build Echo gameplay demonstration showing damage, holographic echoes and restoration');
+
+    if (image) image.replaceWith(video);
+    else frame.prepend(video);
+  }
+
+  function addPublicReleaseEvidence() {
+    const statement = document.querySelector('.statement');
+    if (!statement || document.querySelector('.public-proof')) return;
+
+    const section = document.createElement('section');
+    section.className = 'public-proof';
+    section.setAttribute('aria-labelledby', 'public-proof-title');
+    section.innerHTML = `
+      <div class="section-shell">
+        <div class="public-proof-heading reveal">
+          <div>
+            <p class="section-label">Current public releases</p>
+            <h2 id="public-proof-title">A few projects already in players’ hands.</h2>
+          </div>
+          <p>These are direct links to the release pages. The larger catalogue is available through the QuillPhen and Seraphic profiles.</p>
+        </div>
+        <div class="public-proof-grid reveal">
+          <a class="public-proof-card" href="https://www.curseforge.com/minecraft-bedrock/addons/cave-vision-bedrock" target="_blank" rel="noreferrer">
+            <small>Bedrock Add-On · QuillPhen</small>
+            <div><strong>730K+</strong><span>Night Vision</span></div>
+          </a>
+          <a class="public-proof-card" href="https://www.curseforge.com/minecraft-bedrock/addons/ores-vein-miner" target="_blank" rel="noreferrer">
+            <small>Bedrock Add-On · QuillPhen</small>
+            <div><strong>335K+</strong><span>Ore Vein Miner</span></div>
+          </a>
+          <a class="public-proof-card" href="https://www.curseforge.com/minecraft-bedrock/addons/mob-health-bar" target="_blank" rel="noreferrer">
+            <small>Bedrock Add-On · QuillPhen</small>
+            <div><strong>40K+</strong><span>Mob Health Bar</span></div>
+          </a>
+          <a class="public-proof-card" href="https://www.curseforge.com/minecraft-bedrock/addons/glowingores" target="_blank" rel="noreferrer">
+            <small>Visual Pack · 0x4a4b</small>
+            <div><strong>170K+</strong><span>Seraphic Glowing Ores</span></div>
+          </a>
+        </div>
+      </div>
+    `;
+    statement.insertAdjacentElement('afterend', section);
+  }
+
+  function addProjectContext() {
+    const oreCopy = document.querySelector('.case-ore .case-copy');
+    const oreLede = oreCopy?.querySelector('.case-lede');
+    if (oreCopy && oreLede && !oreCopy.querySelector('.project-context')) {
+      const context = document.createElement('dl');
+      context.className = 'project-context';
+      context.innerHTML = `
+        <div><dt>Status</dt><dd>Released and maintained on CurseForge</dd></div>
+        <div><dt>Contribution</dt><dd>Gameplay design, scripting, testing, publishing and support</dd></div>
+        <div><dt>Player loop</dt><dd>Crouch, mine one ore, collect the connected vein</dd></div>
+      `;
+      oreLede.insertAdjacentElement('afterend', context);
+    }
+
+    const echoCopy = document.querySelector('.case-echo .case-copy');
+    const echoLede = echoCopy?.querySelector('.case-lede');
+    if (echoCopy && echoLede && !echoCopy.querySelector('.project-context')) {
+      const context = document.createElement('dl');
+      context.className = 'project-context';
+      context.innerHTML = `
+        <div><dt>Status</dt><dd>Released Bedrock Add-On</dd></div>
+        <div><dt>Contribution</dt><dd>Concept, scripting, block-state system, testing and publishing</dd></div>
+        <div><dt>Technical scope</dt><dd>79 authored hologram shape and state variants</dd></div>
+      `;
+      echoLede.insertAdjacentElement('afterend', context);
+    }
+
+    const echoFacts = echoCopy?.querySelector('.case-facts');
+    if (echoCopy && echoFacts && !echoCopy.querySelector('.player-loop')) {
+      const loop = document.createElement('ol');
+      loop.className = 'player-loop';
+      loop.setAttribute('aria-label', 'Build Echo player loop');
+      loop.innerHTML = `
+        <li>An explosion destroys supported blocks the player placed.</li>
+        <li>Cyan echoes appear in the exact missing positions and preserve supported block states.</li>
+        <li>The player checks the required block and restores it with the matching material.</li>
+        <li>The Echo Core can show totals and batch-repair using materials already in the inventory.</li>
+      `;
+      echoFacts.insertAdjacentElement('afterend', loop);
+    }
+
+    const echoProjectLink = echoCopy?.querySelector('.project-link');
+    if (echoProjectLink && !echoCopy.querySelector('.project-link-row')) {
+      const row = document.createElement('div');
+      row.className = 'project-link-row';
+      echoProjectLink.replaceWith(row);
+      row.appendChild(echoProjectLink);
+
+      const source = document.createElement('a');
+      source.className = 'secondary-project-link';
+      source.href = 'https://github.com/Hiba550/Build-Echo';
+      source.target = '_blank';
+      source.rel = 'noreferrer';
+      source.textContent = 'Source code ↗';
+      row.appendChild(source);
+    }
   }
 
   function rewritePortfolioCopy() {
@@ -187,11 +475,11 @@
     setHTML('.case-ore .media-caption', '<span>Gameplay</span> Mining a connected ore vein.');
 
     setText('.case-echo .case-eyebrow', 'Bedrock Add-On · QuillPhen');
-    setText('.case-echo .case-lede', 'Build Echo remembers blocks lost to explosions and leaves a holographic guide showing what used to be there. Players can gather the materials and restore the build instead of guessing or rolling back the whole area.');
-    setHTML('.case-echo .media-caption', '<span>Gameplay</span> Holographic blocks show what was destroyed.');
+    setText('.case-echo .case-lede', 'Build Echo remembers player-built blocks lost to creeper and TNT explosions. It leaves holographic guides in the missing positions, preserves supported block states, and lets the player repair the build with the correct materials.');
+    setHTML('.case-echo .media-caption', '<span>Full gameplay demo</span> Damage, echoes and restoration.');
 
     setText('.visual-heading h2', 'Seraphic RTX & PBR');
-    setText('.visual-heading > p:last-child', '0x4a4b has spent years working on Bedrock PBR materials and RTX visuals: height and normal maps, emissives, glass, fog and material response. These are real screenshots and videos from that work.');
+    setText('.visual-heading > p:last-child', 'This section shows 0x4a4b’s released PBR and RTX work in-game: material response, height and normal maps, emissives, glass, fog and full Minecraft scenes.');
     setText('.cinema-label', 'Watch Seraphic RTX showcase');
 
     document.querySelectorAll('.visual-tile figcaption').forEach((caption, index) => {
@@ -219,12 +507,13 @@
 
     setText('.platform-callout .section-label', 'Built by our team');
     setText('.platform-callout h3', 'Bedrock Graphics');
-    setText('.platform-callout-copy > p:last-child', 'Bedrock Graphics is a publishing and discovery site we built for Minecraft Bedrock graphics and creator projects. It supports texture and PBR packs, BetterRTX presets, shaders, behavior packs and utilities, with creator profiles, versions, files, galleries, release notes, comments, ratings and download analytics.');
+    setText('.platform-callout-copy > p:last-child', 'Bedrock Graphics is the publishing and discovery site we built for Minecraft Bedrock graphics and creator projects. It gives creators project pages, version files, galleries, release notes, comments, ratings and download analytics, with dedicated categories for texture/PBR packs, BetterRTX presets, shaders, behavior packs and utilities.');
 
     setText('#tooling-title', 'Tools we use and build ourselves');
     setText('.tooling-copy > p:not(.section-label)', 'Our JE2BE converter handles repetitive parts of moving resource packs from Java to Bedrock, including texture mapping, LabPBR-to-MER conversion, texture-set generation and RTX checks.');
 
     setText('#team-title', 'Who works on what');
+    setText('.team-grid .person-card:first-child dl div:first-child dd', '6M+ CurseForge downloads');
 
     setText('#direction-title', 'What we want to make for Marketplace');
     setText('.direction-intro', 'We want to keep making the kind of Minecraft work we already enjoy: useful Bedrock add-ons, complete visual packs, and projects where the gameplay and graphics are built together.');
@@ -252,7 +541,11 @@
     setText('.contact-copy > p:last-child', 'We’re looking for a publisher we can work with long term. We’re comfortable with review and revisions, want to learn the Marketplace process properly, and want to keep supporting our releases after they go live.');
   }
 
+  addEvidenceStyles();
   rewritePortfolioCopy();
+  replaceBuildEchoDemo();
+  addPublicReleaseEvidence();
+  addProjectContext();
   addMinecraftCSSCredit();
   addSeraphicPBRProof();
 
