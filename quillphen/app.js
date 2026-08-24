@@ -88,10 +88,247 @@
     if (element) element.innerHTML = html;
   }
 
+  function addPortfolioPolishStyles() {
+    if (document.getElementById('portfolio-polish')) return;
+
+    const style = document.createElement('style');
+    style.id = 'portfolio-polish';
+    style.textContent = `
+      .hero-kicker {
+        width: fit-content;
+        letter-spacing: .1em;
+      }
+
+      .bg-showcase {
+        position: relative;
+        display: grid;
+        grid-template-columns: minmax(0, .86fr) minmax(430px, 1.14fr);
+        gap: clamp(38px, 6vw, 92px);
+        align-items: center;
+        margin-top: 1px;
+        padding: clamp(44px, 7vw, 94px);
+        overflow: hidden;
+        color: #f5f5ee;
+        background:
+          radial-gradient(circle at 85% 18%, rgba(89, 220, 255, .18), transparent 28%),
+          radial-gradient(circle at 16% 83%, rgba(123, 228, 97, .12), transparent 31%),
+          linear-gradient(135deg, #0b1112 0%, #0d1718 48%, #101315 100%);
+        border: 1px solid rgba(255,255,255,.12);
+        isolation: isolate;
+      }
+
+      .bg-showcase::before {
+        content: '';
+        position: absolute;
+        z-index: -1;
+        inset: 0;
+        opacity: .22;
+        background-image:
+          linear-gradient(rgba(255,255,255,.055) 1px, transparent 1px),
+          linear-gradient(90deg, rgba(255,255,255,.055) 1px, transparent 1px);
+        background-size: 34px 34px;
+        mask-image: linear-gradient(90deg, transparent, #000 36%, #000);
+      }
+
+      .bg-copy { max-width: 680px; }
+      .bg-eyebrow {
+        display: inline-flex;
+        align-items: center;
+        gap: 9px;
+        color: #8feeff;
+        font-family: var(--mono);
+        font-size: .68rem;
+        font-weight: 600;
+        letter-spacing: .1em;
+        text-transform: uppercase;
+      }
+      .bg-eyebrow::before {
+        content: '';
+        width: 8px;
+        height: 8px;
+        background: #7de35f;
+        box-shadow: 0 0 0 5px rgba(125,227,95,.12);
+      }
+      .bg-copy h3 {
+        margin-top: 18px;
+        font-size: clamp(3.2rem, 6.2vw, 6.8rem);
+        line-height: .9;
+        letter-spacing: -.07em;
+      }
+      .bg-copy > p {
+        max-width: 650px;
+        margin-top: 26px;
+        color: rgba(245,245,238,.68);
+        font-size: 1.02rem;
+        line-height: 1.72;
+      }
+      .bg-points {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        margin-top: 30px;
+      }
+      .bg-points span {
+        padding: 8px 10px;
+        color: rgba(245,245,238,.72);
+        background: rgba(255,255,255,.05);
+        border: 1px solid rgba(255,255,255,.13);
+        font-family: var(--mono);
+        font-size: .61rem;
+        letter-spacing: .05em;
+        text-transform: uppercase;
+      }
+      .bg-actions {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        gap: 22px;
+        margin-top: 34px;
+      }
+
+      .bg-browser {
+        position: relative;
+        overflow: hidden;
+        background: #0a0c0e;
+        border: 1px solid rgba(255,255,255,.2);
+        box-shadow: 22px 26px 0 rgba(69,180,200,.08), 0 38px 100px rgba(0,0,0,.45);
+        transform: rotate(.6deg);
+      }
+      .bg-browser-bar {
+        min-height: 48px;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        padding: 0 16px;
+        background: #171b1d;
+        border-bottom: 1px solid rgba(255,255,255,.11);
+      }
+      .bg-browser-dot { width: 8px; height: 8px; border-radius: 50%; background: rgba(255,255,255,.34); }
+      .bg-browser-url {
+        flex: 1;
+        margin-left: 7px;
+        padding: 7px 10px;
+        color: rgba(255,255,255,.52);
+        background: #0e1112;
+        border: 1px solid rgba(255,255,255,.1);
+        font-family: var(--mono);
+        font-size: .58rem;
+      }
+      .bg-screen {
+        padding: clamp(24px, 3vw, 38px);
+        background:
+          radial-gradient(circle at 76% 12%, rgba(92,220,250,.12), transparent 27%),
+          linear-gradient(180deg, #101719, #0b0f10 65%);
+      }
+      .bg-screen-top {
+        display: flex;
+        justify-content: space-between;
+        gap: 20px;
+        align-items: start;
+      }
+      .bg-wordmark {
+        color: #fff;
+        font-size: clamp(1.3rem, 2vw, 2rem);
+        font-weight: 800;
+        letter-spacing: -.04em;
+      }
+      .bg-screen-tag {
+        color: #8feeff;
+        font-family: var(--mono);
+        font-size: .56rem;
+        letter-spacing: .08em;
+        text-transform: uppercase;
+      }
+      .bg-screen h4 {
+        max-width: 560px;
+        margin-top: 44px;
+        color: #fff;
+        font-size: clamp(1.9rem, 3.2vw, 3.6rem);
+        line-height: .98;
+        letter-spacing: -.05em;
+      }
+      .bg-screen > p {
+        max-width: 520px;
+        margin-top: 16px;
+        color: rgba(255,255,255,.58);
+        font-size: .87rem;
+        line-height: 1.6;
+      }
+      .bg-categories {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 8px;
+        margin-top: 30px;
+      }
+      .bg-category {
+        min-height: 74px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        padding: 13px;
+        background: rgba(255,255,255,.045);
+        border: 1px solid rgba(255,255,255,.11);
+      }
+      .bg-category b { color: #fff; font-size: .72rem; }
+      .bg-category small { color: rgba(255,255,255,.42); font-family: var(--mono); font-size: .5rem; text-transform: uppercase; }
+      .bg-studio-row {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 1px;
+        margin-top: 24px;
+        background: rgba(255,255,255,.12);
+        border: 1px solid rgba(255,255,255,.12);
+      }
+      .bg-studio-row span {
+        padding: 13px 10px;
+        color: rgba(255,255,255,.68);
+        background: #101516;
+        font-family: var(--mono);
+        font-size: .52rem;
+        text-align: center;
+        text-transform: uppercase;
+      }
+
+      .minecraft-css-note {
+        margin-top: 34px;
+        padding: 18px 20px;
+        color: rgba(11,13,12,.72);
+        background: rgba(255,255,255,.42);
+        border-left: 4px solid var(--green-dark);
+        font-size: .86rem;
+        line-height: 1.6;
+      }
+      .minecraft-css-note strong { color: var(--ink); }
+      .minecraft-css-note a {
+        color: var(--green-dark);
+        font-family: var(--mono);
+        font-size: .78rem;
+        font-weight: 600;
+        text-decoration: underline;
+        text-underline-offset: 3px;
+      }
+
+      @media (max-width: 1000px) {
+        .bg-showcase { grid-template-columns: 1fr; }
+        .bg-browser { max-width: 820px; transform: none; }
+      }
+      @media (max-width: 620px) {
+        .bg-showcase { padding: 30px 20px; }
+        .bg-categories { grid-template-columns: 1fr 1fr; }
+        .bg-studio-row { grid-template-columns: 1fr 1fr; }
+        .bg-actions { align-items: stretch; flex-direction: column; }
+        .bg-actions .pixel-button, .bg-actions .text-button { width: 100%; justify-content: center; }
+      }
+    `;
+    document.head.appendChild(style);
+  }
+
   function rewritePortfolioCopy() {
+    setHTML('.hero-kicker', '<span class="status-light"></span>QuillPhen + Seraphic');
+
     setText('#hero-title span', 'Minecraft Add-Ons,');
     setText('#hero-title em', 'PBR packs & creator tools.');
-    setText('.hero-intro', 'We are two brothers who have been building and publishing Minecraft projects for years. QuillPhen focuses on gameplay and add-ons; 0x4a4b focuses on PBR/RTX visuals, textures and Bedrock graphics tools.');
+    setText('.hero-intro', 'We’re brothers who make Minecraft projects together. QuillPhen handles add-ons and gameplay; 0x4a4b handles Seraphic’s PBR/RTX visuals, texture work and graphics tools.');
 
     const combinedDownloads = document.querySelector('.hero-proof > div:first-child strong');
     if (combinedDownloads) {
@@ -101,24 +338,34 @@
       combinedDownloads.textContent = '11M+';
     }
     setText('.hero-proof > div:first-child span', 'combined downloads');
+    setText('.hero-proof > div:nth-child(4) span', 'projects across both editions');
 
-    setText('#statement-title', 'We work on different parts of the same Minecraft experience.');
-    setText('.statement-copy', 'QuillPhen handles gameplay systems, scripting, testing, releases and player support. 0x4a4b handles PBR materials, textures, visual technology and presentation. When a project needs both, we build it together.');
+    setText('#statement-title', 'We each handle the part we’re best at.');
+    setText('.statement-copy', 'QuillPhen builds the gameplay systems and handles testing, releases and player support. 0x4a4b builds the visual side: PBR materials, textures, RTX work and presentation. When a project needs both, we work on it together.');
 
     setText('.case-ore .case-eyebrow', 'Bedrock Add-On · QuillPhen');
     setText('.case-ore .case-lede', 'Ore Vein Miner lets players mine connected ores by crouching and breaking one block. It keeps familiar enchantment behavior and includes limits and configuration so it fits normal survival play.');
-    setHTML('.case-ore .media-caption', '<span>Gameplay preview</span> Mining a connected ore vein.');
+    setHTML('.case-ore .media-caption', '<span>Gameplay</span> Mining a connected ore vein.');
 
     setText('.case-echo .case-eyebrow', 'Bedrock Add-On · QuillPhen');
     setText('.case-echo .case-lede', 'Build Echo remembers blocks lost to explosions and leaves a holographic guide showing what used to be there. Players can gather the materials and restore the build instead of guessing or rolling back the whole area.');
-    setHTML('.case-echo .media-caption', '<span>Gameplay preview</span> Holographic blocks mark what was destroyed.');
+    setHTML('.case-echo .media-caption', '<span>Gameplay</span> Holographic blocks show what was destroyed.');
 
     setText('.visual-heading h2', 'Seraphic RTX & PBR');
-    setText('.visual-heading > p:last-child', '0x4a4b has spent years working on Minecraft Bedrock PBR materials and RTX visuals, including height and normal maps, emissive textures, glass, fog and material response. The videos and screenshots below are from that work.');
+    setText('.visual-heading > p:last-child', '0x4a4b has spent years working on Bedrock PBR materials and RTX visuals: height and normal maps, emissives, glass, fog and material response. These are real screenshots and videos from that work.');
     setText('.cinema-label', 'Watch Seraphic RTX showcase');
 
+    document.querySelectorAll('.visual-tile figcaption').forEach((caption, index) => {
+      const captions = [
+        'PBR materials and surface detail in-game.',
+        'Emissive ore textures in a dark cave.',
+        'Normal maps adding depth to vanilla blocks.'
+      ];
+      if (captions[index]) caption.textContent = captions[index];
+    });
+
     setText('.catalogue-heading h2', 'More released projects');
-    setText('.catalogue-heading > p:last-child', 'A few smaller releases that show the range of what we build, publish and continue to maintain.');
+    setText('.catalogue-heading > p:last-child', 'A few other projects we’ve released and still maintain.');
 
     const productDescriptions = [...document.querySelectorAll('.product-card')];
     productDescriptions.forEach((card) => {
@@ -131,17 +378,13 @@
       if (title === 'Seraphic RTX Normals') copy.textContent = 'Adds normal-map depth across vanilla textures to improve surface detail under RTX/PBR lighting.';
     });
 
-    setText('.platform-callout .section-label', 'Built by our team');
-    setText('.platform-callout h3', 'Bedrock Graphics');
-    setText('.platform-callout-copy > p:last-child', 'Bedrock Graphics is a Minecraft Bedrock publishing hub we built for graphics-focused creators and players. Creators can make profiles, publish and version packs, upload files and galleries, write release notes, manage project links, receive comments and ratings, and track downloads and project analytics. It covers texture and PBR packs, BetterRTX presets, shaders, behaviour packs and creator utilities.');
-
-    setText('#tooling-title', 'Tools we built for our own workflow');
+    setText('#tooling-title', 'Tools we use and build ourselves');
     setText('.tooling-copy > p:not(.section-label)', 'Our JE2BE converter handles repetitive parts of moving resource packs from Java to Bedrock, including texture mapping, LabPBR-to-MER conversion, texture-set generation and RTX checks.');
 
     setText('#team-title', 'Who works on what');
 
-    setText('#direction-title', 'What we want to build for Marketplace');
-    setText('.direction-intro', 'We want to keep making the same kinds of projects we already enjoy building, but at Marketplace scale: useful Bedrock add-ons, complete visual packs and projects where gameplay and graphics are designed together.');
+    setText('#direction-title', 'What we want to make for Marketplace');
+    setText('.direction-intro', 'We want to keep making the kind of Minecraft work we already enjoy: useful Bedrock add-ons, complete visual packs, and projects where the gameplay and graphics are built together.');
 
     const directionItems = [...document.querySelectorAll('.direction-item')];
     directionItems.forEach((item, index) => {
@@ -149,24 +392,93 @@
       const copy = item.querySelector('p');
       if (!heading || !copy) return;
       if (index === 0) {
-        heading.textContent = 'Add-Ons for real worlds';
-        copy.textContent = 'Useful mechanics that work cleanly in existing survival worlds, with sensible configuration and multiplayer support.';
+        heading.textContent = 'Useful Add-Ons';
+        copy.textContent = 'Gameplay ideas that work cleanly in normal survival worlds, including multiplayer and sensible configuration.';
       }
       if (index === 1) {
-        heading.textContent = 'Complete visual packs';
-        copy.textContent = 'Consistent PBR and texture work across the game rather than one-off showcase assets.';
+        heading.textContent = 'PBR & texture packs';
+        copy.textContent = 'Complete visual packs with consistent materials across the game, not just a few showcase textures.';
       }
       if (index === 2) {
-        heading.textContent = 'Gameplay + visuals';
-        copy.textContent = 'Projects where the mechanic and the art direction are planned together from the start.';
+        heading.textContent = 'Projects we build together';
+        copy.textContent = 'Content where QuillPhen’s gameplay work and Seraphic’s visual work are designed as one project from the start.';
       }
     });
 
-    setText('#contact-title', 'We are looking for a long-term Marketplace publishing partner.');
-    setText('.contact-copy > p:last-child', 'We want to publish original Add-Ons and texture packs, learn the Marketplace production process properly, and keep supporting the products after release.');
+    setText('#contact-title', 'We’d like to publish on Minecraft Marketplace.');
+    setText('.contact-copy > p:last-child', 'We’re looking for a publisher we can work with long term, learn the Marketplace process from, and keep making and supporting good Minecraft projects with.');
   }
 
+  function enhanceBedrockGraphics() {
+    const callout = document.querySelector('.platform-callout');
+    if (!callout) return;
+
+    callout.className = 'bg-showcase reveal';
+    callout.setAttribute('aria-label', 'Bedrock Graphics publishing platform');
+    callout.innerHTML = `
+      <div class="bg-copy">
+        <div class="bg-eyebrow">Built and run by our team</div>
+        <h3>Bedrock Graphics</h3>
+        <p>Bedrock Graphics is our site for Minecraft Bedrock graphics and creator projects. People can browse texture and PBR packs, RTX content, BetterRTX presets and utilities, while creators get proper project pages, version files, galleries, release notes, comments, moderation and download analytics.</p>
+        <div class="bg-points" aria-label="Bedrock Graphics features">
+          <span>Creator Studio</span>
+          <span>Project versions</span>
+          <span>File & gallery uploads</span>
+          <span>Analytics</span>
+          <span>Comments & ratings</span>
+          <span>Moderation tools</span>
+        </div>
+        <div class="bg-actions">
+          <a class="pixel-button" href="https://bedrockgraphics.com/" target="_blank" rel="noreferrer">Open Bedrock Graphics <span aria-hidden="true">↗</span></a>
+          <a class="text-button text-button-light" href="https://bedrockgraphics.com/texture-packs/seraphic-rtx" target="_blank" rel="noreferrer">See Seraphic RTX there <span aria-hidden="true">↗</span></a>
+        </div>
+      </div>
+
+      <a class="bg-browser" href="https://bedrockgraphics.com/" target="_blank" rel="noreferrer" aria-label="Visit Bedrock Graphics">
+        <div class="bg-browser-bar" aria-hidden="true">
+          <i class="bg-browser-dot"></i><i class="bg-browser-dot"></i><i class="bg-browser-dot"></i>
+          <span class="bg-browser-url">bedrockgraphics.com</span>
+        </div>
+        <div class="bg-screen">
+          <div class="bg-screen-top">
+            <strong class="bg-wordmark">Bedrock Graphics</strong>
+            <span class="bg-screen-tag">Creator platform</span>
+          </div>
+          <h4>Discover and publish Bedrock graphics.</h4>
+          <p>Texture packs, PBR, Vibrant Visuals, RTX, BetterRTX presets and creator utilities.</p>
+          <div class="bg-categories" aria-hidden="true">
+            <div class="bg-category"><b>Texture Packs</b><small>Browse</small></div>
+            <div class="bg-category"><b>RTX / PBR</b><small>Graphics</small></div>
+            <div class="bg-category"><b>Vibrant Visuals</b><small>Bedrock</small></div>
+            <div class="bg-category"><b>BetterRTX</b><small>Presets</small></div>
+            <div class="bg-category"><b>Utilities</b><small>Creator tools</small></div>
+            <div class="bg-category"><b>Creator Studio</b><small>Publish</small></div>
+          </div>
+          <div class="bg-studio-row" aria-hidden="true">
+            <span>Drafts</span><span>Versions</span><span>Analytics</span><span>Moderation</span>
+          </div>
+        </div>
+      </a>
+    `;
+  }
+
+  function addMinecraftCSSCredit() {
+    const toolingCopy = document.querySelector('.tooling-copy');
+    if (!toolingCopy || toolingCopy.querySelector('.minecraft-css-note')) return;
+
+    const note = document.createElement('p');
+    note.className = 'minecraft-css-note';
+    note.innerHTML = '<strong>This portfolio also uses design ideas from Minecraft-CSS</strong>, a Minecraft UI-themed CSS framework built by 0x4a4b. <a href="https://github.com/Jiyath5516F/Minecraft-CSS" target="_blank" rel="noreferrer">View Minecraft-CSS ↗</a>';
+
+    const projectLink = toolingCopy.querySelector('.project-link');
+    if (projectLink) toolingCopy.insertBefore(note, projectLink);
+    else toolingCopy.appendChild(note);
+  }
+
+  addPortfolioPolishStyles();
   rewritePortfolioCopy();
+  enhanceBedrockGraphics();
+  addMinecraftCSSCredit();
 
   function showToast(message) {
     if (!toast) return;
@@ -210,9 +522,9 @@
       });
     }, { threshold: 0.12, rootMargin: '0px 0px -7% 0px' });
 
-    revealElements.forEach((element) => revealObserver.observe(element));
+    [...document.querySelectorAll('.reveal')].forEach((element) => revealObserver.observe(element));
   } else {
-    revealElements.forEach((element) => element.classList.add('is-visible'));
+    [...document.querySelectorAll('.reveal')].forEach((element) => element.classList.add('is-visible'));
   }
 
   function formatCount(value, decimals) {
