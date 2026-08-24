@@ -160,7 +160,7 @@
 
     const proof = document.createElement('p');
     proof.className = 'seraphic-pbr-proof reveal';
-    proof.innerHTML = 'Seraphic PBR is also released on <a href="https://modrinth.com/project/seraphic-pbr" target="_blank" rel="noreferrer">Modrinth</a>, with 32K+ downloads and LabPBR support including AO, POM, entity PBR and emissive entities.';
+    proof.innerHTML = 'Additional PBR work: <a href="https://modrinth.com/resourcepack/seraphic-pbr" target="_blank" rel="noreferrer">Seraphic PBR for Java Edition</a> has 86K+ Modrinth downloads and includes LabPBR, AO, POM, entity PBR and emissive entities.';
     heading.appendChild(proof);
   }
 
