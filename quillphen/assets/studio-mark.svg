@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-labelledby="title desc">
+  <title id="title">Seraphic Studio mark</title>
+  <desc id="desc">An original geometric mark combining a feather-like diagonal with a luminous block.</desc>
+  <rect width="64" height="64" rx="4" fill="#0b0d0c"/>
+  <path fill="#9adf78" d="M12 44h8V28h8V20h8V12h16v16h-8v8h-8v8h-8v8H12z"/>
+  <path fill="#f0f3e8" d="M20 44h8v-8h8v-8h8v-8h8v8h-8v8h-8v8h-8v8h-8z"/>
+  <rect x="40" y="12" width="12" height="12" fill="#ff3d9a"/>
+  <rect x="44" y="16" width="4" height="4" fill="#fff"/>
+</svg>
