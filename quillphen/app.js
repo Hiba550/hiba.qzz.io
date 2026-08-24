@@ -93,6 +93,15 @@
     setText('#hero-title em', 'PBR packs & creator tools.');
     setText('.hero-intro', 'We are two brothers who have been building and publishing Minecraft projects for years. QuillPhen focuses on gameplay and add-ons; 0x4a4b focuses on PBR/RTX visuals, textures and Bedrock graphics tools.');
 
+    const combinedDownloads = document.querySelector('.hero-proof > div:first-child strong');
+    if (combinedDownloads) {
+      combinedDownloads.dataset.count = '11';
+      combinedDownloads.dataset.decimals = '0';
+      combinedDownloads.dataset.suffix = 'M+';
+      combinedDownloads.textContent = '11M+';
+    }
+    setText('.hero-proof > div:first-child span', 'combined downloads');
+
     setText('#statement-title', 'We work on different parts of the same Minecraft experience.');
     setText('.statement-copy', 'QuillPhen handles gameplay systems, scripting, testing, releases and player support. 0x4a4b handles PBR materials, textures, visual technology and presentation. When a project needs both, we build it together.');
 
