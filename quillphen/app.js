@@ -6,8 +6,6 @@
   const header = document.querySelector('[data-header]');
   const progressBar = document.querySelector('[data-scroll-progress]');
   const heroMedia = document.querySelector('[data-hero-media]');
-  const revealElements = [...document.querySelectorAll('.reveal')];
-  const navLinks = [...document.querySelectorAll('[data-nav]')];
   const toast = document.querySelector('[data-toast]');
   let toastTimer = 0;
   let ticking = false;
@@ -32,8 +30,8 @@
     headerLogo.style.objectFit = 'contain';
   }
 
-  const brandCopy = document.querySelector('.brand-copy strong');
-  if (brandCopy) brandCopy.style.display = 'none';
+  const brandTitle = document.querySelector('.brand-copy strong');
+  if (brandTitle) brandTitle.style.display = 'none';
 
   const footerBrand = document.querySelector('.footer-brand');
   const footerLogo = footerBrand?.querySelector('img');
@@ -47,8 +45,12 @@
     footerLogo.style.maxHeight = '36px';
     footerLogo.style.objectFit = 'contain';
   }
+
   const footerBrandText = footerBrand?.querySelector('span');
   if (footerBrandText) footerBrandText.style.display = 'none';
+
+  const heroKicker = document.querySelector('.hero-kicker');
+  if (heroKicker) heroKicker.remove();
 
   const seraphicCard = [...document.querySelectorAll('.person-card')]
     .find((card) => card.textContent.includes('0x4a4b / Seraphic'));
@@ -62,7 +64,8 @@
       const row = document.createElement('div');
       row.dataset.seraphicDiscord = 'true';
       row.innerHTML = '<dt>Discord</dt><dd>0x4a4b</dd>';
-      const focusRow = [...details.children].find((item) => item.querySelector('dt')?.textContent.trim() === 'Focus');
+      const focusRow = [...details.children]
+        .find((item) => item.querySelector('dt')?.textContent.trim() === 'Focus');
       if (focusRow) details.insertBefore(row, focusRow);
       else details.appendChild(row);
     }
@@ -88,207 +91,12 @@
     if (element) element.innerHTML = html;
   }
 
-  function addPortfolioPolishStyles() {
-    if (document.getElementById('portfolio-polish')) return;
+  function addMinecraftCSSCredit() {
+    const toolingCopy = document.querySelector('.tooling-copy');
+    if (!toolingCopy || toolingCopy.querySelector('.minecraft-css-note')) return;
 
     const style = document.createElement('style');
-    style.id = 'portfolio-polish';
     style.textContent = `
-      .hero-kicker {
-        width: fit-content;
-        letter-spacing: .1em;
-      }
-
-      .bg-showcase {
-        position: relative;
-        display: grid;
-        grid-template-columns: minmax(0, .86fr) minmax(430px, 1.14fr);
-        gap: clamp(38px, 6vw, 92px);
-        align-items: center;
-        margin-top: 1px;
-        padding: clamp(44px, 7vw, 94px);
-        overflow: hidden;
-        color: #f5f5ee;
-        background:
-          radial-gradient(circle at 85% 18%, rgba(89, 220, 255, .18), transparent 28%),
-          radial-gradient(circle at 16% 83%, rgba(123, 228, 97, .12), transparent 31%),
-          linear-gradient(135deg, #0b1112 0%, #0d1718 48%, #101315 100%);
-        border: 1px solid rgba(255,255,255,.12);
-        isolation: isolate;
-      }
-
-      .bg-showcase::before {
-        content: '';
-        position: absolute;
-        z-index: -1;
-        inset: 0;
-        opacity: .22;
-        background-image:
-          linear-gradient(rgba(255,255,255,.055) 1px, transparent 1px),
-          linear-gradient(90deg, rgba(255,255,255,.055) 1px, transparent 1px);
-        background-size: 34px 34px;
-        mask-image: linear-gradient(90deg, transparent, #000 36%, #000);
-      }
-
-      .bg-copy { max-width: 680px; }
-      .bg-eyebrow {
-        display: inline-flex;
-        align-items: center;
-        gap: 9px;
-        color: #8feeff;
-        font-family: var(--mono);
-        font-size: .68rem;
-        font-weight: 600;
-        letter-spacing: .1em;
-        text-transform: uppercase;
-      }
-      .bg-eyebrow::before {
-        content: '';
-        width: 8px;
-        height: 8px;
-        background: #7de35f;
-        box-shadow: 0 0 0 5px rgba(125,227,95,.12);
-      }
-      .bg-copy h3 {
-        margin-top: 18px;
-        font-size: clamp(3.2rem, 6.2vw, 6.8rem);
-        line-height: .9;
-        letter-spacing: -.07em;
-      }
-      .bg-copy > p {
-        max-width: 650px;
-        margin-top: 26px;
-        color: rgba(245,245,238,.68);
-        font-size: 1.02rem;
-        line-height: 1.72;
-      }
-      .bg-points {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 8px;
-        margin-top: 30px;
-      }
-      .bg-points span {
-        padding: 8px 10px;
-        color: rgba(245,245,238,.72);
-        background: rgba(255,255,255,.05);
-        border: 1px solid rgba(255,255,255,.13);
-        font-family: var(--mono);
-        font-size: .61rem;
-        letter-spacing: .05em;
-        text-transform: uppercase;
-      }
-      .bg-actions {
-        display: flex;
-        flex-wrap: wrap;
-        align-items: center;
-        gap: 22px;
-        margin-top: 34px;
-      }
-
-      .bg-browser {
-        position: relative;
-        overflow: hidden;
-        background: #0a0c0e;
-        border: 1px solid rgba(255,255,255,.2);
-        box-shadow: 22px 26px 0 rgba(69,180,200,.08), 0 38px 100px rgba(0,0,0,.45);
-        transform: rotate(.6deg);
-      }
-      .bg-browser-bar {
-        min-height: 48px;
-        display: flex;
-        align-items: center;
-        gap: 8px;
-        padding: 0 16px;
-        background: #171b1d;
-        border-bottom: 1px solid rgba(255,255,255,.11);
-      }
-      .bg-browser-dot { width: 8px; height: 8px; border-radius: 50%; background: rgba(255,255,255,.34); }
-      .bg-browser-url {
-        flex: 1;
-        margin-left: 7px;
-        padding: 7px 10px;
-        color: rgba(255,255,255,.52);
-        background: #0e1112;
-        border: 1px solid rgba(255,255,255,.1);
-        font-family: var(--mono);
-        font-size: .58rem;
-      }
-      .bg-screen {
-        padding: clamp(24px, 3vw, 38px);
-        background:
-          radial-gradient(circle at 76% 12%, rgba(92,220,250,.12), transparent 27%),
-          linear-gradient(180deg, #101719, #0b0f10 65%);
-      }
-      .bg-screen-top {
-        display: flex;
-        justify-content: space-between;
-        gap: 20px;
-        align-items: start;
-      }
-      .bg-wordmark {
-        color: #fff;
-        font-size: clamp(1.3rem, 2vw, 2rem);
-        font-weight: 800;
-        letter-spacing: -.04em;
-      }
-      .bg-screen-tag {
-        color: #8feeff;
-        font-family: var(--mono);
-        font-size: .56rem;
-        letter-spacing: .08em;
-        text-transform: uppercase;
-      }
-      .bg-screen h4 {
-        max-width: 560px;
-        margin-top: 44px;
-        color: #fff;
-        font-size: clamp(1.9rem, 3.2vw, 3.6rem);
-        line-height: .98;
-        letter-spacing: -.05em;
-      }
-      .bg-screen > p {
-        max-width: 520px;
-        margin-top: 16px;
-        color: rgba(255,255,255,.58);
-        font-size: .87rem;
-        line-height: 1.6;
-      }
-      .bg-categories {
-        display: grid;
-        grid-template-columns: repeat(3, minmax(0, 1fr));
-        gap: 8px;
-        margin-top: 30px;
-      }
-      .bg-category {
-        min-height: 74px;
-        display: flex;
-        flex-direction: column;
-        justify-content: space-between;
-        padding: 13px;
-        background: rgba(255,255,255,.045);
-        border: 1px solid rgba(255,255,255,.11);
-      }
-      .bg-category b { color: #fff; font-size: .72rem; }
-      .bg-category small { color: rgba(255,255,255,.42); font-family: var(--mono); font-size: .5rem; text-transform: uppercase; }
-      .bg-studio-row {
-        display: grid;
-        grid-template-columns: repeat(4, 1fr);
-        gap: 1px;
-        margin-top: 24px;
-        background: rgba(255,255,255,.12);
-        border: 1px solid rgba(255,255,255,.12);
-      }
-      .bg-studio-row span {
-        padding: 13px 10px;
-        color: rgba(255,255,255,.68);
-        background: #101516;
-        font-family: var(--mono);
-        font-size: .52rem;
-        text-align: center;
-        text-transform: uppercase;
-      }
-
       .minecraft-css-note {
         margin-top: 34px;
         padding: 18px 20px;
@@ -307,25 +115,19 @@
         text-decoration: underline;
         text-underline-offset: 3px;
       }
-
-      @media (max-width: 1000px) {
-        .bg-showcase { grid-template-columns: 1fr; }
-        .bg-browser { max-width: 820px; transform: none; }
-      }
-      @media (max-width: 620px) {
-        .bg-showcase { padding: 30px 20px; }
-        .bg-categories { grid-template-columns: 1fr 1fr; }
-        .bg-studio-row { grid-template-columns: 1fr 1fr; }
-        .bg-actions { align-items: stretch; flex-direction: column; }
-        .bg-actions .pixel-button, .bg-actions .text-button { width: 100%; justify-content: center; }
-      }
     `;
     document.head.appendChild(style);
+
+    const note = document.createElement('p');
+    note.className = 'minecraft-css-note';
+    note.innerHTML = '<strong>Minecraft-CSS is also part of 0x4a4b’s work.</strong> This portfolio uses ideas from his Minecraft UI-themed CSS framework. <a href="https://github.com/Jiyath5516F/Minecraft-CSS" target="_blank" rel="noreferrer">View Minecraft-CSS ↗</a>';
+
+    const projectLink = toolingCopy.querySelector('.project-link');
+    if (projectLink) toolingCopy.insertBefore(note, projectLink);
+    else toolingCopy.appendChild(note);
   }
 
   function rewritePortfolioCopy() {
-    setHTML('.hero-kicker', '<span class="status-light"></span>QuillPhen + Seraphic');
-
     setText('#hero-title span', 'Minecraft Add-Ons,');
     setText('#hero-title em', 'PBR packs & creator tools.');
     setText('.hero-intro', 'We’re brothers who make Minecraft projects together. QuillPhen handles add-ons and gameplay; 0x4a4b handles Seraphic’s PBR/RTX visuals, texture work and graphics tools.');
@@ -338,7 +140,7 @@
       combinedDownloads.textContent = '11M+';
     }
     setText('.hero-proof > div:first-child span', 'combined downloads');
-    setText('.hero-proof > div:nth-child(4) span', 'projects across both editions');
+    setText('.hero-proof > div:nth-child(4) span', 'projects on both editions');
 
     setText('#statement-title', 'We each handle the part we’re best at.');
     setText('.statement-copy', 'QuillPhen builds the gameplay systems and handles testing, releases and player support. 0x4a4b builds the visual side: PBR materials, textures, RTX work and presentation. When a project needs both, we work on it together.');
@@ -378,6 +180,10 @@
       if (title === 'Seraphic RTX Normals') copy.textContent = 'Adds normal-map depth across vanilla textures to improve surface detail under RTX/PBR lighting.';
     });
 
+    setText('.platform-callout .section-label', 'Built by our team');
+    setText('.platform-callout h3', 'Bedrock Graphics');
+    setText('.platform-callout-copy > p:last-child', 'Bedrock Graphics is a publishing and discovery site we built for Minecraft Bedrock graphics and creator projects. It supports texture and PBR packs, BetterRTX presets, shaders, behavior packs and utilities, with creator profiles, versions, files, galleries, release notes, comments, ratings and download analytics.');
+
     setText('#tooling-title', 'Tools we use and build ourselves');
     setText('.tooling-copy > p:not(.section-label)', 'Our JE2BE converter handles repetitive parts of moving resource packs from Java to Bedrock, including texture mapping, LabPBR-to-MER conversion, texture-set generation and RTX checks.');
 
@@ -409,75 +215,7 @@
     setText('.contact-copy > p:last-child', 'We’re looking for a publisher we can work with long term, learn the Marketplace process from, and keep making and supporting good Minecraft projects with.');
   }
 
-  function enhanceBedrockGraphics() {
-    const callout = document.querySelector('.platform-callout');
-    if (!callout) return;
-
-    callout.className = 'bg-showcase reveal';
-    callout.setAttribute('aria-label', 'Bedrock Graphics publishing platform');
-    callout.innerHTML = `
-      <div class="bg-copy">
-        <div class="bg-eyebrow">Built and run by our team</div>
-        <h3>Bedrock Graphics</h3>
-        <p>Bedrock Graphics is our site for Minecraft Bedrock graphics and creator projects. People can browse texture and PBR packs, RTX content, BetterRTX presets and utilities, while creators get proper project pages, version files, galleries, release notes, comments, moderation and download analytics.</p>
-        <div class="bg-points" aria-label="Bedrock Graphics features">
-          <span>Creator Studio</span>
-          <span>Project versions</span>
-          <span>File & gallery uploads</span>
-          <span>Analytics</span>
-          <span>Comments & ratings</span>
-          <span>Moderation tools</span>
-        </div>
-        <div class="bg-actions">
-          <a class="pixel-button" href="https://bedrockgraphics.com/" target="_blank" rel="noreferrer">Open Bedrock Graphics <span aria-hidden="true">↗</span></a>
-          <a class="text-button text-button-light" href="https://bedrockgraphics.com/texture-packs/seraphic-rtx" target="_blank" rel="noreferrer">See Seraphic RTX there <span aria-hidden="true">↗</span></a>
-        </div>
-      </div>
-
-      <a class="bg-browser" href="https://bedrockgraphics.com/" target="_blank" rel="noreferrer" aria-label="Visit Bedrock Graphics">
-        <div class="bg-browser-bar" aria-hidden="true">
-          <i class="bg-browser-dot"></i><i class="bg-browser-dot"></i><i class="bg-browser-dot"></i>
-          <span class="bg-browser-url">bedrockgraphics.com</span>
-        </div>
-        <div class="bg-screen">
-          <div class="bg-screen-top">
-            <strong class="bg-wordmark">Bedrock Graphics</strong>
-            <span class="bg-screen-tag">Creator platform</span>
-          </div>
-          <h4>Discover and publish Bedrock graphics.</h4>
-          <p>Texture packs, PBR, Vibrant Visuals, RTX, BetterRTX presets and creator utilities.</p>
-          <div class="bg-categories" aria-hidden="true">
-            <div class="bg-category"><b>Texture Packs</b><small>Browse</small></div>
-            <div class="bg-category"><b>RTX / PBR</b><small>Graphics</small></div>
-            <div class="bg-category"><b>Vibrant Visuals</b><small>Bedrock</small></div>
-            <div class="bg-category"><b>BetterRTX</b><small>Presets</small></div>
-            <div class="bg-category"><b>Utilities</b><small>Creator tools</small></div>
-            <div class="bg-category"><b>Creator Studio</b><small>Publish</small></div>
-          </div>
-          <div class="bg-studio-row" aria-hidden="true">
-            <span>Drafts</span><span>Versions</span><span>Analytics</span><span>Moderation</span>
-          </div>
-        </div>
-      </a>
-    `;
-  }
-
-  function addMinecraftCSSCredit() {
-    const toolingCopy = document.querySelector('.tooling-copy');
-    if (!toolingCopy || toolingCopy.querySelector('.minecraft-css-note')) return;
-
-    const note = document.createElement('p');
-    note.className = 'minecraft-css-note';
-    note.innerHTML = '<strong>This portfolio also uses design ideas from Minecraft-CSS</strong>, a Minecraft UI-themed CSS framework built by 0x4a4b. <a href="https://github.com/Jiyath5516F/Minecraft-CSS" target="_blank" rel="noreferrer">View Minecraft-CSS ↗</a>';
-
-    const projectLink = toolingCopy.querySelector('.project-link');
-    if (projectLink) toolingCopy.insertBefore(note, projectLink);
-    else toolingCopy.appendChild(note);
-  }
-
-  addPortfolioPolishStyles();
   rewritePortfolioCopy();
-  enhanceBedrockGraphics();
   addMinecraftCSSCredit();
 
   function showToast(message) {
@@ -513,6 +251,7 @@
 
   setScrollState();
 
+  const revealElements = [...document.querySelectorAll('.reveal')];
   if ('IntersectionObserver' in window && !reducedMotion.matches) {
     const revealObserver = new IntersectionObserver((entries) => {
       entries.forEach((entry) => {
@@ -522,9 +261,9 @@
       });
     }, { threshold: 0.12, rootMargin: '0px 0px -7% 0px' });
 
-    [...document.querySelectorAll('.reveal')].forEach((element) => revealObserver.observe(element));
+    revealElements.forEach((element) => revealObserver.observe(element));
   } else {
-    [...document.querySelectorAll('.reveal')].forEach((element) => element.classList.add('is-visible'));
+    revealElements.forEach((element) => element.classList.add('is-visible'));
   }
 
   function formatCount(value, decimals) {
@@ -564,6 +303,7 @@
     counters.forEach((counter) => counterObserver.observe(counter));
   }
 
+  const navLinks = [...document.querySelectorAll('[data-nav]')];
   const sections = navLinks
     .map((link) => document.getElementById(link.dataset.nav))
     .filter(Boolean);
