@@ -12,6 +12,63 @@
   let toastTimer = 0;
   let ticking = false;
 
+  const studioLogo = 'https://raw.githubusercontent.com/Jiyath5516F/Seraphic-RTX/main/assets/img/logo/header-logo.png';
+
+  const headerLogo = document.querySelector('.brand img');
+  if (headerLogo) {
+    headerLogo.src = studioLogo;
+    headerLogo.alt = 'Seraphic Studio';
+    headerLogo.removeAttribute('width');
+    headerLogo.removeAttribute('height');
+    headerLogo.style.width = 'clamp(104px, 10vw, 150px)';
+    headerLogo.style.height = 'auto';
+    headerLogo.style.maxHeight = '42px';
+    headerLogo.style.objectFit = 'contain';
+  }
+
+  const brandCopy = document.querySelector('.brand-copy strong');
+  if (brandCopy) brandCopy.style.display = 'none';
+
+  const footerBrand = document.querySelector('.footer-brand');
+  const footerLogo = footerBrand?.querySelector('img');
+  if (footerLogo) {
+    footerLogo.src = studioLogo;
+    footerLogo.alt = 'Seraphic Studio';
+    footerLogo.removeAttribute('width');
+    footerLogo.removeAttribute('height');
+    footerLogo.style.width = '132px';
+    footerLogo.style.height = 'auto';
+    footerLogo.style.maxHeight = '36px';
+    footerLogo.style.objectFit = 'contain';
+  }
+  const footerBrandText = footerBrand?.querySelector('span');
+  if (footerBrandText) footerBrandText.style.display = 'none';
+
+  const seraphicCard = [...document.querySelectorAll('.person-card')]
+    .find((card) => card.textContent.includes('0x4a4b / Seraphic'));
+
+  if (seraphicCard) {
+    const details = seraphicCard.querySelector('dl');
+    if (details && !details.querySelector('[data-seraphic-discord]')) {
+      const row = document.createElement('div');
+      row.dataset.seraphicDiscord = 'true';
+      row.innerHTML = '<dt>Discord</dt><dd>0x4a4b</dd>';
+      const focusRow = [...details.children].find((item) => item.querySelector('dt')?.textContent.trim() === 'Focus');
+      if (focusRow) details.insertBefore(row, focusRow);
+      else details.appendChild(row);
+    }
+  }
+
+  const contactActions = document.querySelector('.contact-actions');
+  if (contactActions && !contactActions.querySelector('[data-copy="0x4a4b"]')) {
+    const discordButton = document.createElement('button');
+    discordButton.className = 'text-button copy-button';
+    discordButton.type = 'button';
+    discordButton.dataset.copy = '0x4a4b';
+    discordButton.innerHTML = 'Discord: 0x4a4b <span data-copy-label>copy</span>';
+    contactActions.appendChild(discordButton);
+  }
+
   function showToast(message) {
     if (!toast) return;
     window.clearTimeout(toastTimer);
