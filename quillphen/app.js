@@ -69,6 +69,21 @@
       if (focusRow) details.insertBefore(row, focusRow);
       else details.appendChild(row);
     }
+
+    const links = seraphicCard.querySelector('.person-links');
+    if (links && !links.querySelector('[data-seraphic-modrinth]')) {
+      const modrinth = document.createElement('a');
+      modrinth.href = 'https://modrinth.com/user/Ox4a4b';
+      modrinth.target = '_blank';
+      modrinth.rel = 'noreferrer';
+      modrinth.dataset.seraphicModrinth = 'true';
+      modrinth.textContent = 'Modrinth ↗';
+
+      const github = [...links.querySelectorAll('a')]
+        .find((link) => link.textContent.includes('GitHub'));
+      if (github) links.insertBefore(modrinth, github);
+      else links.appendChild(modrinth);
+    }
   }
 
   const contactActions = document.querySelector('.contact-actions');
@@ -115,6 +130,18 @@
         text-decoration: underline;
         text-underline-offset: 3px;
       }
+      .seraphic-pbr-proof {
+        max-width: 820px;
+        margin-top: 16px;
+        color: rgba(242,240,232,.62);
+        font-size: .88rem;
+        line-height: 1.65;
+      }
+      .seraphic-pbr-proof a {
+        color: inherit;
+        text-decoration: underline;
+        text-underline-offset: 3px;
+      }
     `;
     document.head.appendChild(style);
 
@@ -125,6 +152,16 @@
     const projectLink = toolingCopy.querySelector('.project-link');
     if (projectLink) toolingCopy.insertBefore(note, projectLink);
     else toolingCopy.appendChild(note);
+  }
+
+  function addSeraphicPBRProof() {
+    const heading = document.querySelector('.visual-heading');
+    if (!heading || heading.querySelector('.seraphic-pbr-proof')) return;
+
+    const proof = document.createElement('p');
+    proof.className = 'seraphic-pbr-proof reveal';
+    proof.innerHTML = 'Seraphic PBR is also released on <a href="https://modrinth.com/project/seraphic-pbr" target="_blank" rel="noreferrer">Modrinth</a>, with 32K+ downloads and LabPBR support including AO, POM, entity PBR and emissive entities.';
+    heading.appendChild(proof);
   }
 
   function rewritePortfolioCopy() {
@@ -143,7 +180,7 @@
     setText('.hero-proof > div:nth-child(4) span', 'projects on both editions');
 
     setText('#statement-title', 'We each handle the part we’re best at.');
-    setText('.statement-copy', 'QuillPhen builds the gameplay systems and handles testing, releases and player support. 0x4a4b builds the visual side: PBR materials, textures, RTX work and presentation. When a project needs both, we work on it together.');
+    setText('.statement-copy', 'QuillPhen builds the gameplay systems and handles testing, releases and player support. 0x4a4b builds the visual side: PBR materials, textures, RTX work and presentation. We publish our work, keep it updated, and use player feedback to fix rough edges after release.');
 
     setText('.case-ore .case-eyebrow', 'Bedrock Add-On · QuillPhen');
     setText('.case-ore .case-lede', 'Ore Vein Miner lets players mine connected ores by crouching and breaking one block. It keeps familiar enchantment behavior and includes limits and configuration so it fits normal survival play.');
@@ -212,11 +249,12 @@
     });
 
     setText('#contact-title', 'We’d like to publish on Minecraft Marketplace.');
-    setText('.contact-copy > p:last-child', 'We’re looking for a publisher we can work with long term, learn the Marketplace process from, and keep making and supporting good Minecraft projects with.');
+    setText('.contact-copy > p:last-child', 'We’re looking for a publisher we can work with long term. We’re comfortable with review and revisions, want to learn the Marketplace process properly, and want to keep supporting our releases after they go live.');
   }
 
   rewritePortfolioCopy();
   addMinecraftCSSCredit();
+  addSeraphicPBRProof();
 
   function showToast(message) {
     if (!toast) return;
