@@ -60,14 +60,21 @@
     if (mark) mark.textContent = '0x';
 
     const details = seraphicCard.querySelector('dl');
-    if (details && !details.querySelector('[data-seraphic-discord]')) {
-      const row = document.createElement('div');
-      row.dataset.seraphicDiscord = 'true';
-      row.innerHTML = '<dt>Discord</dt><dd>0x4a4b</dd>';
-      const focusRow = [...details.children]
-        .find((item) => item.querySelector('dt')?.textContent.trim() === 'Focus');
-      if (focusRow) details.insertBefore(row, focusRow);
-      else details.appendChild(row);
+    if (details) {
+      const trackRow = [...details.children]
+        .find((item) => item.querySelector('dt')?.textContent.trim() === 'Track record');
+      const trackValue = trackRow?.querySelector('dd');
+      if (trackValue) trackValue.textContent = '2M+ historical Seraphic RTX downloads';
+
+      if (!details.querySelector('[data-seraphic-discord]')) {
+        const row = document.createElement('div');
+        row.dataset.seraphicDiscord = 'true';
+        row.innerHTML = '<dt>Discord</dt><dd>0x4a4b</dd>';
+        const focusRow = [...details.children]
+          .find((item) => item.querySelector('dt')?.textContent.trim() === 'Focus');
+        if (focusRow) details.insertBefore(row, focusRow);
+        else details.appendChild(row);
+      }
     }
 
     const links = seraphicCard.querySelector('.person-links');
@@ -320,7 +327,7 @@
 
     const proof = document.createElement('p');
     proof.className = 'seraphic-pbr-proof reveal';
-    proof.innerHTML = 'Additional PBR work: <a href="https://modrinth.com/resourcepack/seraphic-pbr" target="_blank" rel="noreferrer">Seraphic PBR for Java Edition</a> has 86K+ Modrinth downloads and includes LabPBR, AO, POM, entity PBR and emissive entities.';
+    proof.innerHTML = 'Additional PBR work: <a href="https://modrinth.com/resourcepack/seraphic-pbr" target="_blank" rel="noreferrer">Seraphic PBR for Java Edition</a> has 92K+ Modrinth downloads and includes LabPBR, AO, POM, entity PBR and emissive entities.';
     heading.appendChild(proof);
 
     const links = document.querySelector('.visual-links');
@@ -374,19 +381,19 @@
         <div class="public-proof-grid reveal">
           <a class="public-proof-card" href="https://www.curseforge.com/minecraft-bedrock/addons/cave-vision-bedrock" target="_blank" rel="noreferrer">
             <small>Bedrock Add-On · QuillPhen</small>
-            <div><strong>730K+</strong><span>Night Vision</span></div>
+            <div><strong>750K+</strong><span>Night Vision</span></div>
           </a>
           <a class="public-proof-card" href="https://www.curseforge.com/minecraft-bedrock/addons/ores-vein-miner" target="_blank" rel="noreferrer">
             <small>Bedrock Add-On · QuillPhen</small>
-            <div><strong>335K+</strong><span>Ore Vein Miner</span></div>
+            <div><strong>343K+</strong><span>Ore Vein Miner</span></div>
           </a>
           <a class="public-proof-card" href="https://www.curseforge.com/minecraft-bedrock/addons/mob-health-bar" target="_blank" rel="noreferrer">
             <small>Bedrock Add-On · QuillPhen</small>
-            <div><strong>40K+</strong><span>Mob Health Bar</span></div>
+            <div><strong>44K+</strong><span>Mob Health Bar</span></div>
           </a>
           <a class="public-proof-card" href="https://www.curseforge.com/minecraft-bedrock/addons/glowingores" target="_blank" rel="noreferrer">
             <small>Visual Pack · 0x4a4b</small>
-            <div><strong>170K+</strong><span>Seraphic Glowing Ores</span></div>
+            <div><strong>178K+</strong><span>Seraphic Glowing Ores</span></div>
           </a>
         </div>
       </div>
@@ -464,7 +471,7 @@
       combinedDownloads.dataset.suffix = 'M+';
       combinedDownloads.textContent = '11M+';
     }
-    setText('.hero-proof > div:first-child span', 'combined downloads');
+    setText('.hero-proof > div:first-child span', 'lifetime downloads');
     setText('.hero-proof > div:nth-child(4) span', 'projects on both editions');
 
     setText('#statement-title', 'We each handle the part we’re best at.');
@@ -513,7 +520,7 @@
     setText('.tooling-copy > p:not(.section-label)', 'Our JE2BE converter handles repetitive parts of moving resource packs from Java to Bedrock, including texture mapping, LabPBR-to-MER conversion, texture-set generation and RTX checks.');
 
     setText('#team-title', 'Who works on what');
-    setText('.team-grid .person-card:first-child dl div:first-child dd', '6M+ CurseForge downloads');
+    setText('.team-grid .person-card:first-child dl div:first-child dd', '≈9M CurseForge + Modrinth downloads');
 
     setText('#direction-title', 'What we want to make for Marketplace');
     setText('.direction-intro', 'We want to keep making the kind of Minecraft work we already enjoy: useful Bedrock add-ons, complete visual packs, and projects where the gameplay and graphics are built together.');
