@@ -1,0 +1,160 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#0b0d0c">
+  <meta name="color-scheme" content="dark">
+  <title>LeaveDecay Documentation — Hiba</title>
+  <meta name="description" content="Installation, compatibility and operator settings for the LeaveDecay TreeVeinMiner and VeinMiner add-on.">
+  <link rel="canonical" href="https://hiba.qzz.io/releases/leave-decay/docs/">
+  <link rel="icon" href="/quillphen/assets/studio-mark.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="../../docs.css">
+  <script src="../../docs.js" defer></script>
+</head>
+<body>
+  <a class="skip-link" href="#documentation">Skip to documentation</a>
+  <div class="page-noise" aria-hidden="true"></div>
+
+  <div class="version-gate" data-version-gate role="dialog" aria-modal="true" aria-labelledby="version-title">
+    <div class="version-card">
+      <div class="version-card-head">
+        <p class="eyebrow">LeaveDecay docs</p>
+        <h2 id="version-title">Choose your game version</h2>
+        <p>The three files follow real engine boundaries: lightweight marker availability and the data-directory rename at 1.21.</p>
+      </div>
+      <div class="version-options">
+        <button class="version-option" type="button" data-doc-version="v116" data-version-label="1.16–1.16.5"><strong>Minecraft 1.16–1.16.5</strong><span>LeaveDecay 1.0.0</span></button>
+        <button class="version-option" type="button" data-doc-version="v117" data-version-label="1.17–1.20.6"><strong>Minecraft 1.17–1.20.6</strong><span>LeaveDecay 1.0.0</span></button>
+        <button class="version-option" type="button" data-doc-version="current" data-version-label="1.21–26.2"><strong>Minecraft 1.21–26.2</strong><span>LeaveDecay 1.0.0</span></button>
+      </div>
+    </div>
+  </div>
+
+  <div data-doc-main inert>
+    <header class="site-header">
+      <div class="header-shell">
+        <a class="brand" href="/quillphen/" aria-label="Hiba creator site">
+          <img src="/quillphen/assets/studio-mark.svg" alt="" width="36" height="36">
+          <span class="brand-copy"><strong>Hiba</strong><small>Release documentation</small></span>
+        </a>
+        <div class="header-actions">
+          <a class="plain-link" href="/releases/tree-vein-miner/docs/">TreeVeinMiner docs</a>
+          <button class="version-control" type="button" data-change-version><span data-current-version>Choose version</span> · Change</button>
+        </div>
+      </div>
+    </header>
+
+    <main id="documentation">
+      <section class="hero" data-mark="LD">
+        <div class="hero-shell">
+          <p class="eyebrow">Optional data-pack add-on</p>
+          <h1 tabindex="-1">LeaveDecay</h1>
+          <p class="lede">Unsupported natural leaves are cleaned through a small independent queue after TreeVeinMiner or VeinMiner removes the logs. Mining speed never expands into a one-tick canopy scan.</p>
+          <div class="hero-meta"><span class="current-version" data-current-version>Choose version</span><span>Three downloads</span><span>6 nodes per tick</span><span>Player leaves protected</span></div>
+        </div>
+      </section>
+
+      <div class="docs-shell">
+        <nav class="docs-nav" aria-label="Page sections">
+          <strong>On this page</strong>
+          <a href="#install">Install</a>
+          <a href="#compatibility">Compatibility</a>
+          <a href="#behavior">Behavior</a>
+          <a href="#commands">Commands</a>
+          <a href="#performance">Performance</a>
+          <a href="#troubleshooting">Troubleshooting</a>
+        </nav>
+
+        <div class="docs-content">
+          <section class="doc-section" id="install">
+            <p class="section-kicker">01 / Install</p>
+            <h2>Add it beside the mining pack</h2>
+            <div data-versions="v116" hidden><p>Install <code>LeaveDecay-1.0.0+1.16-1.16.5.zip</code>.</p></div>
+            <div data-versions="v117" hidden><p>Install <code>LeaveDecay-1.0.0+1.17-1.20.6.zip</code>.</p></div>
+            <div data-versions="current" hidden><p>Install <code>LeaveDecay-1.0.0+1.21-26.2.zip</code>.</p></div>
+            <div class="step-grid">
+              <div class="step"><b>1</b><p>Keep your matching TreeVeinMiner or VeinMiner ZIP installed.</p></div>
+              <div class="step"><b>2</b><p>Put the LeaveDecay ZIP in the same <code>world/datapacks</code> folder.</p></div>
+              <div class="step"><b>3</b><p>Run <code>/reload</code>. No resource pack is required.</p></div>
+            </div>
+          </section>
+
+          <section class="doc-section" id="compatibility">
+            <p class="section-kicker">02 / Compatibility</p>
+            <h2>The base pack must expose the tree hook</h2>
+            <div data-versions="v116 v117" hidden>
+              <p>Use TreeVeinMiner 7.1.0 or VeinMiner 7.1.0 for the exact Minecraft version. Earlier 7.0.x ZIPs do not contain the <code>tree_removed</code> hook and therefore cannot notify the add-on.</p>
+            </div>
+            <div data-versions="current" hidden>
+              <p>For Minecraft 1.21–1.21.1, use TreeVeinMiner or VeinMiner 7.1.0. For Minecraft 1.21.2–26.2, use TreeVeinMiner 4.2.0 or VeinMiner 5.2.0.</p>
+            </div>
+            <div class="fact-grid">
+              <div class="fact"><b>TreeVeinMiner</b><p>Every additional structural tree block emits the hook.</p></div>
+              <div class="fact"><b>VeinMiner</b><p>The hook is tree-only and does not fire for ore veins.</p></div>
+              <div class="fact"><b>Standalone</b><p>Without a supported base pack, LeaveDecay remains idle.</p></div>
+            </div>
+          </section>
+
+          <section class="doc-section" id="behavior">
+            <p class="section-kicker">03 / Behavior</p>
+            <h2>Only leaves already marked to decay</h2>
+            <ol class="tight-list">
+              <li>A removed tree block creates a lightweight seed at that position.</li>
+              <li>The seed waits 10 ticks while Minecraft recalculates leaf distance.</li>
+              <li>Only blocks in <code>#minecraft:leaves</code> with <code>distance=7</code> and <code>persistent=false</code> are claimed.</li>
+              <li>Each claimed leaf evaluates its vanilla loot table with no shears or Silk Touch, then queues its unsupported neighbors.</li>
+            </ol>
+            <p class="note"><strong>Player-placed leaves remain.</strong> Minecraft places leaf blocks with <code>persistent=true</code>; the add-on's block-state check excludes them before loot or removal runs.</p>
+          </section>
+
+          <section class="doc-section" id="commands">
+            <p class="section-kicker">04 / Commands</p>
+            <h2>Operator settings</h2>
+            <div class="command-grid">
+              <div class="command-card"><code>/function leafdecay:admin/enable</code><p>Resume new seeds and pending cleanup.</p></div>
+              <div class="command-card"><code>/function leafdecay:admin/disable</code><p>Pause cleanup without deleting the queue.</p></div>
+              <div class="command-card"><code>/function leafdecay:admin/status</code><p>Show enabled state, budget, queue limit, delay and pending count.</p></div>
+              <div class="command-card"><code>/function leafdecay:admin/reset</code><p>Invalidate and clear pending cleanup. Configuration values are preserved.</p></div>
+              <div class="command-card"><code>/function leafdecay:admin/set_budget</code><p>Apply <code>#value ldc.input</code> from 1 to 16 nodes per tick.</p></div>
+              <div class="command-card"><code>/function leafdecay:admin/set_max</code><p>Apply <code>#value ldc.input</code> from 32 to 4096 pending nodes.</p></div>
+              <div class="command-card"><code>/function leafdecay:admin/set_delay</code><p>Apply <code>#value ldc.input</code> from 6 to 40 ticks.</p></div>
+            </div>
+            <pre class="code-block">/scoreboard players set #value ldc.input 8
+/function leafdecay:admin/set_budget</pre>
+            <p>Replace <code>8</code> with the desired value, then run the setter for the setting you want to change.</p>
+          </section>
+
+          <section class="doc-section" id="performance">
+            <p class="section-kicker">05 / Performance</p>
+            <h2>Bounded work, once per occupied dimension</h2>
+            <p>The default budget processes six queue nodes per server tick. A node checks the 26 immediately touching positions, so the default ceiling is 156 small block-state checks per tick while cleanup is active. There is no player-radius scan and no search when no hook has queued work.</p>
+            <div class="fact-grid">
+              <div class="fact"><b>Default budget</b><p>6 queue nodes per tick across the server.</p></div>
+              <div class="fact"><b>Pending cap</b><p>2048 seeds and frontier nodes by default.</p></div>
+              <div class="fact"><b>Dimensions</b><p>Each dimension containing a player is visited once per tick, including custom dimensions.</p></div>
+            </div>
+            <p class="note is-cyan"><strong>Large modded trees:</strong> the pending cap is intentional. Leaves skipped after the cap is reached are still handled by Minecraft's native random-tick decay.</p>
+          </section>
+
+          <section class="doc-section" id="troubleshooting">
+            <p class="section-kicker">06 / Troubleshooting</p>
+            <h2>Check the hook before changing the budget</h2>
+            <ul class="tight-list">
+              <li><strong>No leaves move:</strong> run <code>/function leafdecay:admin/status</code> and confirm enabled is 1.</li>
+              <li><strong>Pending stays at 0:</strong> the installed base pack is probably older than TreeVeinMiner 7.1.0 or 4.2.0, or VeinMiner 7.1.0 or 5.2.0.</li>
+              <li><strong>Some leaves remain beside another trunk:</strong> they still have support and are correctly excluded.</li>
+              <li><strong>Cleanup pauses after everyone leaves a dimension:</strong> this is expected. It resumes when a player returns and the entities are loaded.</li>
+              <li><strong>A custom log mines but leaves stay:</strong> in modern VeinMiner, place the log in a tree family as well as <code>custom_blocks.json</code>.</li>
+            </ul>
+          </section>
+        </div>
+      </div>
+    </main>
+
+    <footer class="site-footer"><div class="footer-shell"><span>Hiba release documentation</span><span>LeaveDecay 1.0.0 · Tree-only cleanup add-on</span></div></footer>
+  </div>
+
+  <noscript><p class="note">JavaScript is required only for the version selector. Enable it to show the matching download.</p></noscript>
+</body>
+</html>

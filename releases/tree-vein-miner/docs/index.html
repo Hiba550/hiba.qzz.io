@@ -1,0 +1,208 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#0b0d0c">
+  <meta name="color-scheme" content="dark">
+  <title>TreeVeinMiner Documentation — Hiba</title>
+  <meta name="description" content="Version-specific installation, commands, settings and block support for TreeVeinMiner.">
+  <link rel="canonical" href="https://hiba.qzz.io/releases/tree-vein-miner/docs/">
+  <link rel="icon" href="/quillphen/assets/studio-mark.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="../../docs.css">
+  <script src="../../docs.js" defer></script>
+</head>
+<body>
+  <a class="skip-link" href="#documentation">Skip to documentation</a>
+  <div class="page-noise" aria-hidden="true"></div>
+
+  <div class="version-gate" data-version-gate role="dialog" aria-modal="true" aria-labelledby="version-title">
+    <div class="version-card">
+      <div class="version-card-head">
+        <p class="eyebrow">TreeVeinMiner docs</p>
+        <h2 id="version-title">Choose your game version</h2>
+        <p>Commands and file paths changed across these releases. Pick the version running on your world.</p>
+      </div>
+      <div class="version-options">
+        <button class="version-option" type="button" data-doc-version="v116" data-version-label="1.16–1.16.5"><strong>Minecraft 1.16–1.16.5</strong><span>Legacy 7.1.0</span></button>
+        <button class="version-option" type="button" data-doc-version="v117" data-version-label="1.17–1.20.4"><strong>Minecraft 1.17–1.20.4</strong><span>Legacy 7.1.0</span></button>
+        <button class="version-option" type="button" data-doc-version="v1205" data-version-label="1.20.5–1.20.6"><strong>Minecraft 1.20.5–1.20.6</strong><span>Legacy 7.1.0</span></button>
+        <button class="version-option" type="button" data-doc-version="v121" data-version-label="1.21–1.21.1"><strong>Minecraft 1.21–1.21.1</strong><span>Legacy 7.1.0</span></button>
+        <button class="version-option" type="button" data-doc-version="modern" data-version-label="1.21.2–26.2"><strong>Minecraft 1.21.2–26.2</strong><span>TreeVeinMiner 4.2.0</span></button>
+      </div>
+    </div>
+  </div>
+
+  <div data-doc-main inert>
+    <header class="site-header">
+      <div class="header-shell">
+        <a class="brand" href="/quillphen/" aria-label="Hiba creator site">
+          <img src="/quillphen/assets/studio-mark.svg" alt="" width="36" height="36">
+          <span class="brand-copy"><strong>Hiba</strong><small>Release documentation</small></span>
+        </a>
+        <div class="header-actions">
+          <a class="plain-link" href="https://modrinth.com/datapack/tree-vein-miner">Modrinth ↗</a>
+          <button class="version-control" type="button" data-change-version><span data-current-version>Choose version</span> · Change</button>
+        </div>
+      </div>
+    </header>
+
+    <main id="documentation">
+      <section class="hero" data-mark="TVM">
+        <div class="hero-shell">
+          <p class="eyebrow">Java Edition data pack</p>
+          <h1 tabindex="-1">TreeVeinMiner</h1>
+          <p class="lede">Connected structural wood is removed through a bounded queue. The first log is still mined by Minecraft, so normal tool, loot and protection behavior remains the entry point.</p>
+          <div class="hero-meta"><span class="current-version" data-current-version>Choose version</span><span>Server-side</span><span>Singleplayer</span><span>26-neighbor default</span></div>
+        </div>
+      </section>
+
+      <div class="docs-shell">
+        <nav class="docs-nav" aria-label="Page sections">
+          <strong>On this page</strong>
+          <a href="#install">Install</a>
+          <a href="#use">Use</a>
+          <a href="#commands">Commands</a>
+          <a href="#blocks">Blocks</a>
+          <a href="#durability">Durability</a>
+          <a href="#leaves">Leaves</a>
+        </nav>
+
+        <div class="docs-content">
+          <section class="doc-section" id="install">
+            <p class="section-kicker">01 / Install</p>
+            <h2>Use the ZIP for the selected version</h2>
+            <div class="version-panel" data-versions="v116" hidden>
+              <p>Install <code>TreeVeinMiner-7.1.0+1.16-1.16.5.zip</code>. This file covers Minecraft 1.16 through 1.16.5.</p>
+            </div>
+            <div class="version-panel" data-versions="v117" hidden>
+              <p>Install <code>TreeVeinMiner-7.1.0+1.17-1.20.4.zip</code>. Do not use the 1.16 build on these versions; durability handling differs.</p>
+            </div>
+            <div class="version-panel" data-versions="v1205" hidden>
+              <p>Install <code>TreeVeinMiner-7.1.0+1.20.5-1.20.6.zip</code>. It contains the item-component-compatible durability files required by these releases.</p>
+            </div>
+            <div class="version-panel" data-versions="v121" hidden>
+              <p>Install <code>TreeVeinMiner-7.1.0+1.21-1.21.1.zip</code>. Its singular data directories match the 1.21 data-pack layout.</p>
+            </div>
+            <div class="version-panel" data-versions="modern" hidden>
+              <p>Install <code>TreeVeinMiner-4.2.0+1.21.2-26.2.zip</code>. Do not load the separate Enchantment Edition beside it; both use the <code>stm</code> namespace.</p>
+            </div>
+            <div class="step-grid">
+              <div class="step"><b>1</b><p>Put the ZIP, without extracting it, in <code>world/datapacks</code>.</p></div>
+              <div class="step"><b>2</b><p>Enter the world and run <code>/reload</code> as an operator.</p></div>
+              <div class="step"><b>3</b><p>Crouch, hold an axe and break one supported log normally.</p></div>
+            </div>
+          </section>
+
+          <section class="doc-section" id="use">
+            <p class="section-kicker">02 / Use</p>
+            <h2>Break the first block yourself</h2>
+            <div data-versions="v116 v117 v1205 v121" hidden>
+              <p>Crouching is required. The operation follows 26 immediately touching positions by default and removes at most 256 additional blocks with a budget of 32 queue visits per player per tick.</p>
+              <div class="command-grid">
+                <div class="command-card"><code>/trigger tvl.toggle</code><p>Switch TreeVeinMiner off or on for your player.</p></div>
+                <div class="command-card"><code>/function treeveinminer:admin/adjacency_faces</code><p>Use only the six face-connected directions.</p></div>
+              </div>
+            </div>
+            <div data-versions="modern" hidden>
+              <p>The default activation accepts either crouching or an axe carrying <code>stm:timber</code>. The queue removes at most 256 additional blocks and processes 32 visits per server tick.</p>
+              <div class="command-grid">
+                <div class="command-card"><code>/trigger tvm.toggle</code><p>Switch TreeVeinMiner off or on for your player.</p></div>
+                <div class="command-card"><code>/function stm:admin/crouch_or_enchantment</code><p>Restore the shipped activation mode.</p></div>
+              </div>
+            </div>
+          </section>
+
+          <section class="doc-section" id="commands">
+            <p class="section-kicker">03 / Commands</p>
+            <h2>Operator controls</h2>
+            <div data-versions="v116 v117 v1205 v121" hidden>
+              <div class="command-grid">
+                <div class="command-card"><code>/function treeveinminer:admin/enable</code><p>Enable the pack globally.</p></div>
+                <div class="command-card"><code>/function treeveinminer:admin/disable</code><p>Stop new operations globally.</p></div>
+                <div class="command-card"><code>/function treeveinminer:admin/adjacency_immediate</code><p>Use all 26 touching positions.</p></div>
+                <div class="command-card"><code>/function treeveinminer:admin/adjacency_faces</code><p>Use six face-connected positions.</p></div>
+                <div class="command-card"><code>/function treeveinminer:admin/safety_on</code><p>Keep the final durability point on the held tool.</p></div>
+                <div class="command-card"><code>/function treeveinminer:admin/safety_off</code><p>Allow the held tool to break during queued work.</p></div>
+                <div class="command-card"><code>/function treeveinminer:admin/preview_on</code><p>Set the retained legacy preview flag. This build has no preview renderer.</p></div>
+                <div class="command-card"><code>/function treeveinminer:admin/preview_off</code><p>Clear the retained legacy preview flag.</p></div>
+                <div class="command-card"><code>/function treeveinminer:admin/reset</code><p>Restore enabled, 26 neighbors, 256 maximum, 32 budget, preview off and safety off.</p></div>
+              </div>
+              <p class="note is-cyan"><strong>Numeric settings:</strong> run <code>/scoreboard players set #value tvl.input 128</code>, then <code>/function treeveinminer:admin/set_max</code>. Use the same first command with a value from 1 to 64 before <code>/function treeveinminer:admin/set_budget</code>.</p>
+            </div>
+            <div data-versions="modern" hidden>
+              <div class="command-grid">
+                <div class="command-card"><code>/function stm:admin/enable</code><p>Enable new operations globally.</p></div>
+                <div class="command-card"><code>/function stm:admin/disable</code><p>Disable new operations globally.</p></div>
+                <div class="command-card"><code>/function stm:admin/always_active</code><p>Mine without crouching or the enchantment.</p></div>
+                <div class="command-card"><code>/function stm:admin/crouch_required</code><p>Require crouching.</p></div>
+                <div class="command-card"><code>/function stm:admin/enchantment_required</code><p>Require <code>stm:timber</code>.</p></div>
+                <div class="command-card"><code>/function stm:admin/crouch_or_enchantment</code><p>Accept either activation method.</p></div>
+                <div class="command-card"><code>/function stm:admin/adjacency_immediate</code><p>Use all 26 touching positions.</p></div>
+                <div class="command-card"><code>/function stm:admin/adjacency_faces</code><p>Use six face-connected positions.</p></div>
+                <div class="command-card"><code>/function stm:admin/durability_on</code><p>Charge the axe for additional blocks.</p></div>
+                <div class="command-card"><code>/function stm:admin/durability_off</code><p>Charge only Minecraft's first-block durability.</p></div>
+                <div class="command-card"><code>/function stm:admin/safety_on</code><p>Preserve the axe's final durability point.</p></div>
+                <div class="command-card"><code>/function stm:admin/safety_off</code><p>Allow the axe to break.</p></div>
+                <div class="command-card"><code>/function stm:admin/debug_on</code><p>Show operation diagnostics to the owner.</p></div>
+                <div class="command-card"><code>/function stm:admin/debug_off</code><p>Hide operation diagnostics.</p></div>
+              </div>
+              <p class="note is-cyan"><strong>Numeric settings:</strong> use <code>/function stm:admin/set_max {value:256}</code> for 1–512 additional blocks and <code>/function stm:admin/set_budget {value:32}</code> for a 1–64 visit budget.</p>
+            </div>
+          </section>
+
+          <section class="doc-section" id="blocks">
+            <p class="section-kicker">04 / Blocks</p>
+            <h2>Tree families stay separate</h2>
+            <p>Oak does not jump into spruce, and overworld logs do not connect to Nether stems. Stripped variants and wood or hyphae variants remain in their own matching family.</p>
+            <div data-versions="v116 v117 v1205" hidden>
+              <p>Family files are under <span class="path">data/treeveinminer/tags/blocks/family/</span>. Adding a block to an existing family also makes it a trigger because <code>trigger_blocks.json</code> references every family tag.</p>
+              <pre class="code-block">{
+  "replace": false,
+  "values": [
+    "minecraft:oak_log",
+    { "id": "examplemod:ancient_oak_log", "required": false }
+  ]
+}</pre>
+            </div>
+            <div data-versions="v121" hidden>
+              <p>Family files are under <span class="path">data/treeveinminer/tags/block/family/</span>. Add related blocks to the same file, keep <code>replace</code> false and run <code>/reload</code>.</p>
+            </div>
+            <div data-versions="modern" hidden>
+              <p>The modern detector is generated for the shipped tree IDs. Editing a family tag can change how supported blocks connect, but adding an arbitrary mod ID to a tag does not add the mined-stat detector required to start an operation. Use VeinMiner when you need its custom-block path.</p>
+            </div>
+            <p class="note"><strong>Do not put leaves in a tree family.</strong> That recreates a canopy-scale mining operation and bypasses LeaveDecay's bounded natural-leaf checks.</p>
+          </section>
+
+          <section class="doc-section" id="durability">
+            <p class="section-kicker">05 / Durability</p>
+            <h2>Version-specific tool handling</h2>
+            <div data-versions="v116" hidden>
+              <p>Minecraft 1.16 cannot apply relative damage to the selected player item safely with this data-pack architecture. The first block costs normal durability; additional queued blocks do not. The pack never reconstructs or replaces the held axe.</p>
+            </div>
+            <div data-versions="v117 v1205 v121 modern" hidden>
+              <p>The first block is charged by Minecraft. Additional blocks use Unbreaking-aware durability handling. With safety enabled, the queue stops before consuming the last durability point.</p>
+            </div>
+          </section>
+
+          <section class="doc-section" id="leaves">
+            <p class="section-kicker">06 / Leaves</p>
+            <h2>Use LeaveDecay as a separate add-on</h2>
+            <p>TreeVeinMiner intentionally mines structural wood only. LeaveDecay receives a tree-only hook, waits for vanilla distance updates, and removes only natural unsupported leaves through its own six-node default tick budget.</p>
+            <div class="fact-grid">
+              <div class="fact"><b>Protected</b><p>Leaves with <code>persistent=true</code> are never claimed.</p></div>
+              <div class="fact"><b>Drops</b><p>Each removed leaf evaluates its vanilla loot table as natural decay.</p></div>
+              <div class="fact"><b>Required build</b><p>TreeVeinMiner 7.1.0 or 4.2.0 exposes the hook used by the add-on.</p></div>
+            </div>
+            <p><a class="version-control" href="/releases/leave-decay/docs/">Open LeaveDecay documentation →</a></p>
+          </section>
+        </div>
+      </div>
+    </main>
+
+    <footer class="site-footer"><div class="footer-shell"><span>Hiba release documentation</span><span>TreeVeinMiner · Version-specific reference</span></div></footer>
+  </div>
+
+  <noscript><p class="note">JavaScript is required only for the version selector. Enable it to show the matching command set.</p></noscript>
+</body>
+</html>

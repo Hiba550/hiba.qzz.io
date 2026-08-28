@@ -1,0 +1,218 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#0b0d0c">
+  <meta name="color-scheme" content="dark">
+  <title>VeinMiner Documentation — Hiba</title>
+  <meta name="description" content="Version-specific installation, commands and custom block configuration for VeinMiner.">
+  <link rel="canonical" href="https://hiba.qzz.io/releases/veinminer/docs/">
+  <link rel="icon" href="/quillphen/assets/studio-mark.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="../../docs.css">
+  <script src="../../docs.js" defer></script>
+</head>
+<body>
+  <a class="skip-link" href="#documentation">Skip to documentation</a>
+  <div class="page-noise" aria-hidden="true"></div>
+
+  <div class="version-gate" data-version-gate role="dialog" aria-modal="true" aria-labelledby="version-title">
+    <div class="version-card">
+      <div class="version-card-head">
+        <p class="eyebrow">VeinMiner docs</p>
+        <h2 id="version-title">Choose your game version</h2>
+        <p>The legacy and current packs use different namespaces, settings and custom-block layouts.</p>
+      </div>
+      <div class="version-options">
+        <button class="version-option" type="button" data-doc-version="v116" data-version-label="1.16–1.16.5"><strong>Minecraft 1.16–1.16.5</strong><span>Legacy 7.1.0</span></button>
+        <button class="version-option" type="button" data-doc-version="v117" data-version-label="1.17–1.20.4"><strong>Minecraft 1.17–1.20.4</strong><span>Legacy 7.1.0</span></button>
+        <button class="version-option" type="button" data-doc-version="v1205" data-version-label="1.20.5–1.20.6"><strong>Minecraft 1.20.5–1.20.6</strong><span>Legacy 7.1.0</span></button>
+        <button class="version-option" type="button" data-doc-version="v121" data-version-label="1.21–1.21.1"><strong>Minecraft 1.21–1.21.1</strong><span>Legacy 7.1.0</span></button>
+        <button class="version-option" type="button" data-doc-version="modern" data-version-label="1.21.2–26.2"><strong>Minecraft 1.21.2–26.2</strong><span>VeinMiner 5.2.0</span></button>
+      </div>
+    </div>
+  </div>
+
+  <div data-doc-main inert>
+    <header class="site-header">
+      <div class="header-shell">
+        <a class="brand" href="/quillphen/" aria-label="Hiba creator site">
+          <img src="/quillphen/assets/studio-mark.svg" alt="" width="36" height="36">
+          <span class="brand-copy"><strong>Hiba</strong><small>Release documentation</small></span>
+        </a>
+        <div class="header-actions">
+          <a class="plain-link" href="https://modrinth.com/datapack/veinminer">Modrinth ↗</a>
+          <button class="version-control" type="button" data-change-version><span data-current-version>Choose version</span> · Change</button>
+        </div>
+      </div>
+    </header>
+
+    <main id="documentation">
+      <section class="hero" data-mark="VM">
+        <div class="hero-shell">
+          <p class="eyebrow">Java Edition data pack</p>
+          <h1 tabindex="-1">VeinMiner</h1>
+          <p class="lede">Ore families, structural tree families and custom groups share one owner-safe queue while keeping their matching rules separate.</p>
+          <div class="hero-meta"><span class="current-version" data-current-version>Choose version</span><span>Server-side</span><span>Custom blocks</span><span>Vanilla loot</span></div>
+        </div>
+      </section>
+
+      <div class="docs-shell">
+        <nav class="docs-nav" aria-label="Page sections">
+          <strong>On this page</strong>
+          <a href="#install">Install</a>
+          <a href="#use">Use</a>
+          <a href="#commands">Commands</a>
+          <a href="#custom">Add blocks</a>
+          <a href="#remove">Remove blocks</a>
+          <a href="#behavior">Loot & durability</a>
+          <a href="#leaves">Leaves</a>
+        </nav>
+
+        <div class="docs-content">
+          <section class="doc-section" id="install">
+            <p class="section-kicker">01 / Install</p>
+            <h2>Install one VeinMiner build</h2>
+            <div data-versions="v116" hidden><p>Use <code>VeinMiner-7.1.0+1.16-1.16.5.zip</code>.</p></div>
+            <div data-versions="v117" hidden><p>Use <code>VeinMiner-7.1.0+1.17-1.20.4.zip</code>.</p></div>
+            <div data-versions="v1205" hidden><p>Use <code>VeinMiner-7.1.0+1.20.5-1.20.6.zip</code>.</p></div>
+            <div data-versions="v121" hidden><p>Use <code>VeinMiner-7.1.0+1.21-1.21.1.zip</code>.</p></div>
+            <div data-versions="modern" hidden><p>Use <code>VeinMiner-5.2.0+1.21.2-26.2.zip</code>.</p></div>
+            <p class="note"><strong>Choose one mining pack.</strong> Do not load VeinMiner together with separate OreVeinMiner or TreeVeinMiner builds. They detect the same break and would compete for the same connected blocks.</p>
+            <div class="step-grid">
+              <div class="step"><b>1</b><p>Put the selected ZIP in <code>world/datapacks</code>.</p></div>
+              <div class="step"><b>2</b><p>Run <code>/reload</code> as an operator.</p></div>
+              <div class="step"><b>3</b><p>Crouch with the correct tool and mine the first block normally.</p></div>
+            </div>
+          </section>
+
+          <section class="doc-section" id="use">
+            <p class="section-kicker">02 / Use</p>
+            <h2>One family per operation</h2>
+            <div data-versions="v116 v117 v1205 v121" hidden>
+              <p>Use <code>/trigger vml.toggle</code> for your personal switch. Crouching is required. The defaults are 26-neighbor matching, 256 additional blocks and 32 queue visits per player per tick.</p>
+            </div>
+            <div data-versions="modern" hidden>
+              <p>Use <code>/trigger vmr.toggle</code> for your personal switch. The shipped activation accepts crouching or a tool with <code>vm:vein_miner</code>. The defaults are 26-neighbor matching, 256 additional blocks and 32 visits per server tick.</p>
+            </div>
+            <div class="fact-grid">
+              <div class="fact"><b>Ores</b><p>Coal through ancient debris use family-specific matching and harvest tiers.</p></div>
+              <div class="fact"><b>Trees</b><p>Logs, wood, stems and hyphae are included; leaves and wart blocks are not.</p></div>
+              <div class="fact"><b>Custom</b><p>Added IDs use the held tool's registered loot table.</p></div>
+            </div>
+          </section>
+
+          <section class="doc-section" id="commands">
+            <p class="section-kicker">03 / Commands</p>
+            <h2>Player and operator controls</h2>
+            <div data-versions="v116 v117 v1205 v121" hidden>
+              <div class="command-grid">
+                <div class="command-card"><code>/trigger vml.toggle</code><p>Personal enable or disable switch.</p></div>
+                <div class="command-card"><code>/function veinminer:admin/enable</code><p>Enable new operations globally.</p></div>
+                <div class="command-card"><code>/function veinminer:admin/disable</code><p>Disable new operations globally.</p></div>
+                <div class="command-card"><code>/function veinminer:admin/adjacency_immediate</code><p>Use 26 touching positions.</p></div>
+                <div class="command-card"><code>/function veinminer:admin/adjacency_faces</code><p>Use six face-connected positions.</p></div>
+                <div class="command-card"><code>/function veinminer:admin/safety_on</code><p>Preserve the tool's last durability point.</p></div>
+                <div class="command-card"><code>/function veinminer:admin/safety_off</code><p>Allow the tool to break.</p></div>
+                <div class="command-card"><code>/function veinminer:admin/preview_on</code><p>Set the retained legacy preview flag. This build has no preview renderer.</p></div>
+                <div class="command-card"><code>/function veinminer:admin/preview_off</code><p>Clear the retained legacy preview flag.</p></div>
+                <div class="command-card"><code>/function veinminer:admin/reset</code><p>Restore all shipped global settings.</p></div>
+              </div>
+              <p class="note is-cyan"><strong>Maximum:</strong> run <code>/scoreboard players set #value vml.input 256</code>, then <code>/function veinminer:admin/set_max</code>. <strong>Budget:</strong> set <code>#value vml.input</code> to 1–64, then run <code>/function veinminer:admin/set_budget</code>.</p>
+            </div>
+            <div data-versions="modern" hidden>
+              <div class="command-grid">
+                <div class="command-card"><code>/trigger vmr.toggle</code><p>Personal enable or disable switch.</p></div>
+                <div class="command-card"><code>/function vm:admin/enable</code><p>Enable new operations globally.</p></div>
+                <div class="command-card"><code>/function vm:admin/disable</code><p>Disable new operations globally.</p></div>
+                <div class="command-card"><code>/function vm:admin/always_active</code><p>Remove the activation requirement.</p></div>
+                <div class="command-card"><code>/function vm:admin/crouch_required</code><p>Require crouching.</p></div>
+                <div class="command-card"><code>/function vm:admin/enchantment_required</code><p>Require <code>vm:vein_miner</code>.</p></div>
+                <div class="command-card"><code>/function vm:admin/crouch_or_enchantment</code><p>Accept either activation method.</p></div>
+                <div class="command-card"><code>/function vm:admin/adjacency_immediate</code><p>Use 26 touching positions.</p></div>
+                <div class="command-card"><code>/function vm:admin/adjacency_faces</code><p>Use six face-connected positions.</p></div>
+                <div class="command-card"><code>/function vm:admin/durability_on</code><p>Charge tools for additional blocks.</p></div>
+                <div class="command-card"><code>/function vm:admin/durability_off</code><p>Charge only the first block.</p></div>
+                <div class="command-card"><code>/function vm:admin/safety_on</code><p>Preserve the final durability point.</p></div>
+                <div class="command-card"><code>/function vm:admin/safety_off</code><p>Allow the tool to break.</p></div>
+                <div class="command-card"><code>/function vm:admin/debug_on</code><p>Show owner diagnostics.</p></div>
+                <div class="command-card"><code>/function vm:admin/debug_off</code><p>Hide owner diagnostics.</p></div>
+              </div>
+              <p class="note is-cyan"><strong>Numeric settings:</strong> use <code>/function vm:admin/set_max {value:256}</code> for 1–512 additional blocks and <code>/function vm:admin/set_budget {value:32}</code> for a 1–64 visit budget.</p>
+            </div>
+          </section>
+
+          <section class="doc-section" id="custom">
+            <p class="section-kicker">04 / Add blocks</p>
+            <h2>Put connected IDs in the same group</h2>
+            <div data-versions="v116 v117 v1205" hidden>
+              <p>Eight independent groups are available at <span class="path">data/veinminer/tags/blocks/family/custom_1.json</span> through <span class="path">custom_8.json</span>. Blocks in different custom files do not connect.</p>
+            </div>
+            <div data-versions="v121" hidden>
+              <p>Eight independent groups are available at <span class="path">data/veinminer/tags/block/family/custom_1.json</span> through <span class="path">custom_8.json</span>. The directory name is singular on 1.21.</p>
+            </div>
+            <div data-versions="v116 v117 v1205 v121" hidden>
+              <pre class="code-block">{
+  "replace": false,
+  "values": [
+    { "id": "examplemod:tin_ore", "required": false },
+    { "id": "examplemod:deepslate_tin_ore", "required": false }
+  ]
+}</pre>
+              <p>Keep mod entries optional when the same ZIP may load without that mod. Rebuild the ZIP with <code>pack.mcmeta</code> at its root and run <code>/reload</code>.</p>
+            </div>
+            <div data-versions="modern" hidden>
+              <p>Add arbitrary vanilla or modded IDs to <span class="path">data/vm/tags/block/custom_blocks.json</span>. IDs listed only here share one generic connected family and accept a valid axe or pickaxe.</p>
+              <pre class="code-block">{
+  "replace": false,
+  "values": [
+    "minecraft:stone",
+    { "id": "examplemod:ruby_ore", "required": false },
+    { "id": "examplemod:rubber_log", "required": false }
+  ]
+}</pre>
+              <p>To join a built-in family, add the same ID to its file under <span class="path">data/vm/tags/block/family/</span>. For example, a modded copper ore in <code>ore_copper.json</code> connects to vanilla copper ore instead of the generic custom group.</p>
+            </div>
+          </section>
+
+          <section class="doc-section" id="remove">
+            <p class="section-kicker">05 / Remove blocks</p>
+            <h2>Exclusions override inclusion</h2>
+            <div data-versions="v116 v117 v1205" hidden><p>Edit <span class="path">data/veinminer/tags/blocks/excluded.json</span>.</p></div>
+            <div data-versions="v121" hidden><p>Edit <span class="path">data/veinminer/tags/block/excluded.json</span>.</p></div>
+            <div data-versions="modern" hidden><p>Edit <span class="path">data/vm/tags/block/excluded_blocks.json</span>. This overrides built-in families and <code>custom_blocks.json</code>.</p></div>
+            <pre class="code-block">{
+  "replace": false,
+  "values": [
+    "minecraft:ancient_debris",
+    { "id": "examplemod:machine_casing", "required": false }
+  ]
+}</pre>
+          </section>
+
+          <section class="doc-section" id="behavior">
+            <p class="section-kicker">06 / Loot & durability</p>
+            <h2>The held tool remains the loot context</h2>
+            <p>Additional blocks call their registered loot tables with the held tool. Fortune, Silk Touch and modded loot conditions therefore remain part of the result. Ore experience is emitted only where vanilla mining would award it.</p>
+            <div data-versions="v116" hidden><p class="note"><strong>1.16 durability:</strong> only the normally mined first block costs durability. The pack does not reconstruct the selected item, avoiding the item-loss bug caused by unsafe legacy replacement.</p></div>
+            <div data-versions="v117 v1205 v121 modern" hidden><p class="note is-cyan"><strong>Additional durability:</strong> queued blocks use Unbreaking-aware damage. Safety mode stops before the final durability point is consumed.</p></div>
+          </section>
+
+          <section class="doc-section" id="leaves">
+            <p class="section-kicker">07 / Leaves</p>
+            <h2>Leaf cleanup is deliberately separate</h2>
+            <p>VeinMiner's tree-only hook fires for structural tree families and never for ore operations. LeaveDecay listens to that hook, so mining a diamond vein cannot create a leaf-cleanup queue.</p>
+            <div data-versions="modern" hidden><p>For a custom log to start LeaveDecay, add it to <code>custom_blocks.json</code> and the appropriate tree family. <code>vm:tree_blocks</code> already includes every tree family.</p></div>
+            <div data-versions="v116 v117 v1205 v121" hidden><p>The legacy hook runs from built-in tree-family operations. Blocks placed only in a generic custom family are mined normally by VeinMiner but do not call the tree hook.</p></div>
+            <p><a class="version-control" href="/releases/leave-decay/docs/">Open LeaveDecay documentation →</a></p>
+          </section>
+        </div>
+      </div>
+    </main>
+
+    <footer class="site-footer"><div class="footer-shell"><span>Hiba release documentation</span><span>VeinMiner · Version-specific reference</span></div></footer>
+  </div>
+
+  <noscript><p class="note">JavaScript is required only for the version selector. Enable it to show the matching command set.</p></noscript>
+</body>
+</html>
