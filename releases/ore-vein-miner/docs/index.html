@@ -1,0 +1,222 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#0b0d0c">
+  <meta name="color-scheme" content="dark">
+  <title>OreVeinMiner Documentation — Hiba</title>
+  <meta name="description" content="Version-specific installation, commands, ore support, durability and performance settings for OreVeinMiner.">
+  <link rel="canonical" href="https://hiba.qzz.io/releases/ore-vein-miner/docs/">
+  <link rel="icon" href="/quillphen/assets/studio-mark.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="../../docs.css">
+  <script src="../../docs.js" defer></script>
+</head>
+<body>
+  <a class="skip-link" href="#documentation">Skip to documentation</a>
+  <div class="page-noise" aria-hidden="true"></div>
+
+  <div class="version-gate" data-version-gate role="dialog" aria-modal="true" aria-labelledby="version-title">
+    <div class="version-card">
+      <div class="version-card-head">
+        <p class="eyebrow">OreVeinMiner docs</p>
+        <h2 id="version-title">Choose your game version</h2>
+        <p>Pick the version running on your world. Commands, data paths and durability handling differ across these five release ranges.</p>
+      </div>
+      <div class="version-options">
+        <button class="version-option" type="button" data-doc-version="v116" data-version-label="1.16–1.16.5"><strong>Minecraft 1.16–1.16.5</strong><span>OreVeinMiner 7.0.1</span></button>
+        <button class="version-option" type="button" data-doc-version="v117" data-version-label="1.17–1.20.4"><strong>Minecraft 1.17–1.20.4</strong><span>OreVeinMiner 7.0.1</span></button>
+        <button class="version-option" type="button" data-doc-version="v1205" data-version-label="1.20.5–1.20.6"><strong>Minecraft 1.20.5–1.20.6</strong><span>OreVeinMiner 7.0.1</span></button>
+        <button class="version-option" type="button" data-doc-version="v121" data-version-label="1.21–1.21.1"><strong>Minecraft 1.21–1.21.1</strong><span>OreVeinMiner 7.0.1</span></button>
+        <button class="version-option" type="button" data-doc-version="modern" data-version-label="1.21.2–26.2"><strong>Minecraft 1.21.2–26.2</strong><span>OreVeinMiner 3.1.0</span></button>
+      </div>
+    </div>
+  </div>
+
+  <div data-doc-main inert>
+    <header class="site-header">
+      <div class="header-shell">
+        <a class="brand" href="/quillphen/" aria-label="Hiba creator site">
+          <img src="/quillphen/assets/studio-mark.svg" alt="" width="36" height="36">
+          <span class="brand-copy"><strong>Hiba</strong><small>Release documentation</small></span>
+        </a>
+        <div class="header-actions">
+          <a class="plain-link" href="/releases/veinminer/docs/">VeinMiner docs</a>
+          <a class="plain-link" href="https://modrinth.com/datapack/ore-vein-miner">Modrinth ↗</a>
+          <button class="version-control" type="button" data-change-version><span data-current-version>Choose version</span> · Change</button>
+        </div>
+      </div>
+    </header>
+
+    <main id="documentation">
+      <section class="hero" data-mark="OVM">
+        <div class="hero-shell">
+          <p class="eyebrow">Java Edition data pack</p>
+          <h1 tabindex="-1">OreVeinMiner</h1>
+          <p class="lede">Mine one ore normally and the connected remainder enters a bounded, player-owned queue. Every additional block keeps its original loot table, tool context and ore family.</p>
+          <div class="hero-meta"><span class="current-version" data-current-version>Choose version</span><span>Server-side</span><span>Vanilla ore families</span><span>26-neighbor default</span></div>
+        </div>
+      </section>
+
+      <div class="docs-shell">
+        <nav class="docs-nav" aria-label="Page sections">
+          <strong>On this page</strong>
+          <a href="#install">Install</a>
+          <a href="#use">Use</a>
+          <a href="#commands">Commands</a>
+          <a href="#ores">Supported ores</a>
+          <a href="#extensions">Add blocks</a>
+          <a href="#durability">Loot & durability</a>
+          <a href="#performance">Performance</a>
+          <a href="#troubleshooting">Troubleshooting</a>
+        </nav>
+
+        <div class="docs-content">
+          <section class="doc-section" id="install">
+            <p class="section-kicker">01 / Install</p>
+            <h2>Install the file for your exact range</h2>
+            <div data-versions="v116" hidden><p>Use <code>OreVeinMiner-7.0.1+1.16-1.16.5.zip</code>.</p></div>
+            <div data-versions="v117" hidden><p>Use <code>OreVeinMiner-7.0.1+1.17-1.20.4.zip</code>.</p></div>
+            <div data-versions="v1205" hidden><p>Use <code>OreVeinMiner-7.0.1+1.20.5-1.20.6.zip</code>. This build uses item components for additional-block durability.</p></div>
+            <div data-versions="v121" hidden><p>Use <code>OreVeinMiner-7.0.1+1.21-1.21.1.zip</code>. Its singular data directories match the 1.21 layout.</p></div>
+            <div data-versions="modern" hidden><p>Use <code>OreVeinMiner-3.1.0+1.21.2-26.2.zip</code>.</p></div>
+            <div class="step-grid">
+              <div class="step"><b>1</b><p>Remove older OreVeinMiner copies from the world's <code>datapacks</code> folder.</p></div>
+              <div class="step"><b>2</b><p>Put the selected ZIP in <code>world/datapacks</code> without extracting it.</p></div>
+              <div class="step"><b>3</b><p>Run <code>/reload</code>, crouch, then mine a supported ore with a valid pickaxe.</p></div>
+            </div>
+            <p class="note"><strong>Do not load OreVeinMiner with VeinMiner.</strong> VeinMiner already handles ores, so both packs would observe the same first block. TreeVeinMiner handles a different block set and does not replace OreVeinMiner.</p>
+          </section>
+
+          <section class="doc-section" id="use">
+            <p class="section-kicker">02 / Use</p>
+            <h2>The first block is always normal Minecraft mining</h2>
+            <ol class="tight-list">
+              <li>Play in Survival, hold a pickaxe able to harvest the selected ore and crouch under the default activation mode.</li>
+              <li>Break the first ore normally. The pack confirms the targeted block disappeared and the matching mined statistic increased.</li>
+              <li>Connected blocks of the same ore family are processed through the queue. Stone and deepslate variants can belong to one vein.</li>
+            </ol>
+            <div data-versions="v116 v117 v1205 v121" hidden>
+              <div class="command-grid">
+                <div class="command-card"><code>/trigger ovl.toggle</code><p>Toggle OreVeinMiner off or on for your player.</p></div>
+              </div>
+            </div>
+            <div data-versions="modern" hidden>
+              <div class="command-grid">
+                <div class="command-card"><code>/trigger ovm.toggle set 1</code><p>Enable OreVeinMiner for your player.</p></div>
+                <div class="command-card"><code>/trigger ovm.toggle set 2</code><p>Disable it and cancel your active operation.</p></div>
+              </div>
+            </div>
+          </section>
+
+          <section class="doc-section" id="commands">
+            <p class="section-kicker">03 / Commands</p>
+            <h2>Operator controls</h2>
+            <div class="command-grid">
+              <div class="command-card"><code>/function oreveinminer:admin/enable</code><p>Enable new operations globally.</p></div>
+              <div class="command-card"><code>/function oreveinminer:admin/disable</code><p>Disable new operations globally.</p></div>
+              <div class="command-card"><code>/function oreveinminer:admin/adjacency_immediate</code><p>Follow all 26 immediately touching positions. This is the default.</p></div>
+              <div class="command-card"><code>/function oreveinminer:admin/adjacency_faces</code><p>Follow only the six face-sharing positions.</p></div>
+              <div class="command-card"><code>/function oreveinminer:admin/safety_on</code><p>Stop before an additional block would consume the tool's final durability point.</p></div>
+              <div class="command-card"><code>/function oreveinminer:admin/safety_off</code><p>Allow normal tool exhaustion. This is the default.</p></div>
+            </div>
+            <div data-versions="v116 v117 v1205 v121" hidden>
+              <h3>Legacy 7.0.1 controls</h3>
+              <div class="command-grid">
+                <div class="command-card"><code>/function oreveinminer:admin/preview_on</code><p>Show the mining preview.</p></div>
+                <div class="command-card"><code>/function oreveinminer:admin/preview_off</code><p>Disable the preview. This is the default.</p></div>
+                <div class="command-card"><code>/function oreveinminer:admin/reset</code><p>Restore the default global settings.</p></div>
+              </div>
+              <pre class="code-block">/scoreboard players set #value ovl.input 256
+/function oreveinminer:admin/set_max
+
+/scoreboard players set #value ovl.input 24
+/function oreveinminer:admin/set_budget</pre>
+              <p>Maximum additional blocks accepts 1–512. Queue visits per player per tick accepts 1–64. Invalid values restore that setting's default.</p>
+            </div>
+            <div data-versions="modern" hidden>
+              <h3>OreVeinMiner 3.1.0 controls</h3>
+              <div class="command-grid">
+                <div class="command-card"><code>/function oreveinminer:admin/crouch_required</code><p>Require crouching to begin a vein. This is the default.</p></div>
+                <div class="command-card"><code>/function oreveinminer:admin/always_active</code><p>Allow a vein to begin without crouching.</p></div>
+                <div class="command-card"><code>/function oreveinminer:admin/durability_on</code><p>Charge durability for additional blocks. This is the default.</p></div>
+                <div class="command-card"><code>/function oreveinminer:admin/durability_off</code><p>Disable additional-block durability costs.</p></div>
+                <div class="command-card"><code>/function oreveinminer:admin/debug_on</code><p>Send operation diagnostics while testing.</p></div>
+                <div class="command-card"><code>/function oreveinminer:admin/debug_off</code><p>Disable diagnostics. This is the default.</p></div>
+              </div>
+              <pre class="code-block">/function oreveinminer:admin/set_max {value:256}
+/function oreveinminer:admin/set_budget {value:24}</pre>
+              <p>The macro object is part of the command. Maximum additional blocks accepts 1–512; queue visits per player per tick accepts 1–64.</p>
+            </div>
+          </section>
+
+          <section class="doc-section" id="ores">
+            <p class="section-kicker">04 / Supported ores</p>
+            <h2>Eleven separate ore families</h2>
+            <p>Only blocks present in the selected Minecraft version can be mined. Overworld stone and deepslate variants share a family, but different materials do not merge into one operation.</p>
+            <div class="fact-grid">
+              <div class="fact"><b>Overworld</b><p>Coal, copper, diamond, emerald, gold, iron, lapis and redstone ore.</p></div>
+              <div class="fact"><b>Nether</b><p>Nether gold ore and nether quartz ore remain separate families.</p></div>
+              <div class="fact"><b>Debris</b><p>Ancient debris has its own family and still requires a suitable harvest tier.</p></div>
+            </div>
+            <p class="note is-cyan"><strong>Same family only.</strong> A diamond vein will not cross through iron ore, even when the blocks touch.</p>
+          </section>
+
+          <section class="doc-section" id="extensions">
+            <p class="section-kicker">05 / Add blocks</p>
+            <h2>Tags extend matching, not first-block detection</h2>
+            <p>OreVeinMiner does not include VeinMiner's arbitrary custom-block configuration. Its starting detector is built from the shipped vanilla mined-stat objectives.</p>
+            <div data-versions="v116 v117 v1205" hidden><p>Family tags are under <span class="path">data/oreveinminer/tags/blocks/family/</span>.</p></div>
+            <div data-versions="v121 modern" hidden><p>Family tags are under <span class="path">data/oreveinminer/tags/block/family/</span>.</p></div>
+            <ul class="tight-list">
+              <li>Adding a block to an existing family can let it be followed after a built-in vanilla ore starts that family.</li>
+              <li>Adding a modded block to a tag does not create the mined-stat objective needed for that block to start a vein by itself.</li>
+              <li>Use VeinMiner when arbitrary mod blocks must start their own operations through its custom-block system.</li>
+            </ul>
+          </section>
+
+          <section class="doc-section" id="durability">
+            <p class="section-kicker">06 / Loot & durability</p>
+            <h2>Loot uses the held pickaxe against the original block</h2>
+            <p>Every accepted additional block runs its Minecraft loot table with the owner's main hand before becoming air. Fortune and Silk Touch therefore follow the block's normal loot behavior. Ore experience is added only where normal non-Silk mining awards it.</p>
+            <div data-versions="v116" hidden><p class="note"><strong>Minecraft 1.16 durability:</strong> only the normally mined first block costs durability. This build never reconstructs or replaces the held pickaxe, preventing the legacy item-loss failure.</p></div>
+            <div data-versions="v117 v1205 v121 modern" hidden><p>Each additional accepted block applies one Unbreaking-aware durability attempt. Optional last-use safety stops the queue before the final point is consumed.</p></div>
+            <div class="fact-grid">
+              <div class="fact"><b>First block</b><p>Mined entirely by Minecraft before the queue starts.</p></div>
+              <div class="fact"><b>Extra drops</b><p>Generated from each original block with the owner's main-hand tool.</p></div>
+              <div class="fact"><b>Harvest tier</b><p>Rechecked before each queued block is accepted.</p></div>
+            </div>
+          </section>
+
+          <section class="doc-section" id="performance">
+            <p class="section-kicker">07 / Performance</p>
+            <h2>Work is capped per player and per operation</h2>
+            <p>The default limit is 128 additional blocks, with 16 queue visits per player per tick. Only matching neighboring blocks enter the modern 3.1.0 frontier; no operation means there is no vein queue to drain.</p>
+            <div class="fact-grid">
+              <div class="fact"><b>Default limit</b><p>128 additional blocks after the normally mined first ore.</p></div>
+              <div class="fact"><b>Default budget</b><p>16 queue visits per active player per tick.</p></div>
+              <div class="fact"><b>Ownership</b><p>Each operation remains attached to the player who started it.</p></div>
+            </div>
+          </section>
+
+          <section class="doc-section" id="troubleshooting">
+            <p class="section-kicker">08 / Troubleshooting</p>
+            <h2>Check the trigger conditions first</h2>
+            <ul class="tight-list">
+              <li><strong>Nothing happens:</strong> confirm the selected ZIP matches the server version, run <code>/reload</code>, crouch and use a pickaxe that can harvest the ore.</li>
+              <li><strong>Only one block breaks:</strong> nearby blocks must belong to the same ore family and touch through the selected six- or 26-neighbor rule.</li>
+              <li><strong>The feature stopped for one player:</strong> use the version-specific player command shown in the Use section.</li>
+              <li><strong>Duplicate drops or competing effects:</strong> remove VeinMiner or another ore-mining pack that observes the same block break.</li>
+              <li><strong>A modded ore does not start:</strong> this is expected from a tag-only edit; use VeinMiner's custom-block system for arbitrary starting blocks.</li>
+            </ul>
+          </section>
+        </div>
+      </div>
+    </main>
+
+    <footer class="site-footer"><div class="footer-shell"><span>Hiba release documentation</span><span>OreVeinMiner · Version-specific reference</span></div></footer>
+  </div>
+
+  <noscript><p class="note">JavaScript is required only for the version selector. Enable it to show the matching documentation.</p></noscript>
+</body>
+</html>
