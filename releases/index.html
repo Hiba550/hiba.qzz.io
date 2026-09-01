@@ -1,0 +1,135 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#0b0d0c">
+  <meta name="color-scheme" content="dark">
+  <title>Release Documentation | Hiba</title>
+  <meta name="description" content="Version-specific documentation for VeinMiner, OreVeinMiner, TreeVeinMiner and LeaveDecay Minecraft Java data packs.">
+  <link rel="canonical" href="https://hiba.qzz.io/releases/">
+  <meta property="og:title" content="Hiba Release Documentation">
+  <meta property="og:description" content="Choose a data pack and Minecraft version for exact installation, command and configuration details.">
+  <meta property="og:url" content="https://hiba.qzz.io/releases/">
+  <meta property="og:type" content="website">
+  <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="docs.css">
+  <link rel="stylesheet" href="home.css">
+</head>
+<body>
+  <a class="skip-link" href="#packs">Skip to packs</a>
+  <div class="page-noise" aria-hidden="true"></div>
+
+  <header class="site-header">
+    <div class="header-shell">
+      <a class="brand" href="/releases/" aria-label="Documentation home" aria-current="page">
+        <img src="/assets/favicon.svg" alt="" width="36" height="36">
+        <span class="brand-copy"><strong>Hiba</strong><small>Release documentation</small></span>
+      </a>
+      <nav class="header-actions" aria-label="Related sites">
+        <a class="plain-link" href="https://modrinth.com/user/quillphen">Modrinth</a>
+        <a class="plain-link" href="https://github.com/Hiba550">GitHub</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="home-hero" aria-labelledby="page-title">
+      <div class="home-hero-copy">
+        <p class="eyebrow">Minecraft Java data packs</p>
+        <h1 id="page-title">Find the right pack documentation.</h1>
+        <p class="lede">Choose a pack, then select your game version for exact commands, paths and compatibility.</p>
+        <a class="home-action" href="#packs">Browse documentation</a>
+      </div>
+      <div class="release-index" aria-label="Documentation coverage">
+        <div><strong>4</strong><span>documented packs</span></div>
+        <div><strong>1.16-26.2</strong><span>Minecraft coverage</span></div>
+        <div><strong>Java</strong><span>server and singleplayer</span></div>
+      </div>
+    </section>
+
+    <section class="pack-section" id="packs" aria-labelledby="packs-title">
+      <div class="section-heading">
+        <h2 id="packs-title">Choose what you want to mine</h2>
+        <p>Each page opens with a version selector and shows only the instructions for that build.</p>
+      </div>
+
+      <div class="pack-grid">
+        <article class="pack-entry pack-entry-primary">
+          <div class="pack-mark" aria-hidden="true">VM</div>
+          <div class="pack-copy">
+            <p class="pack-type">Ores, trees and custom blocks</p>
+            <h3>VeinMiner</h3>
+            <p>The complete pack. Use one owner-safe queue for ore families, structural trees and configured mod blocks.</p>
+            <div class="pack-meta"><span>1.16-26.2</span><span>Custom block support</span><span>LeaveDecay hook</span></div>
+          </div>
+          <a class="pack-link" href="/releases/veinminer/docs/">Open VeinMiner docs <span aria-hidden="true">→</span></a>
+        </article>
+
+        <article class="pack-entry pack-entry-ore">
+          <div class="pack-mark" aria-hidden="true">OV</div>
+          <div class="pack-copy">
+            <p class="pack-type">Ores only</p>
+            <h3>OreVeinMiner</h3>
+            <p>Connected ore families with harvest-tier checks, vanilla loot and bounded processing.</p>
+            <div class="pack-meta"><span>1.16-26.2</span><span>Pickaxes</span></div>
+          </div>
+          <a class="pack-link" href="/releases/ore-vein-miner/docs/">Open ore docs <span aria-hidden="true">→</span></a>
+        </article>
+
+        <article class="pack-entry pack-entry-tree">
+          <div class="pack-mark" aria-hidden="true">TV</div>
+          <div class="pack-copy">
+            <p class="pack-type">Structural wood only</p>
+            <h3>TreeVeinMiner</h3>
+            <p>Mine connected logs, wood, stems and hyphae without turning leaves into a mining operation.</p>
+            <div class="pack-meta"><span>1.16-26.2</span><span>Axes</span></div>
+          </div>
+          <a class="pack-link" href="/releases/tree-vein-miner/docs/">Open tree docs <span aria-hidden="true">→</span></a>
+        </article>
+
+        <article class="pack-entry pack-entry-addon">
+          <div class="pack-mark" aria-hidden="true">LD</div>
+          <div class="pack-copy">
+            <p class="pack-type">Companion add-on</p>
+            <h3>LeaveDecay</h3>
+            <p>Clean unsupported natural leaves after VeinMiner or TreeVeinMiner removes a tree. Player-placed leaves remain protected.</p>
+            <div class="pack-meta"><span>1.16-26.2</span><span>Three downloads</span><span>6 nodes per tick</span></div>
+          </div>
+          <a class="pack-link" href="/releases/leave-decay/docs/">Open LeaveDecay docs <span aria-hidden="true">→</span></a>
+        </article>
+      </div>
+    </section>
+
+    <section class="install-guide" aria-labelledby="install-title">
+      <div class="guide-copy">
+        <p class="eyebrow">Install without conflicts</p>
+        <h2 id="install-title">Use one mining pack.</h2>
+        <p>VeinMiner already contains ore and tree mining. Do not load it beside the separate OreVeinMiner or TreeVeinMiner packs.</p>
+      </div>
+      <div class="compatibility-list">
+        <div><strong>Everything</strong><span>Install VeinMiner</span></div>
+        <div><strong>Only ores</strong><span>Install OreVeinMiner</span></div>
+        <div><strong>Only trees</strong><span>Install TreeVeinMiner</span></div>
+        <div><strong>Leaf cleanup</strong><span>Add LeaveDecay to VeinMiner or TreeVeinMiner</span></div>
+      </div>
+    </section>
+
+    <section class="docs-method" aria-labelledby="method-title">
+      <h2 id="method-title">The page matches your version</h2>
+      <p>Select the Minecraft range before reading. Commands, namespaces, file paths and durability behavior change between legacy and modern builds.</p>
+      <div class="method-flow" aria-label="Documentation process">
+        <span>Choose a pack</span>
+        <span aria-hidden="true">→</span>
+        <span>Choose Minecraft</span>
+        <span aria-hidden="true">→</span>
+        <span>Follow that build</span>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="footer-shell"><span>Hiba release documentation</span><a href="/">hiba.qzz.io</a></div>
+  </footer>
+</body>
+</html>
