@@ -662,6 +662,56 @@
     sections.forEach((section) => sectionObserver.observe(section));
   }
 
+
+  function initProjectGalleries() {
+    document.querySelectorAll('[data-project-gallery]').forEach((gallery) => {
+      const track = gallery.querySelector('[data-gallery-track]');
+      const slides = [...gallery.querySelectorAll('.project-gallery-slide')];
+      const previous = gallery.querySelector('[data-gallery-prev]');
+      const next = gallery.querySelector('[data-gallery-next]');
+      const counter = gallery.querySelector('[data-gallery-count]');
+
+      if (!track || slides.length < 2) return;
+
+      let index = 0;
+      let scrollTimer;
+
+      const update = (nextIndex) => {
+        index = Math.max(0, Math.min(nextIndex, slides.length - 1));
+        if (counter) {
+          counter.textContent = `${String(index + 1).padStart(2, '0')} / ${String(slides.length).padStart(2, '0')}`;
+        }
+        if (previous) previous.disabled = index === 0;
+        if (next) next.disabled = index === slides.length - 1;
+      };
+
+      const goTo = (nextIndex) => {
+        const target = Math.max(0, Math.min(nextIndex, slides.length - 1));
+        slides[target].scrollIntoView({
+          behavior: reducedMotion.matches ? 'auto' : 'smooth',
+          block: 'nearest',
+          inline: 'start'
+        });
+        update(target);
+      };
+
+      previous?.addEventListener('click', () => goTo(index - 1));
+      next?.addEventListener('click', () => goTo(index + 1));
+
+      track.addEventListener('scroll', () => {
+        window.clearTimeout(scrollTimer);
+        scrollTimer = window.setTimeout(() => {
+          const width = track.clientWidth || 1;
+          update(Math.round(track.scrollLeft / width));
+        }, 80);
+      }, { passive: true });
+
+      update(0);
+    });
+  }
+
+  initProjectGalleries();
+
   document.querySelectorAll('[data-video-id]').forEach((button) => {
     button.addEventListener('click', () => {
       const id = button.dataset.videoId;
