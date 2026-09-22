@@ -1979,3 +1979,42 @@ img.is-broken { opacity: 0; }
     font-size: .55rem;
   }
 }
+
+
+/* Gallery layout hardening */
+.blazer-feature > *,
+.pulse-shell > *,
+.case-antiquity .case-shell > * {
+  min-width: 0;
+}
+
+.project-gallery {
+  width: 100%;
+  min-width: 0;
+}
+
+.project-gallery-track {
+  display: flex !important;
+  flex-flow: row nowrap !important;
+  width: 100%;
+  min-width: 0;
+}
+
+.project-gallery-slide {
+  display: block !important;
+  flex: 0 0 100% !important;
+  width: 100% !important;
+  min-width: 100% !important;
+  max-width: 100% !important;
+}
+
+.project-gallery-slide img {
+  width: 100% !important;
+  max-width: none !important;
+}
+
+.project-gallery-controls button:disabled {
+  opacity: .38;
+  cursor: default;
+  transform: none;
+}
