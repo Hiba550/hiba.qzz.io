@@ -398,7 +398,8 @@
         </div>
       </div>
     `;
-    statement.insertAdjacentElement('afterend', section);
+    const recognition = document.querySelector('.recognition');
+    (recognition || statement).insertAdjacentElement('afterend', section);
   }
 
   function addProjectContext() {
@@ -460,9 +461,9 @@
   }
 
   function rewritePortfolioCopy() {
-    setText('#hero-title span', 'Minecraft Add-Ons,');
-    setText('#hero-title em', 'PBR packs & creator tools.');
-    setText('.hero-intro', 'We’re brothers who make Minecraft projects together. QuillPhen handles add-ons and gameplay; 0x4a4b handles Seraphic’s PBR/RTX visuals, texture work and graphics tools.');
+    setText('#hero-title span', 'Gameplay systems,');
+    setText('#hero-title em', 'rendering & game design.');
+    setText('.hero-intro', 'We’re brothers who build Minecraft projects together. QuillPhen handles gameplay and systems; 0x4a4b handles rendering, PBR/RTX visuals and graphics tooling. Recent work has also reached judged Minecraft and PUBG creator contests.');
 
     const combinedDownloads = document.querySelector('.hero-proof > div:first-child strong');
     if (combinedDownloads) {
@@ -485,8 +486,8 @@
     setText('.case-echo .case-lede', 'Build Echo remembers player-built blocks lost to creeper and TNT explosions. It leaves holographic guides in the missing positions, preserves supported block states, and lets the player repair the build with the correct materials.');
     setHTML('.case-echo .media-caption', '<span>Full gameplay demo</span> Damage, echoes and restoration.');
 
-    setText('.visual-heading h2', 'Seraphic RTX & PBR');
-    setText('.visual-heading > p:last-child', 'This section shows 0x4a4b’s released PBR and RTX work in-game: material response, height and normal maps, emissives, glass, fog and full Minecraft scenes.');
+    setText('.visual-heading h2', 'Rendering, RTX & PBR');
+    setText('.visual-heading > p:last-child', '0x4a4b’s work now spans material creation and renderer-level experiments: Seraphic PBR/RTX packs, graphics tooling and the new BlazerRT real-time shader project.');
     setText('.cinema-label', 'Watch Seraphic RTX showcase');
 
     document.querySelectorAll('.visual-tile figcaption').forEach((caption, index) => {
