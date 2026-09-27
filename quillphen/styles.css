@@ -2064,17 +2064,6 @@ img.is-broken { opacity: 0; }
   text-transform: uppercase;
 }
 
-.platform-notice {
-  display: block;
-  padding: 10px 12px;
-  color: rgba(242,240,232,.67);
-  border: 1px solid rgba(255,255,255,.14);
-  background: rgba(255,255,255,.035);
-  font-family: var(--mono);
-  font-size: .56rem;
-  letter-spacing: .1em;
-  text-align: center;
-}
 
 @media (max-width: 980px) {
   .vein-series-main {
