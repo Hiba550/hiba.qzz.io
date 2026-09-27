@@ -4,7 +4,7 @@
   const order=['biplane','airship','cargo_airship','bamboo_hopper','gyrodyne','quadrocopter','warship'];
   const roleMeta={inventory:['Storage',''],boiler:['Fuel / boiler','B'],booster:['Booster','+'],weapon:['Weapon','W'],upgrade:['Upgrade','U'],banner:['Banner','F'],dye:['Dye','D']};
   const item=id=>D.items[id]||{id,name:id.split(':').pop().replaceAll('_',' '),category:'vanilla',tooltip:[],icon:null};
-  const icon=id=>{const m=item(id),d=document.createElement('span');d.className='item-icon';if(m.icon){const im=new Image();im.alt='';im.src=m.icon;im.onerror=()=>im.remove();d.append(im)}const t=document.createElement('span');t.textContent=m.name.split(/\s+/).map(x=>x[0]).join('').slice(0,2).toUpperCase();d.append(t);return d};
+  const icon=id=>{const m=item(id),d=document.createElement('span');d.className='item-icon';const t=document.createElement('span');t.className='item-fallback';t.textContent=m.name.split(/\s+/).map(x=>x[0]).join('').slice(0,2).toUpperCase();d.append(t);if(m.icon){const im=new Image();im.alt='';im.onload=()=>t.remove();im.onerror=()=>im.remove();im.src=m.icon;d.prepend(im)}return d};
   const progress=$('#progress'), header=$('#header');
   const onScroll=()=>{const h=document.documentElement;progress.style.transform=`scaleX(${h.scrollTop/Math.max(1,h.scrollHeight-h.clientHeight)})`;header.classList.toggle('is-scrolled',scrollY>24)};addEventListener('scroll',onScroll,{passive:true});onScroll();
   const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting)e.target.classList.add('in')}),{threshold:.12});$$('.reveal').forEach(x=>io.observe(x));
