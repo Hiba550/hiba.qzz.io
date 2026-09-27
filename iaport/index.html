@@ -9,7 +9,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Manrope:wght@400;500;600;700;800&family=Silkscreen:wght@400;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css?v=4">
+  <link rel="stylesheet" href="styles.css?v=5">
 </head>
 <body>
   <a class="skip-link" href="#main">Skip to content</a>
@@ -114,7 +114,10 @@
         <div class="inventory-layout reveal">
           <div class="inventory-board">
             <div class="inventory-topbar"><strong id="inventoryTitle">Biplane inventory</strong><select id="inventoryAircraft" aria-label="Choose aircraft inventory"></select></div>
-            <div class="inventory-ui" id="inventoryUI" aria-label="Aircraft inventory slot diagram"></div>
+            <div class="inventory-canvas" id="inventoryCanvas">
+              <img id="inventoryLayout" alt="Aircraft inventory layout">
+              <div class="slot-overlay" id="slotOverlay"></div>
+            </div>
           </div>
           <aside class="inventory-legend">
             <h3>Slot guide</h3>
@@ -134,23 +137,39 @@
 
         <div class="gyro-layout reveal">
           <div class="gyro-panel">
-            <div class="gyro-readout">
-              <div class="gyro-horizon" id="gyroHorizon"><div class="gyro-sky"></div><div class="gyro-ground"></div><div class="gyro-line"></div></div>
-              <div class="gyro-crosshair" aria-hidden="true"></div>
-              <div class="gyro-data"><div><span>SPD</span><strong id="outSpeed">32</strong></div><div><span>ALT</span><strong id="outAlt">350</strong></div><div><span>HDG</span><strong id="outHeading">055°</strong></div></div>
+            <div class="gyro-mode-row">
+              <button class="gyro-mode active" data-mode="dials" type="button">Mechanical dials</button>
+              <button class="gyro-mode" data-mode="hud" type="button">Electronic HUD</button>
+            </div>
+            <div class="instrument-stage">
+              <div id="gyroDials" class="dial-cluster">
+                <figure><canvas id="dialSpeed" width="165" height="165"></canvas><figcaption>Airspeed</figcaption></figure>
+                <figure><canvas id="dialAlt" width="165" height="165"></canvas><figcaption>Altitude</figcaption></figure>
+                <figure class="wide-dial"><canvas id="dialHeading" width="327" height="57"></canvas><figcaption>Heading</figcaption></figure>
+                <figure><canvas id="dialAttitude" width="165" height="165"></canvas><figcaption>Attitude</figcaption></figure>
+              </div>
+              <div id="gyroHud" class="hud-instrument hidden">
+                <div class="hud-frame">
+                  <img id="gyroHudFrame" alt="">
+                  <canvas id="hudHeading" width="300" height="44"></canvas>
+                  <canvas id="hudAttitude" width="240" height="180"></canvas>
+                  <canvas id="hudSpeed" width="140" height="180"></canvas>
+                  <canvas id="hudAlt" width="140" height="180"></canvas>
+                </div>
+              </div>
             </div>
             <div class="gyro-controls">
-              <label>Speed <input id="gyroSpeed" type="range" min="0" max="60" value="32" step="0.5"></label>
-              <label>Altitude <input id="gyroAlt" type="range" min="-100" max="2000" value="350" step="5"></label>
-              <label>Heading <input id="gyroHeading" type="range" min="0" max="359" value="55"></label>
-              <label>Pitch <input id="gyroPitch" type="range" min="-60" max="60" value="8"></label>
-              <label>Roll <input id="gyroRoll" type="range" min="-60" max="60" value="12"></label>
+              <label><span>Speed <output id="outSpeed">32.0</output></span><input id="gyroSpeed" type="range" min="-20" max="70" value="32" step="0.5"></label>
+              <label><span>Altitude <output id="outAlt">350</output></span><input id="gyroAlt" type="range" min="-100" max="2000" value="350" step="5"></label>
+              <label><span>Heading <output id="outHeading">055°</output></span><input id="gyroHeading" type="range" min="0" max="359" value="55"></label>
+              <label><span>Pitch <output id="outPitch">8°</output></span><input id="gyroPitch" type="range" min="-90" max="90" value="8"></label>
+              <label><span>Roll <output id="outRoll">12°</output></span><input id="gyroRoll" type="range" min="-60" max="60" value="12"></label>
             </div>
           </div>
           <div class="gyro-copy">
-            <article><span>01</span><h3>Gyroscope</h3><p>Base aircraft upgrade used by the two instrument variants.</p></article>
-            <article><span>02</span><h3>Advanced Gyroscope</h3><p>Mechanical dial-style flight information built from the same aircraft state.</p></article>
-            <article><span>03</span><h3>Electronic Gyroscope</h3><p>HUD-style readout for speed, altitude, heading and attitude.</p></article>
+            <article><img id="gyroItemBase" alt=""><span>01</span><h3>Gyroscope</h3><p>Base aircraft upgrade used by the two instrument variants.</p></article>
+            <article><img id="gyroItemDials" alt=""><span>02</span><h3>Advanced Gyroscope</h3><p>Mechanical dial-style flight information built from the source instrument atlases.</p></article>
+            <article><img id="gyroItemHud" alt=""><span>03</span><h3>Electronic Gyroscope</h3><p>HUD-style source instruments for speed, altitude, heading and attitude.</p></article>
           </div>
         </div>
       </div>
@@ -189,8 +208,8 @@
   <script src="guide-aircraft-quadrocopter.js?v=1"></script>
   <script src="guide-aircraft-warship.js?v=1"></script>
   <script src="guide-data.js?v=1"></script>
-  <script src="model-biplane.js?v=1"></script>
-  <script src="model-viewer.js?v=2"></script>
-  <script src="app.js?v=4"></script>
+  <script src="runtime-assets.js?v=2"></script>
+  <script src="model-viewer.js?v=3"></script>
+  <script src="app.js?v=5"></script>
 </body>
 </html>
