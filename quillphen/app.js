@@ -499,8 +499,8 @@
       if (captions[index]) caption.textContent = captions[index];
     });
 
-    setText('.catalogue-heading h2', 'A utility series used at scale.');
-    setText('.catalogue-heading > p:last-child', 'QuillPhen’s three Java vein-mining projects have passed approximately six million downloads across CurseForge and Modrinth.');
+    setText('.catalogue-heading h2', 'More released projects');
+    setText('.catalogue-heading > p:last-child', 'A few other projects we’ve released and still maintain.');
 
     const productDescriptions = [...document.querySelectorAll('.product-card')];
     productDescriptions.forEach((card) => {
