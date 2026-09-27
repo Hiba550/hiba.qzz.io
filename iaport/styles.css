@@ -503,3 +503,36 @@ footer{padding-block:46px;background:#070907;border-top:1px solid var(--line)}
   .brand-copy small{display:none}
   .brand-logo{width:36px;height:36px}
 }
+
+
+/* Immersive Aircraft video */
+.port-video{
+  padding-block:clamp(72px,8vw,118px);
+  background:#090b09;
+  color:var(--paper);
+  border-top:1px solid var(--line);
+  border-bottom:1px solid var(--line)
+}
+.port-video .section-heading{
+  margin-bottom:clamp(28px,4vw,46px)
+}
+.port-video .section-label{color:var(--green-bright)}
+.port-video-frame{
+  position:relative;
+  width:100%;
+  aspect-ratio:16/9;
+  overflow:hidden;
+  border:1px solid rgba(255,255,255,.16);
+  background:#050605;
+  box-shadow:0 28px 70px rgba(0,0,0,.32)
+}
+.port-video-frame iframe{
+  position:absolute;
+  inset:0;
+  width:100%;
+  height:100%;
+  border:0
+}
+.port-video-link{
+  margin-top:18px
+}
