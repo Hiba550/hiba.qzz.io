@@ -61,7 +61,7 @@
 
   const byResult=new Map(D.recipes.map(r=>[r.result.item,r]));let filter='all',selected;
   ['all','aircraft','component','upgrade','weapon'].forEach(f=>{const b=document.createElement('button');b.className='recipe-filter'+(f==='all'?' active':'');b.textContent=f;b.onclick=()=>{filter=f;$$('.recipe-filter').forEach(x=>x.classList.toggle('active',x===b));renderRecipeList()};$('#recipeFilters').append(b)});
-  const ing=(r,ch)=>{const x=r.key[ch];return x?.item||x?.tag||null};
+  const ing=(r,ch)=>{const x=r.key[ch];return x?.item||(x?.tag?'#'+x.tag:null)};
   function renderRecipeList(){const q=$('#recipeSearch').value.toLowerCase().trim(),box=$('#recipeList');box.innerHTML='';D.recipes.filter(r=>{const m=item(r.result.item);return(filter==='all'||m.category===filter)&&(!q||m.name.toLowerCase().includes(q)||r.slug.includes(q))}).forEach(r=>{const m=item(r.result.item),b=document.createElement('button');b.className='recipe-entry'+(selected===r?' active':'');b.append(icon(r.result.item));const s=document.createElement('span');s.innerHTML=`<b>${m.name}</b><small>${m.category} · shaped</small>`;b.append(s);b.onclick=()=>selectRecipe(r);box.append(b)})}
   function expand(id,q=1,out={},stack=new Set()){const r=byResult.get(id);if(!r||stack.has(id)){out[id]=(out[id]||0)+q;return out}const next=new Set(stack);next.add(id);const c={};r.pattern.join('').split('').filter(x=>x!==' ').forEach(ch=>{const k=ing(r,ch);if(k)c[k]=(c[k]||0)+1});for(const[k,n]of Object.entries(c)){if(byResult.has(k))expand(k,q*n,out,next);else out[k]=(out[k]||0)+q*n}return out}
   function craftSlot(id){const d=document.createElement('div');d.className='craft-slot';if(id)d.append(icon(id));return d}
