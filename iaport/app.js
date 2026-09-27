@@ -54,7 +54,7 @@
   const item=id=>{const m=baseItem(id);return {...m,icon:CUSTOM[id]||m.icon||null}};
   const candidates=id=>{
     const m=item(id);
-    if(m.icon) return [m.icon];
+    if(m.icon)return[m.icon];
     let arr=vanillaCandidates[id]||[];
     if(!arr.length&&id?.startsWith('minecraft:')){
       const n=id.split(':')[1];
@@ -66,17 +66,19 @@
   const icon=id=>{
     const m=item(id),d=document.createElement('span');
     d.className='item-icon';
-    const t=document.createElement('span');
-    t.className='item-fallback';
-    t.textContent=m.name.split(/\s+/).map(x=>x[0]).join('').slice(0,2).toUpperCase();
-    d.append(t);
+
+    const fallback=document.createElement('span');
+    fallback.className='item-fallback';
+    fallback.textContent=m.name.split(/\s+/).map(x=>x[0]).join('').slice(0,2).toUpperCase();
+    d.append(fallback);
+
     const urls=candidates(id);
     if(urls.length){
       const im=new Image();
       im.alt=m.name;
       im.loading='lazy';
       let i=0;
-      im.onload=()=>t.remove();
+      im.onload=()=>fallback.remove();
       im.onerror=()=>{i++;if(i<urls.length)im.src=urls[i];else im.remove()};
       im.src=urls[0];
       d.prepend(im);
@@ -93,10 +95,10 @@
   addEventListener('scroll',onScroll,{passive:true});
   onScroll();
 
-  const io=new IntersectionObserver(es=>es.forEach(e=>{
-    if(e.isIntersecting)e.target.classList.add('in');
-  }),{threshold:.12});
-  $$('.reveal').forEach(x=>io.observe(x));
+  const io=new IntersectionObserver(entries=>entries.forEach(entry=>{
+    if(entry.isIntersecting)entry.target.classList.add('in');
+  }),{threshold:.1});
+  $$('.reveal').forEach(el=>io.observe(el));
 
   const byResult=new Map(D.recipes.map(r=>[r.result.item,r]));
   let filter='all',selected;
@@ -119,18 +121,22 @@
   };
 
   function renderRecipeList(){
-    const q=$('#recipeSearch').value.toLowerCase().trim(),box=$('#recipeList');
+    const q=$('#recipeSearch').value.toLowerCase().trim();
+    const box=$('#recipeList');
     box.innerHTML='';
+
     D.recipes.filter(r=>{
       const m=item(r.result.item);
       return (filter==='all'||m.category===filter)&&(!q||m.name.toLowerCase().includes(q)||r.slug.includes(q));
     }).forEach(r=>{
-      const m=item(r.result.item),b=document.createElement('button');
+      const m=item(r.result.item);
+      const b=document.createElement('button');
       b.className='recipe-entry'+(selected===r?' active':'');
       b.append(icon(r.result.item));
-      const s=document.createElement('span');
-      s.innerHTML=`<b>${m.name}</b><small>${m.category} · shaped</small>`;
-      b.append(s);
+
+      const copy=document.createElement('span');
+      copy.innerHTML=`<b>${m.name}</b><small>${m.category} · shaped</small>`;
+      b.append(copy);
       b.onclick=()=>selectRecipe(r);
       box.append(b);
     });
@@ -142,14 +148,17 @@
       out[id]=(out[id]||0)+q;
       return out;
     }
+
     const next=new Set(stack);
     next.add(id);
-    const c={};
+    const counts={};
+
     r.pattern.join('').split('').filter(x=>x!==' ').forEach(ch=>{
       const k=ing(r,ch);
-      if(k)c[k]=(c[k]||0)+1;
+      if(k)counts[k]=(counts[k]||0)+1;
     });
-    for(const [k,n] of Object.entries(c)){
+
+    for(const [k,n] of Object.entries(counts)){
       if(byResult.has(k))expand(k,q*n,out,next);
       else out[k]=(out[k]||0)+q*n;
     }
@@ -169,33 +178,36 @@
     $('#recipeCategory').textContent=m.category;
     $('#recipeTitle').textContent=m.name;
 
-    const g=$('#craftGrid');
-    g.innerHTML='';
+    const grid=$('#craftGrid');
+    grid.innerHTML='';
     for(const row of r.pattern){
-      for(const ch of row)g.append(craftSlot(ch===' '?null:ing(r,ch)));
+      for(const ch of row)grid.append(craftSlot(ch===' '?null:ing(r,ch)));
     }
 
-    const res=$('#craftResult');
-    res.innerHTML='';
-    const rs=document.createElement('div');
-    rs.className='result-slot';
-    rs.append(icon(r.result.item));
-    res.append(rs);
+    const result=$('#craftResult');
+    result.innerHTML='';
+    const resultSlot=document.createElement('div');
+    resultSlot.className='result-slot';
+    resultSlot.append(icon(r.result.item));
+    result.append(resultSlot);
 
     $('#recipeNote').textContent=(m.tooltip||[]).join(' ')||'Current alpha shaped recipe.';
 
-    const totals=expand(r.result.item),tb=$('#recipeTotals');
-    tb.innerHTML='';
+    const totals=expand(r.result.item);
+    const totalsBox=$('#recipeTotals');
+    totalsBox.innerHTML='';
+
     Object.entries(totals)
       .sort((a,b)=>item(a[0]).name.localeCompare(item(b[0]).name))
       .forEach(([id,n])=>{
-        const c=document.createElement('div');
-        c.className='ingredient-chip';
-        c.append(icon(id));
-        const t=document.createElement('span');
-        t.textContent=`${n}× ${item(id).name}`;
-        c.append(t);
-        tb.append(c);
+        const chip=document.createElement('div');
+        chip.className='ingredient-chip';
+        chip.append(icon(id));
+
+        const label=document.createElement('span');
+        label.textContent=`${n}× ${item(id).name}`;
+        chip.append(label);
+        totalsBox.append(chip);
       });
 
     renderRecipeList();
@@ -204,4 +216,48 @@
   $('#recipeSearch').oninput=renderRecipeList;
   renderRecipeList();
   selectRecipe(D.recipes.find(r=>r.slug==='biplane')||D.recipes[0]);
+
+  const downloadButtons=$$('[data-download-addon]');
+  const downloadStatuses=$$('[data-download-status]');
+  const setDownloadStatus=text=>downloadStatuses.forEach(el=>el.textContent=text);
+
+  let downloading=false;
+  async function downloadAddon(){
+    if(downloading)return;
+    downloading=true;
+    downloadButtons.forEach(b=>{b.disabled=true;b.classList.add('is-loading')});
+    setDownloadStatus('Preparing download…');
+
+    try{
+      const buffers=[];
+      const total=19;
+
+      for(let i=1;i<=total;i++){
+        const part=`downloads/parts/ia-alpha-${String(i).padStart(3,'0')}.part`;
+        const response=await fetch(part,{cache:'no-store'});
+        if(!response.ok)throw new Error(`Part ${i} returned ${response.status}`);
+        buffers.push(await response.arrayBuffer());
+        setDownloadStatus(`Preparing download… ${i}/${total}`);
+      }
+
+      const blob=new Blob(buffers,{type:'application/octet-stream'});
+      const url=URL.createObjectURL(blob);
+      const a=document.createElement('a');
+      a.href=url;
+      a.download='ImmersiveAircraft-Bedrock-1.0-Alpha.mcaddon';
+      document.body.append(a);
+      a.click();
+      a.remove();
+      setTimeout(()=>URL.revokeObjectURL(url),2000);
+      setDownloadStatus('Download ready — open the .mcaddon with Minecraft.');
+    }catch(err){
+      console.error(err);
+      setDownloadStatus('Download could not be prepared. Please refresh the page and try again.');
+    }finally{
+      downloading=false;
+      downloadButtons.forEach(b=>{b.disabled=false;b.classList.remove('is-loading')});
+    }
+  }
+
+  downloadButtons.forEach(button=>button.addEventListener('click',downloadAddon));
 })();
