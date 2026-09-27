@@ -1,1 +1,16 @@
-Original Immersive Aircraft: Conczin / Luke100000 and contributors. GPLv3. Authorized Bedrock port development; not reviewed or endorsed by the original author. Corresponding editable source accompanies this build.
+Immersive Aircraft — Bedrock Port Attribution
+
+Original project:
+Immersive Aircraft by Luke100000 (Conczin) and contributors
+CurseForge: https://www.curseforge.com/minecraft/mc-mods/immersive-aircraft
+Source: https://github.com/Luke100000/ImmersiveAircraft
+License: GNU General Public License v3.0
+
+Thank you to Luke100000 for creating Immersive Aircraft and for giving permission to bring the project to Minecraft Bedrock Edition.
+
+The original aircraft concepts, models, textures, sounds, recipes and Java implementation come from the original Immersive Aircraft project and its contributors.
+
+Bedrock port:
+QuillPhen × 0x4a4b
+
+This alpha package is an in-development Bedrock port and is not the original Java release.
