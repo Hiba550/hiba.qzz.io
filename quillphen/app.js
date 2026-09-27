@@ -499,8 +499,8 @@
       if (captions[index]) caption.textContent = captions[index];
     });
 
-    setText('.catalogue-heading h2', 'More released projects');
-    setText('.catalogue-heading > p:last-child', 'A few other projects we’ve released and still maintain.');
+    setText('.catalogue-heading h2', 'A utility series used at scale.');
+    setText('.catalogue-heading > p:last-child', 'QuillPhen’s three Java vein-mining projects have passed approximately six million downloads across CurseForge and Modrinth.');
 
     const productDescriptions = [...document.querySelectorAll('.product-card')];
     productDescriptions.forEach((card) => {
@@ -515,7 +515,7 @@
 
     setText('.platform-callout .section-label', 'Built by our team');
     setText('.platform-callout h3', 'Bedrock Graphics');
-    setText('.platform-callout-copy > p:last-child', 'Bedrock Graphics is the publishing and discovery site we built for Minecraft Bedrock graphics and creator projects. It gives creators project pages, version files, galleries, release notes, comments, ratings and download analytics, with dedicated categories for texture/PBR packs, BetterRTX presets, shaders, behavior packs and utilities.');
+    setText('.platform-callout-copy > p:not(.section-label)', 'Bedrock Graphics is an unreleased creator platform we’re developing for Minecraft Bedrock graphics projects. It is not publicly launched yet and is currently in Creator Alpha / Preview while we test publishing, version delivery, galleries, moderation, analytics and creator workflows with early creators.');
 
     setText('#tooling-title', 'Tools we use and build ourselves');
     setText('.tooling-copy > p:not(.section-label)', 'Our JE2BE converter handles repetitive parts of moving resource packs from Java to Bedrock, including texture mapping, LabPBR-to-MER conversion, texture-set generation and RTX checks.');
