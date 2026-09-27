@@ -2126,3 +2126,135 @@ img.is-broken { opacity: 0; }
     padding-inline: 20px;
   }
 }
+
+
+/* Immersive Aircraft development preview */
+.development-preview {
+  padding-block: clamp(70px, 8vw, 118px);
+  background: #0b0d0c;
+  color: var(--paper);
+  border-top: 1px solid rgba(255,255,255,.1);
+  border-bottom: 1px solid rgba(255,255,255,.1);
+}
+.development-card {
+  display: grid;
+  grid-template-columns: minmax(0, 1.08fr) minmax(360px, .92fr);
+  min-height: 620px;
+  overflow: hidden;
+  border: 1px solid rgba(255,255,255,.16);
+  background: #090b09;
+}
+.development-copy {
+  padding: clamp(36px, 5vw, 72px);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.development-status {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 42px;
+  color: rgba(242,240,232,.58);
+  font: .6rem/1.4 var(--mono);
+  letter-spacing: .09em;
+  text-transform: uppercase;
+}
+.development-dot {
+  width: 7px;
+  height: 7px;
+  flex: 0 0 auto;
+  background: var(--green-bright);
+  box-shadow: 0 0 0 4px rgba(164,239,126,.1), 0 0 18px rgba(164,239,126,.5);
+}
+.development-copy .section-label { color: var(--green-bright); }
+.development-copy h2 {
+  margin-top: 17px;
+  font-size: clamp(3rem, 6vw, 6.2rem);
+  line-height: .86;
+  letter-spacing: -.065em;
+}
+.development-copy h2 span { color: rgba(242,240,232,.58); font-weight: 500; }
+.development-copy > p:not(.section-label) {
+  max-width: 700px;
+  margin-top: 30px;
+  color: rgba(242,240,232,.64);
+  line-height: 1.75;
+}
+.development-roles {
+  display: grid;
+  gap: 8px;
+  margin-top: 28px;
+  color: rgba(242,240,232,.5);
+  font: .61rem/1.6 var(--mono);
+}
+.development-roles strong { color: rgba(242,240,232,.85); font-weight: 600; }
+.development-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 22px;
+  align-items: center;
+  margin-top: 36px;
+}
+.development-visual {
+  position: relative;
+  min-height: 620px;
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+  border-left: 1px solid rgba(255,255,255,.13);
+  background:
+    radial-gradient(circle at 50% 48%, rgba(120,204,88,.13), transparent 32%),
+    linear-gradient(145deg, #101711, #060806 74%);
+}
+.development-grid {
+  position: absolute;
+  inset: 0;
+  opacity: .28;
+  background-image:
+    linear-gradient(rgba(255,255,255,.08) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,.08) 1px, transparent 1px);
+  background-size: 44px 44px;
+}
+.development-visual img {
+  position: relative;
+  z-index: 3;
+  width: clamp(180px, 23vw, 330px);
+  image-rendering: pixelated;
+  filter: drop-shadow(0 30px 44px rgba(0,0,0,.58));
+  transform: rotate(-4deg);
+}
+.aircraft-orbit {
+  position: absolute;
+  z-index: 1;
+  border: 1px solid rgba(164,239,126,.22);
+  border-radius: 50%;
+  transform: rotate(-18deg);
+}
+.aircraft-orbit-a { width: 58%; aspect-ratio: 1; }
+.aircraft-orbit-b { width: 78%; aspect-ratio: 1; border-color: rgba(105,231,241,.13); transform: rotate(18deg); }
+.development-caption {
+  position: absolute;
+  z-index: 4;
+  left: 26px;
+  right: 26px;
+  bottom: 24px;
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+  padding-top: 14px;
+  border-top: 1px solid rgba(255,255,255,.16);
+  font-family: var(--mono);
+}
+.development-caption span { color: var(--green-bright); font-size: .56rem; letter-spacing: .1em; }
+.development-caption strong { color: rgba(242,240,232,.56); font-size: .56rem; letter-spacing: .08em; }
+
+@media (max-width: 980px) {
+  .development-card { grid-template-columns: 1fr; }
+  .development-visual { min-height: 480px; border-left: 0; border-top: 1px solid rgba(255,255,255,.13); }
+}
+@media (max-width: 600px) {
+  .development-copy { padding: 30px 24px 38px; }
+  .development-status { margin-bottom: 28px; }
+  .development-visual { min-height: 390px; }
+}
