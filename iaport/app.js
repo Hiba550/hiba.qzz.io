@@ -226,7 +226,7 @@
     if(downloading)return;
     downloading=true;
     downloadButtons.forEach(b=>{b.disabled=true;b.classList.add('is-loading')});
-    setDownloadStatus('Preparing download…');
+    setDownloadStatus('Preparing alpha package…');
 
     try{
       const buffers=[];
@@ -237,7 +237,7 @@
         const response=await fetch(part,{cache:'no-store'});
         if(!response.ok)throw new Error(`Part ${i} returned ${response.status}`);
         buffers.push(await response.arrayBuffer());
-        setDownloadStatus(`Preparing download… ${i}/${total}`);
+        setDownloadStatus(`Preparing alpha package… ${Math.round(i/total*100)}%`);
       }
 
       const blob=new Blob(buffers,{type:'application/octet-stream'});
