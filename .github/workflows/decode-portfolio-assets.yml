@@ -1,0 +1,36 @@
+name: Decode portfolio image assets
+
+on:
+  push:
+    paths:
+      - "quillphen/assets/blazerrt-decode.ready"
+
+permissions:
+  contents: write
+
+jobs:
+  decode:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Decode staged image assets
+        shell: bash
+        run: |
+          set -euo pipefail
+          shopt -s nullglob
+
+          for src in quillphen/assets/*-q90.b64; do
+            out="${src%-q90.b64}.webp"
+            tr -d '\r\n' < "$src" | base64 --decode > "$out"
+            git rm "$src"
+          done
+
+          git rm quillphen/assets/blazerrt-decode.ready
+
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add quillphen/assets
+          git diff --cached --quiet && exit 0
+          git commit -m "Decode high quality BlazerRT assets"
+          git push
