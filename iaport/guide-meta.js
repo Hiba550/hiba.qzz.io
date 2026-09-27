@@ -1,0 +1,1 @@
+window.IA_META={"version":"0.2.47","currentVersion":"0.2.58","credits":{"upstream":"Immersive Aircraft by Conczin / Luke100000 and contributors","license":"GPLv3","bedrockSamples":"Mojang bedrock-samples reference files; Minecraft EULA applies"}};
