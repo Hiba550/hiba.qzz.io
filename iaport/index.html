@@ -4,12 +4,12 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <meta name="theme-color" content="#0b0d0c">
-  <meta name="description" content="Immersive Aircraft Bedrock port alpha — aircraft showcase, crafting guide, aircraft inventory and gyroscope guide by QuillPhen and 0x4a4b.">
-  <title>Immersive Aircraft — Bedrock Port Alpha</title>
+  <meta name="description" content="Immersive Aircraft Bedrock port alpha crafting guide by QuillPhen and 0x4a4b.">
+  <title>Immersive Aircraft — Bedrock Port Crafting Guide</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Manrope:wght@400;500;600;700;800&family=Silkscreen:wght@400;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css?v=5">
+  <link rel="stylesheet" href="styles.css?v=6">
 </head>
 <body>
   <a class="skip-link" href="#main">Skip to content</a>
@@ -23,10 +23,8 @@
         <span class="brand-copy"><strong>Immersive Aircraft</strong><small>Bedrock port · alpha</small></span>
       </a>
       <nav class="site-nav" aria-label="Guide sections">
-        <a href="#hangar" class="is-current">Hangar</a>
-        <a href="#crafting">Crafting</a>
-        <a href="#aircraft-ui">Aircraft UI</a>
-        <a href="#gyroscope">Gyroscope</a>
+        <a href="#crafting" class="is-current">Crafting Guide</a>
+        <a href="#alpha">Alpha Notes</a>
       </nav>
       <a class="pixel-button pixel-button-small" href="../quillphen/">Portfolio <span aria-hidden="true">↗</span></a>
     </div>
@@ -42,9 +40,9 @@
         <div class="hero-copy">
           <p class="section-label">QuillPhen × 0x4a4b</p>
           <h1>Immersive<br><em>Aircraft.</em></h1>
-          <p class="hero-intro">A Bedrock Edition port of Luke100000’s Immersive Aircraft. This page is the current alpha play guide: aircraft, crafting, storage, upgrades and instruments that are already being translated into Bedrock.</p>
+          <p class="hero-intro">A Bedrock Edition port of Luke100000’s Immersive Aircraft. This page is the current alpha crafting guide for the Bedrock port. It documents the recipes already translated into the Add-On while the gameplay systems continue to be developed and tested.</p>
           <div class="hero-actions">
-            <a class="pixel-button" href="#hangar">Open the hangar <span aria-hidden="true">↓</span></a>
+            <a class="pixel-button" href="#crafting">Open crafting guide <span aria-hidden="true">↓</span></a>
             <a class="text-button" href="https://www.curseforge.com/minecraft/mc-mods/immersive-aircraft" target="_blank" rel="noreferrer">Original Java mod ↗</a>
             <a class="text-button" href="https://github.com/Luke100000/ImmersiveAircraft" target="_blank" rel="noreferrer">Source ↗</a>
           </div>
@@ -52,35 +50,11 @@
       </div>
     </section>
 
-    <section class="hangar section-dark" id="hangar">
-      <div class="section-shell">
-        <div class="section-heading reveal">
-          <div><p class="section-label">01 / Hangar</p><h2>Pick an aircraft.</h2></div>
-          <p>The viewer uses the converted Bedrock geometry and source textures included with the port. Drag to orbit and scroll to zoom.</p>
-        </div>
-
-        <div class="hangar-layout reveal">
-          <div class="viewer-panel">
-            <div class="viewer-stage" id="viewerStage"><div class="viewer-loading">Loading aircraft…</div></div>
-            <div class="viewer-hint"><span>Drag — orbit</span><span>Wheel — zoom</span><button id="autoOrbit" type="button">Auto orbit: on</button></div>
-          </div>
-          <aside class="aircraft-copy">
-            <div class="aircraft-index" id="aircraftIndex">01 / 07</div>
-            <h3 id="aircraftName">Biplane</h3>
-            <p id="aircraftDescription"></p>
-            <div class="aircraft-facts" id="aircraftFacts"></div>
-            <div class="model-note" id="modelNote"></div>
-          </aside>
-        </div>
-        <div class="aircraft-tabs" id="aircraftTabs" aria-label="Choose aircraft"></div>
-      </div>
-    </section>
-
     <section class="guide-step section-paper" id="crafting">
       <div class="section-shell">
         <div class="section-heading section-heading-dark reveal">
-          <div><p class="section-label">02 / Crafting</p><h2>Build the parts. Then build the aircraft.</h2></div>
-          <p>The recipe book below comes from the port’s Bedrock recipe JSON. Choose any aircraft, component, upgrade or weapon and the 3×3 grid shows the current alpha recipe.</p>
+          <div><p class="section-label">01 / Crafting Guide</p><h2>Build the parts. Then build the aircraft.</h2></div>
+          <p>These recipes come directly from the Bedrock port. Choose an aircraft, component, upgrade or weapon to see its current 3×3 crafting recipe and the base materials needed to make it.</p>
         </div>
 
         <div class="recipe-layout reveal">
@@ -105,80 +79,10 @@
       </div>
     </section>
 
-    <section class="guide-step section-dark" id="aircraft-ui">
-      <div class="section-shell">
-        <div class="section-heading reveal">
-          <div><p class="section-label">03 / Aircraft UI</p><h2>Storage, fuel, upgrades and weapons.</h2></div>
-          <p>The Bedrock port keeps aircraft-specific slot roles. Pick an aircraft to see how many storage, boiler, booster, weapon, upgrade, banner and dye slots it currently exposes.</p>
-        </div>
-        <div class="inventory-layout reveal">
-          <div class="inventory-board">
-            <div class="inventory-topbar"><strong id="inventoryTitle">Biplane inventory</strong><select id="inventoryAircraft" aria-label="Choose aircraft inventory"></select></div>
-            <div class="inventory-canvas" id="inventoryCanvas">
-              <img id="inventoryLayout" alt="Aircraft inventory layout">
-              <div class="slot-overlay" id="slotOverlay"></div>
-            </div>
-          </div>
-          <aside class="inventory-legend">
-            <h3>Slot guide</h3>
-            <div id="slotLegend"></div>
-            <div class="inventory-summary" id="inventorySummary"></div>
-          </aside>
-        </div>
-      </div>
-    </section>
-
-    <section class="guide-step gyro-section" id="gyroscope">
-      <div class="section-shell">
-        <div class="section-heading reveal">
-          <div><p class="section-label">04 / Instruments</p><h2>The gyroscope upgrades.</h2></div>
-          <p>The port carries three instrument items: the basic Gyroscope, Advanced Gyroscope and Electronic Gyroscope. The panel below is a clean guide to the information they represent rather than a flight simulator.</p>
-        </div>
-
-        <div class="gyro-layout reveal">
-          <div class="gyro-panel">
-            <div class="gyro-mode-row">
-              <button class="gyro-mode active" data-mode="dials" type="button">Mechanical dials</button>
-              <button class="gyro-mode" data-mode="hud" type="button">Electronic HUD</button>
-            </div>
-            <div class="instrument-stage">
-              <div id="gyroDials" class="dial-cluster">
-                <figure><canvas id="dialSpeed" width="165" height="165"></canvas><figcaption>Airspeed</figcaption></figure>
-                <figure><canvas id="dialAlt" width="165" height="165"></canvas><figcaption>Altitude</figcaption></figure>
-                <figure class="wide-dial"><canvas id="dialHeading" width="327" height="57"></canvas><figcaption>Heading</figcaption></figure>
-                <figure><canvas id="dialAttitude" width="165" height="165"></canvas><figcaption>Attitude</figcaption></figure>
-              </div>
-              <div id="gyroHud" class="hud-instrument hidden">
-                <div class="hud-frame">
-                  <img id="gyroHudFrame" alt="">
-                  <canvas id="hudHeading" width="300" height="44"></canvas>
-                  <canvas id="hudAttitude" width="240" height="180"></canvas>
-                  <canvas id="hudSpeed" width="140" height="180"></canvas>
-                  <canvas id="hudAlt" width="140" height="180"></canvas>
-                </div>
-              </div>
-            </div>
-            <div class="gyro-controls">
-              <label><span>Speed <output id="outSpeed">32.0</output></span><input id="gyroSpeed" type="range" min="-20" max="70" value="32" step="0.5"></label>
-              <label><span>Altitude <output id="outAlt">350</output></span><input id="gyroAlt" type="range" min="-100" max="2000" value="350" step="5"></label>
-              <label><span>Heading <output id="outHeading">055°</output></span><input id="gyroHeading" type="range" min="0" max="359" value="55"></label>
-              <label><span>Pitch <output id="outPitch">8°</output></span><input id="gyroPitch" type="range" min="-90" max="90" value="8"></label>
-              <label><span>Roll <output id="outRoll">12°</output></span><input id="gyroRoll" type="range" min="-60" max="60" value="12"></label>
-            </div>
-          </div>
-          <div class="gyro-copy">
-            <article><img id="gyroItemBase" alt=""><span>01</span><h3>Gyroscope</h3><p>Base aircraft upgrade used by the two instrument variants.</p></article>
-            <article><img id="gyroItemDials" alt=""><span>02</span><h3>Advanced Gyroscope</h3><p>Mechanical dial-style flight information built from the source instrument atlases.</p></article>
-            <article><img id="gyroItemHud" alt=""><span>03</span><h3>Electronic Gyroscope</h3><p>HUD-style source instruments for speed, altitude, heading and attitude.</p></article>
-          </div>
-        </div>
-      </div>
-    </section>
-
     <section class="alpha-notes section-paper" id="alpha">
       <div class="section-shell">
         <div class="alpha-grid reveal">
-          <div><p class="section-label">05 / Alpha notes</p><h2>Current alpha status.</h2></div>
+          <div><p class="section-label">02 / Alpha notes</p><h2>Current alpha status.</h2></div>
           <div class="alpha-copy">
             <p>This is a working-port guide, not the release page. The current project notes preserve source flight simulation, collision, equipment, aircraft HUD, inventory/storage and the two-step dismount system while seating is still being checked against real Bedrock client behaviour.</p>
             <p>The 0.2.58 seating pass deliberately keeps the visible Bedrock player upright on Biplane and Bamboo Hopper instead of copying Java’s rider rotation when that caused the player to detach from the cockpit.</p>
@@ -200,16 +104,7 @@
   <script src="guide-recipes.js?v=1"></script>
   <script src="guide-items-1.js?v=1"></script>
   <script src="guide-items-2.js?v=1"></script>
-  <script src="guide-aircraft-biplane.js?v=1"></script>
-  <script src="guide-aircraft-airship.js?v=1"></script>
-  <script src="guide-aircraft-cargo_airship.js?v=1"></script>
-  <script src="guide-aircraft-bamboo_hopper.js?v=1"></script>
-  <script src="guide-aircraft-gyrodyne.js?v=1"></script>
-  <script src="guide-aircraft-quadrocopter.js?v=1"></script>
-  <script src="guide-aircraft-warship.js?v=1"></script>
-  <script src="guide-data.js?v=1"></script>
   <script src="runtime-assets.js?v=2"></script>
-  <script src="model-viewer.js?v=3"></script>
-  <script src="app.js?v=5"></script>
+  <script src="app.js?v=6"></script>
 </body>
 </html>
