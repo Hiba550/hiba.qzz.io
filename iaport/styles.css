@@ -26,3 +26,66 @@
 .gyro-copy article{position:relative;padding-left:104px;min-height:126px}
 .gyro-copy article img{position:absolute;left:28px;top:28px;width:56px;height:56px;object-fit:contain;image-rendering:pixelated;filter:drop-shadow(0 8px 12px rgba(0,0,0,.35))}
 @media(max-width:700px){.aircraft-tab img{width:28px;height:28px}.gyro-copy article{padding-left:88px}.gyro-copy article img{left:20px;width:48px;height:48px}}
+
+
+/* Source-asset pass */
+.aircraft-tab{display:flex;align-items:center;gap:10px}
+.aircraft-tab .item-icon{width:32px;height:32px;flex:0 0 auto;border:0;background:transparent;box-shadow:none}
+.aircraft-tab .item-icon img{width:30px;height:30px;object-fit:contain;image-rendering:pixelated}
+.aircraft-tab>div{min-width:0}
+.viewer-stage.viewer-unavailable:after,.viewer-fallback-aircraft{display:none!important}
+
+.inventory-canvas{
+  position:relative;
+  width:var(--inventory-display-width,352px);
+  max-width:100%;
+  margin:28px auto 0;
+  filter:drop-shadow(0 16px 28px rgba(0,0,0,.3));
+}
+.inventory-canvas>img{display:block;width:100%;height:auto;image-rendering:pixelated}
+.slot-overlay{position:absolute;inset:0}
+.inventory-slot-hit{
+  position:absolute;appearance:none;-webkit-appearance:none;
+  background:transparent!important;border:0!important;outline:0;
+  padding:0;margin:0;cursor:pointer;box-shadow:none!important;border-radius:0
+}
+.inventory-slot-hit:hover,.inventory-slot-hit:focus,.inventory-slot-hit.selected{
+  outline:2px solid var(--yellow)!important;outline-offset:-1px;
+  background:rgba(255,225,125,.16)!important
+}
+.inventory-legend{min-width:0}
+.legend-row{display:grid;grid-template-columns:12px 1fr auto;gap:12px;align-items:center;padding:14px 0;border-bottom:1px solid var(--line)}
+.legend-swatch{width:10px;height:10px;background:#777;border:1px solid rgba(255,255,255,.28)}
+.legend-swatch.boiler{background:#a87049}.legend-swatch.booster{background:#8c8a70}.legend-swatch.weapon{background:#8c7370}.legend-swatch.upgrade{background:#7b8c86}.legend-swatch.banner,.legend-swatch.dye{background:#80718c}
+.legend-row b{font-size:.8rem}.legend-row span{color:#f2f0e86d;font:.62rem var(--mono)}
+.inventory-summary{display:grid;gap:7px;margin-top:26px;padding-top:18px;border-top:1px solid var(--line)}
+.inventory-summary strong{font-size:.9rem}.inventory-summary span{color:#f2f0e872;font:.62rem/1.65 var(--mono)}
+
+.gyro-mode-row{display:flex;gap:8px;margin-bottom:20px}
+.gyro-mode{padding:9px 12px;border:1px solid #69e7f13a;background:#061012;color:#e9fbff83;font:600 .58rem var(--mono);text-transform:uppercase;letter-spacing:.05em;cursor:pointer}
+.gyro-mode.active{border-color:var(--cyan);background:#0b2227;color:#e9fbff}
+.instrument-stage{min-height:430px;display:grid;place-items:center;border:1px solid #69e7f12f;background:radial-gradient(circle at 50% 45%,#0d2128,#05090a 74%);overflow:hidden}
+.dial-cluster{display:grid;grid-template-columns:repeat(2,190px);justify-content:center;gap:22px;padding:34px 22px}
+.dial-cluster figure{margin:0;text-align:center}
+.dial-cluster canvas,.hud-instrument canvas{image-rendering:pixelated;max-width:100%;height:auto}
+.dial-cluster figcaption{margin-top:7px;color:#e9fbff70;font:600 .55rem var(--mono);letter-spacing:.08em;text-transform:uppercase}
+.wide-dial{grid-column:1/-1}
+.hud-instrument{width:100%;min-height:430px;display:grid;place-items:center}
+.hud-frame{position:relative;width:min(92%,550px);aspect-ratio:550/320;background:#061012;border:1px solid #69e7f13a;overflow:hidden}
+.hud-frame:before{content:"";position:absolute;inset:0;background:linear-gradient(90deg,#69e7f10d 1px,transparent 1px),linear-gradient(#69e7f10d 1px,transparent 1px);background-size:30px 30px}
+.hud-frame>img{position:absolute;width:80%;height:80%;left:10%;top:10%;image-rendering:pixelated}
+.hud-frame canvas{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%)}
+#hudHeading{margin-top:-136px}#hudAttitude{margin-top:-16px}#hudSpeed{margin-left:-224px;margin-top:-16px}#hudAlt{margin-left:224px;margin-top:-16px}
+.hidden{display:none!important}
+.gyro-controls label>span{display:flex;justify-content:space-between;gap:12px;margin-bottom:6px}
+.gyro-controls output{color:var(--cyan);font-family:var(--mono)}
+.gyro-copy article{position:relative;padding-left:104px;min-height:132px}
+.gyro-copy article img{position:absolute;left:28px;top:31px;width:54px;height:54px;object-fit:contain;image-rendering:pixelated;filter:drop-shadow(0 8px 12px rgba(0,0,0,.35))}
+
+@media(max-width:700px){
+  .instrument-stage{min-height:360px}
+  .dial-cluster{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;padding:22px 12px}
+  .hud-frame{transform:scale(.7)}
+  .gyro-copy article{padding-left:88px}
+  .gyro-copy article img{left:20px;width:48px;height:48px}
+}
