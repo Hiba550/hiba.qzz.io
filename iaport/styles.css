@@ -13,3 +13,16 @@
 .viewer-stage.viewer-unavailable canvas{opacity:.10;filter:blur(2px)}
 .viewer-stage.viewer-unavailable:after{content:"3D PREVIEW NOT LOADED ON THIS GUIDE";position:absolute;inset:0;display:grid;place-items:center;padding:30px;text-align:center;color:#f2f0e8a0;background:linear-gradient(#090b09aa,#090b09d9);font:600 .68rem/1.6 var(--mono);letter-spacing:.12em;z-index:4}
 .item-fallback{font:600 .55rem var(--mono);color:#242723}
+
+/* Alpha guide polish */
+.aircraft-tab{display:flex;align-items:center;gap:10px}
+.aircraft-tab img{width:34px;height:34px;object-fit:contain;image-rendering:pixelated;flex:0 0 auto}
+.aircraft-tab>div{min-width:0}
+.viewer-fallback-aircraft{position:absolute;z-index:5;inset:0;display:grid;place-items:center;align-content:center;gap:12px;text-align:center;background:radial-gradient(circle at 50% 45%,rgba(120,204,88,.10),rgba(5,6,5,.92) 62%);padding:30px}
+.viewer-fallback-aircraft img{width:min(28vw,180px);height:min(28vw,180px);object-fit:contain;image-rendering:pixelated;filter:drop-shadow(0 18px 28px rgba(0,0,0,.55))}
+.viewer-fallback-aircraft strong{font-size:1.4rem}
+.viewer-fallback-aircraft span{color:rgba(242,240,232,.55);font:.6rem/1.5 var(--mono);text-transform:uppercase;letter-spacing:.08em}
+.inventory-ui{background-color:#c6c6c6;background-image:url("https://raw.githubusercontent.com/Luke100000/ImmersiveAircraft/6f900c6a6aad2e251c2902b11d79eb42fdd77324/common/src/main/resources/assets/immersive_aircraft/textures/gui/container/inventory.png");background-repeat:no-repeat;background-position:center;background-size:cover;image-rendering:pixelated}
+.gyro-copy article{position:relative;padding-left:104px;min-height:126px}
+.gyro-copy article img{position:absolute;left:28px;top:28px;width:56px;height:56px;object-fit:contain;image-rendering:pixelated;filter:drop-shadow(0 8px 12px rgba(0,0,0,.35))}
+@media(max-width:700px){.aircraft-tab img{width:28px;height:28px}.gyro-copy article{padding-left:88px}.gyro-copy article img{left:20px;width:48px;height:48px}}
