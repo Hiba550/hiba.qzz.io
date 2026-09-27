@@ -216,48 +216,4 @@
   $('#recipeSearch').oninput=renderRecipeList;
   renderRecipeList();
   selectRecipe(D.recipes.find(r=>r.slug==='biplane')||D.recipes[0]);
-
-  const downloadButtons=$$('[data-download-addon]');
-  const downloadStatuses=$$('[data-download-status]');
-  const setDownloadStatus=text=>downloadStatuses.forEach(el=>el.textContent=text);
-
-  let downloading=false;
-  async function downloadAddon(){
-    if(downloading)return;
-    downloading=true;
-    downloadButtons.forEach(b=>{b.disabled=true;b.classList.add('is-loading')});
-    setDownloadStatus('Preparing alpha package…');
-
-    try{
-      const buffers=[];
-      const total=19;
-
-      for(let i=1;i<=total;i++){
-        const part=`downloads/parts/ia-alpha-${String(i).padStart(3,'0')}.part`;
-        const response=await fetch(part,{cache:'no-store'});
-        if(!response.ok)throw new Error(`Part ${i} returned ${response.status}`);
-        buffers.push(await response.arrayBuffer());
-        setDownloadStatus(`Preparing alpha package… ${Math.round(i/total*100)}%`);
-      }
-
-      const blob=new Blob(buffers,{type:'application/octet-stream'});
-      const url=URL.createObjectURL(blob);
-      const a=document.createElement('a');
-      a.href=url;
-      a.download='ImmersiveAircraft-Bedrock-1.0-Alpha.mcaddon';
-      document.body.append(a);
-      a.click();
-      a.remove();
-      setTimeout(()=>URL.revokeObjectURL(url),2000);
-      setDownloadStatus('Download ready — open the .mcaddon with Minecraft.');
-    }catch(err){
-      console.error(err);
-      setDownloadStatus('Download could not be prepared. Please refresh the page and try again.');
-    }finally{
-      downloading=false;
-      downloadButtons.forEach(b=>{b.disabled=false;b.classList.remove('is-loading')});
-    }
-  }
-
-  downloadButtons.forEach(button=>button.addEventListener('click',downloadAddon));
 })();
