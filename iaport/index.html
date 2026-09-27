@@ -4,12 +4,13 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <meta name="theme-color" content="#0b0d0c">
-  <meta name="description" content="Immersive Aircraft Bedrock port alpha crafting guide by QuillPhen and 0x4a4b.">
-  <title>Immersive Aircraft — Bedrock Port Crafting Guide</title>
+  <meta name="description" content="Immersive Aircraft Bedrock port alpha — download and crafting guide by QuillPhen and 0x4a4b.">
+  <title>Immersive Aircraft — Bedrock Port Alpha</title>
+  <link rel="icon" type="image/png" href="assets/immersive-aircraft-pack-icon.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Manrope:wght@400;500;600;700;800&family=Silkscreen:wght@400;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css?v=6">
+  <link rel="stylesheet" href="styles.css?v=7">
 </head>
 <body>
   <a class="skip-link" href="#main">Skip to content</a>
@@ -18,15 +19,23 @@
 
   <header class="site-header" id="header">
     <div class="nav-shell">
-      <a class="brand" href="../quillphen/" aria-label="Back to QuillPhen and Seraphic portfolio">
-        <span class="brand-mark">IA</span>
-        <span class="brand-copy"><strong>Immersive Aircraft</strong><small>Bedrock port · alpha</small></span>
-      </a>
-      <nav class="site-nav" aria-label="Guide sections">
+      <div class="brand" aria-label="Immersive Aircraft Bedrock port">
+        <img class="brand-logo" src="assets/immersive-aircraft-pack-icon.png" alt="">
+        <span class="brand-copy">
+          <strong>Immersive Aircraft</strong>
+          <small>Bedrock port · alpha</small>
+        </span>
+      </div>
+
+      <nav class="site-nav" aria-label="Page sections">
         <a href="#crafting" class="is-current">Crafting Guide</a>
-        <a href="#alpha">Alpha Notes</a>
+        <a href="#download">Download</a>
+        <a href="#credits">Credits</a>
       </nav>
-      <a class="pixel-button pixel-button-small" href="../quillphen/">Portfolio <span aria-hidden="true">↗</span></a>
+
+      <button class="pixel-button pixel-button-small" type="button" data-download-addon>
+        Download Alpha <span aria-hidden="true">↓</span>
+      </button>
     </div>
   </header>
 
@@ -35,16 +44,59 @@
       <div class="hero-grid" aria-hidden="true"></div>
       <div class="hero-glow hero-glow-a" aria-hidden="true"></div>
       <div class="hero-glow hero-glow-b" aria-hidden="true"></div>
+
       <div class="hero-shell">
         <div class="hero-kicker"><span class="status-light"></span> Authorized Bedrock port · Alpha</div>
-        <div class="hero-copy">
-          <p class="section-label">QuillPhen × 0x4a4b</p>
-          <h1>Immersive<br><em>Aircraft.</em></h1>
-          <p class="hero-intro">A Bedrock Edition port of Luke100000’s Immersive Aircraft. This page is the current alpha crafting guide for the Bedrock port. It documents the recipes already translated into the Add-On while the gameplay systems continue to be developed and tested.</p>
-          <div class="hero-actions">
-            <a class="pixel-button" href="#crafting">Open crafting guide <span aria-hidden="true">↓</span></a>
-            <a class="text-button" href="https://www.curseforge.com/minecraft/mc-mods/immersive-aircraft" target="_blank" rel="noreferrer">Original Java mod ↗</a>
-            <a class="text-button" href="https://github.com/Luke100000/ImmersiveAircraft" target="_blank" rel="noreferrer">Source ↗</a>
+
+        <div class="hero-layout">
+          <div class="hero-copy">
+            <p class="section-label">QuillPhen × 0x4a4b</p>
+            <h1>Immersive<br><em>Aircraft.</em></h1>
+            <p class="hero-intro">
+              An authorized Bedrock Edition port of Luke100000’s Immersive Aircraft.
+              Download the current alpha build or use the crafting guide below.
+            </p>
+
+            <div class="hero-actions">
+              <button class="pixel-button" type="button" data-download-addon>
+                Download Alpha .mcaddon <span aria-hidden="true">↓</span>
+              </button>
+              <a class="text-button" href="#crafting">Crafting guide ↓</a>
+              <a class="text-button" href="https://www.curseforge.com/minecraft/mc-mods/immersive-aircraft" target="_blank" rel="noreferrer">Original Java mod ↗</a>
+            </div>
+            <p class="download-status" data-download-status aria-live="polite"></p>
+          </div>
+
+          <div class="hero-mark" aria-hidden="true">
+            <img src="assets/immersive-aircraft-pack-icon.png" alt="">
+            <span>Bedrock Alpha</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="credit-banner" id="credits">
+      <div class="section-shell">
+        <div class="credit-card reveal">
+          <div class="credit-icon">
+            <img src="assets/immersive-aircraft-pack-icon.png" alt="">
+          </div>
+          <div class="credit-copy">
+            <p class="section-label">Original project</p>
+            <h2>Thank you, Luke100000.</h2>
+            <p>
+              Immersive Aircraft was created by <strong>Luke100000 (Conczin)</strong> and its contributors.
+              Huge thanks to Luke for creating the original mod and for giving us permission to bring it to Bedrock Edition.
+            </p>
+            <p class="credit-detail">
+              The original aircraft designs, models, textures, sounds, recipes and Java implementation come from the original Immersive Aircraft project.
+              This page is for our Bedrock port and its current alpha build.
+            </p>
+            <div class="credit-links">
+              <a href="https://www.curseforge.com/minecraft/mc-mods/immersive-aircraft" target="_blank" rel="noreferrer">Original on CurseForge ↗</a>
+              <a href="https://github.com/Luke100000/ImmersiveAircraft" target="_blank" rel="noreferrer">Original source ↗</a>
+              <a href="NOTICE.txt">Full notice ↗</a>
+            </div>
           </div>
         </div>
       </div>
@@ -53,8 +105,14 @@
     <section class="guide-step section-paper" id="crafting">
       <div class="section-shell">
         <div class="section-heading section-heading-dark reveal">
-          <div><p class="section-label">01 / Crafting Guide</p><h2>Build the parts. Then build the aircraft.</h2></div>
-          <p>These recipes come directly from the Bedrock port. Choose an aircraft, component, upgrade or weapon to see its current 3×3 crafting recipe and the base materials needed to make it.</p>
+          <div>
+            <p class="section-label">01 / Crafting Guide</p>
+            <h2>Build the parts.<br>Then the aircraft.</h2>
+          </div>
+          <p>
+            Choose an aircraft, component, upgrade or weapon to see its current Bedrock crafting recipe.
+            Base materials are calculated from the component recipes too.
+          </p>
         </div>
 
         <div class="recipe-layout reveal">
@@ -65,28 +123,55 @@
             </div>
             <div class="recipe-list" id="recipeList"></div>
           </aside>
+
           <div class="recipe-sheet">
-            <div class="recipe-sheet-head"><span id="recipeCategory">Aircraft</span><strong id="recipeTitle">Biplane</strong></div>
+            <div class="recipe-sheet-head">
+              <span id="recipeCategory">Aircraft</span>
+              <strong id="recipeTitle">Biplane</strong>
+            </div>
+
             <div class="crafting-table">
               <div class="craft-grid" id="craftGrid"></div>
               <div class="craft-arrow" aria-hidden="true">→</div>
               <div class="craft-result" id="craftResult"></div>
             </div>
+
             <div class="recipe-note" id="recipeNote"></div>
-            <div class="ingredient-total"><span>Base materials</span><div id="recipeTotals"></div></div>
+
+            <div class="ingredient-total">
+              <span>Base materials</span>
+              <div id="recipeTotals"></div>
+            </div>
           </div>
         </div>
       </div>
     </section>
 
-    <section class="alpha-notes section-paper" id="alpha">
+    <section class="download-section" id="download">
       <div class="section-shell">
-        <div class="alpha-grid reveal">
-          <div><p class="section-label">02 / Alpha notes</p><h2>Current alpha status.</h2></div>
-          <div class="alpha-copy">
-            <p>This is a working-port guide, not the release page. The current project notes preserve source flight simulation, collision, equipment, aircraft HUD, inventory/storage and the two-step dismount system while seating is still being checked against real Bedrock client behaviour.</p>
-            <p>The 0.2.58 seating pass deliberately keeps the visible Bedrock player upright on Biplane and Bamboo Hopper instead of copying Java’s rider rotation when that caused the player to detach from the cockpit.</p>
-            <p class="alpha-next">Gameplay video, install instructions and the public <code>.mcaddon</code> will be added here after the next client pass.</p>
+        <div class="download-card reveal">
+          <div class="download-copy">
+            <p class="section-label">02 / Alpha Download</p>
+            <h2>Test the current Bedrock build.</h2>
+            <p>
+              This is an early alpha. Back up important worlds before testing it.
+              The current pack manifest targets Minecraft Bedrock <strong>1.26.40 or newer</strong>.
+            </p>
+            <div class="install-steps">
+              <span>1. Download the <code>.mcaddon</code></span>
+              <span>2. Open it with Minecraft</span>
+              <span>3. Apply the imported packs to a test world</span>
+            </div>
+          </div>
+
+          <div class="download-panel">
+            <img src="assets/immersive-aircraft-pack-icon.png" alt="Immersive Aircraft pack icon">
+            <strong>Immersive Aircraft</strong>
+            <span>Bedrock Port · Alpha</span>
+            <button class="pixel-button" type="button" data-download-addon>
+              Download .mcaddon <span aria-hidden="true">↓</span>
+            </button>
+            <p class="download-status" data-download-status aria-live="polite"></p>
           </div>
         </div>
       </div>
@@ -95,8 +180,16 @@
 
   <footer>
     <div class="footer-shell">
-      <div><strong>Immersive Aircraft — Bedrock Port</strong><p>Port development by QuillPhen × 0x4a4b.</p></div>
-      <div class="footer-links"><a href="https://www.curseforge.com/minecraft/mc-mods/immersive-aircraft" target="_blank" rel="noreferrer">Original CurseForge ↗</a><a href="https://github.com/Luke100000/ImmersiveAircraft" target="_blank" rel="noreferrer">Source ↗</a><a href="NOTICE.txt">Notice</a><a href="https://github.com/Luke100000/ImmersiveAircraft/blob/1.21.1/LICENSE" target="_blank" rel="noreferrer">GPLv3 ↗</a><a href="../quillphen/">Portfolio ↗</a></div>
+      <div>
+        <strong>Immersive Aircraft — Bedrock Port</strong>
+        <p>Port development by QuillPhen × 0x4a4b.</p>
+      </div>
+      <div class="footer-links">
+        <a href="https://www.curseforge.com/minecraft/mc-mods/immersive-aircraft" target="_blank" rel="noreferrer">Original CurseForge ↗</a>
+        <a href="https://github.com/Luke100000/ImmersiveAircraft" target="_blank" rel="noreferrer">Original source ↗</a>
+        <a href="NOTICE.txt">Credits & notice ↗</a>
+        <a href="https://github.com/Luke100000/ImmersiveAircraft/blob/1.21.1/LICENSE" target="_blank" rel="noreferrer">GPLv3 ↗</a>
+      </div>
     </div>
   </footer>
 
@@ -105,6 +198,6 @@
   <script src="guide-items-1.js?v=1"></script>
   <script src="guide-items-2.js?v=1"></script>
   <script src="runtime-assets.js?v=2"></script>
-  <script src="app.js?v=6"></script>
+  <script src="app.js?v=7"></script>
 </body>
 </html>
